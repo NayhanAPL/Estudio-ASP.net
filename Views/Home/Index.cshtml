@@ -1,0 +1,18 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "Pagina principal";
+    string intro = "Trueque es la aplicación que le permitirá intercambiar sus objetos en desuso por otros de su interés... \n aquí podrá:";
+    
+}
+
+<div class="text-center">
+    <h1 class="display-4">TRUEQUE</h1>
+    <p>Se bienvenido al a este entorno de intercambio creado para ti!!!</p>
+</div>
+<p>@intro</p>
+<ul>
+    @foreach (var url in Model)
+    {
+        <li>@url</li>
+    }
+</ul>
