@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using versión_5_asp.Models;
+using versión_5_asp.services;
 
 namespace versión_5_asp.Controllers
 {
@@ -13,23 +14,16 @@ namespace versión_5_asp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public IFunciones funciones1 {get; }
+        public HomeController(IFunciones funciones, ILogger<HomeController> logger)
         {
+            funciones1 = funciones;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            List<string> posibilidades = new List<string>() {
-        "Crear tus propios trueques.",
-        "Recibir las sugerencias que le ofrecemos para sus trueques.",
-        "Iterar por todos los trueques que se encuentren activos para hacer su selección.",
-        "Enviar ofertas de trueques a otros usuarios.",
-        "Gestionar y mantenerce informado sobre sus ofertas enviadas.",
-        "Recibir ofertas y gestionarlas hasta su finalización.",
-        "Finalizar un TRUEQUE y comenzar la comunicación con otros usuarios.",
-        "Recibir ayuda y leer la guía sobre TRUEQUE."
-            };
+            var posibilidades = funciones1.TodasLasPosibilidades();
             return View(posibilidades);
         }
 

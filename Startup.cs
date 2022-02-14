@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using versión_5_asp.Data;
+using versión_5_asp.services;
 
 namespace versión_5_asp
 {
@@ -35,6 +36,8 @@ namespace versión_5_asp
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            services.AddScoped<IFunciones, EnlacesFunciones>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
