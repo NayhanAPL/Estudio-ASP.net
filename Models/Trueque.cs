@@ -7,9 +7,9 @@ namespace versión_5_asp.Models
 {
     public enum Type
     {
-        busco,
-        propongo,
-        completo
+        Busco,
+        Propongo,
+        Completo
     }
     public class Trueque
     {        

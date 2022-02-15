@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using versión_5_asp.Data;
 using versión_5_asp.services;
+using versión_5_asp.Models;
 
 namespace versión_5_asp
 {
@@ -37,11 +38,13 @@ namespace versión_5_asp
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
 
-            services.AddScoped<IFunciones, EnlacesFunciones>(); 
+            services.AddScoped<IFunciones, EnlacesFunciones>();
+
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -69,6 +72,24 @@ namespace versión_5_asp
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            //Trueques test
+            if (!context.Trueques.Any())
+            {
+                context.Trueques.AddRange(new List<Trueque>()
+                {
+                    new Trueque(){ Type = Models.Type.Propongo,
+                                    Proposition= "Par de tenis Nike, nuevos"},
+                    new Trueque(){Type = Models.Type.Busco,
+                                    Search= "Chancletas"},
+                     new Trueque(){Type = Models.Type.Completo,
+                                    Search= "Tenis Nike",
+                                    Proposition= "Chancletas"}
+
+                });
+
+                context.SaveChanges();
+            }
         }
     }
 }

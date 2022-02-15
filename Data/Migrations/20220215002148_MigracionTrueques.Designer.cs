@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using versión_5_asp.Data;
 
 namespace versión_5_asp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220215002148_MigracionTrueques")]
+    partial class MigracionTrueques
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,62 +221,13 @@ namespace versión_5_asp.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("versión_5_asp.Models.Enlace", b =>
-=======
             modelBuilder.Entity("versión_5_asp.Models.Trueque", b =>
->>>>>>> 8cbf75546c61da2cae843107de67d76d247750de
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-<<<<<<< HEAD
-                    b.Property<int>("IdMi")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdPersonaMi")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdPersonaSu")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdSu")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("No")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Si")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("enlace");
-                });
-
-            modelBuilder.Entity("versión_5_asp.Models.EnlaceHecho", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("IdMi")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdPersonaMi")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdPersonaSu")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdSu")
-=======
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -294,16 +247,11 @@ namespace versión_5_asp.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")
->>>>>>> 8cbf75546c61da2cae843107de67d76d247750de
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
-                    b.ToTable("enlaceHecho");
-=======
                     b.ToTable("Trueques");
->>>>>>> 8cbf75546c61da2cae843107de67d76d247750de
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

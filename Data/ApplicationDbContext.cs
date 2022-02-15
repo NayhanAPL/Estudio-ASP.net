@@ -13,7 +13,12 @@ namespace versión_5_asp.Data
             : base(options)
         {
         }
+<<<<<<< HEAD
         public DbSet<Enlace> enlace { get; set; }
         public DbSet<EnlaceHecho> enlaceHecho { get; set; }
+=======
+
+        public DbSet<Trueque>Trueques { get; set; }
+>>>>>>> 8cbf75546c61da2cae843107de67d76d247750de
     }
 }
