@@ -15,6 +15,6 @@ namespace versión_5_asp.Data
         }
         public DbSet<Enlace> enlace { get; set; }
         public DbSet<EnlaceHecho> enlaceHecho { get; set; }
-        public DbSet<Trueque> Trueques { get; set; }
+
     }
 }

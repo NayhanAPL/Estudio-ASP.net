@@ -219,18 +219,15 @@ namespace versión_5_asp.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-<<<<<<< HEAD
             modelBuilder.Entity("versión_5_asp.Models.Enlace", b =>
-=======
-            modelBuilder.Entity("versión_5_asp.Models.Trueque", b =>
->>>>>>> 8cbf75546c61da2cae843107de67d76d247750de
+
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-<<<<<<< HEAD
+
                     b.Property<int>("IdMi")
                         .HasColumnType("int");
 
@@ -274,36 +271,14 @@ namespace versión_5_asp.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("IdSu")
-=======
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
 
-                    b.Property<string>("ExtraInfo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IdPerson")
-                        .HasColumnType("int");
-
-                    b.Property<byte[]>("Picture")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("Proposition")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Search")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Type")
->>>>>>> 8cbf75546c61da2cae843107de67d76d247750de
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
+
                     b.ToTable("enlaceHecho");
-=======
-                    b.ToTable("Trueques");
->>>>>>> 8cbf75546c61da2cae843107de67d76d247750de
+
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
