@@ -10,6 +10,7 @@ using versión_5_asp.Data;
 namespace versión_5_asp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
+
     [Migration("20220216000822_MigracionEnlaceyEnlaceHecho")]
     partial class MigracionEnlaceyEnlaceHecho
     {

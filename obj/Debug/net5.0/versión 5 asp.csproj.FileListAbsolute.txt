@@ -167,4 +167,3 @@ C:\Users\Susy\source\repos\Estudio-ASP.net\obj\Debug\net5.0\versión 5 asp.Razor
 C:\Users\Susy\source\repos\Estudio-ASP.net\obj\Debug\net5.0\versión 5 asp.Views.pdb
 C:\Users\Susy\source\repos\Estudio-ASP.net\obj\Debug\net5.0\versión 5 asp.csproj.CopyComplete
 C:\Users\Susy\source\repos\Estudio-ASP.net\obj\Debug\net5.0\versión 5 asp.genruntimeconfig.cache
-C:\Users\Susy\source\repos\Estudio-ASP.net\obj\Debug\net5.0\versión 5 asp.csproj.AssemblyReference.cache
