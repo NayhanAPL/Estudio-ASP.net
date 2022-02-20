@@ -220,13 +220,11 @@ namespace versión_5_asp.Data.Migrations
                 });
 
             modelBuilder.Entity("versión_5_asp.Models.Enlace", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
 
                     b.Property<int>("IdMi")
                         .HasColumnType("int");
@@ -248,7 +246,7 @@ namespace versión_5_asp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("enlace");
+                    b.ToTable("Enlace");
                 });
 
             modelBuilder.Entity("versión_5_asp.Models.EnlaceHecho", b =>
@@ -271,14 +269,44 @@ namespace versión_5_asp.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("IdSu")
-
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.ToTable("EnlaceHecho");
+                });
 
-                    b.ToTable("enlaceHecho");
+            modelBuilder.Entity("versión_5_asp.Models.Trueque", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ExtraInfo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdPerson")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("Picture")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Proposition")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Search")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Trueques");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
