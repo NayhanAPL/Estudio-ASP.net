@@ -10,11 +10,8 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-<<<<<<< HEAD
       "launchBrowser": true,
-=======
-      "launchUrl": "api/trueques",
->>>>>>> b71c0cb8cb4f187d7d667edb544dcb56f7cdfa22
+      "launchUrl": "api/Enlace",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "Clave": "Valor"

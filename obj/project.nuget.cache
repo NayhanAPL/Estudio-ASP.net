@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ieoSTa/t4z0X5K7SZokKx1CCFKflUuJJ3+dGQrwyDcriyHoauX/P7428YrhokBT63wZda9Wo8ZshTNI06Z50Nw==",
+  "dgSpecHash": "/q9WmFlYxmKg46XCorAScG4Ol/1EQVGgGShlIQL7QpT5bYNO7sYqASHWO47bUfN7uI0kuof+aFMc3c2w8o5URQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Nayhan\\repos\\versión 5 asp\\versión 5 asp.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Nayhan\\.nuget\\packages\\csvhelper\\27.2.1\\csvhelper.27.2.1.nupkg.sha512",
     "C:\\Users\\Nayhan\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Nayhan\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.14\\microsoft.aspnetcore.cryptography.internal.5.0.14.nupkg.sha512",
     "C:\\Users\\Nayhan\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.14\\microsoft.aspnetcore.cryptography.keyderivation.5.0.14.nupkg.sha512",
@@ -111,12 +112,5 @@
     "C:\\Users\\Nayhan\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Nayhan\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema al leer el archivo de caché C:\\Users\\Nayhan\\repos\\versión 5 asp\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }
