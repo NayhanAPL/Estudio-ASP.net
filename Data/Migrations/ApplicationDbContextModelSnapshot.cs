@@ -219,6 +219,63 @@ namespace versión_5_asp.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("versión_5_asp.Models.Enlace", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("IdMi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdPersonaMi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdPersonaSu")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdSu")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("No")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Si")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Enlace");
+                });
+
+            modelBuilder.Entity("versión_5_asp.Models.EnlaceHecho", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdMi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdPersonaMi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdPersonaSu")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdSu")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EnlaceHecho");
+                });
+
             modelBuilder.Entity("versión_5_asp.Models.Trueque", b =>
                 {
                     b.Property<int>("Id")

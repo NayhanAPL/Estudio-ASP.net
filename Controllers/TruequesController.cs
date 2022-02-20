@@ -25,7 +25,7 @@ namespace versión_5_asp.Controllers
             return context.Trueques.ToList();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "truequeCreado")]
         public IActionResult GetById(int id)
         {
             var trueque = context.Trueques.FirstOrDefault(x => x.Id == id);
@@ -35,5 +35,18 @@ namespace versión_5_asp.Controllers
             }
             return Ok(trueque);
         }
+
+        [HttpPost]
+        public IActionResult Post([FromBody] Trueque trueque)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Trueques.Add(trueque);
+                context.SaveChanges();
+                return new CreatedAtRouteResult("truequeCreado", new { id = trueque.Id }, trueque);
+            }
+            return BadRequest(ModelState);
+        }
+
     }
 }

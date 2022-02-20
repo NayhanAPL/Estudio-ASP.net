@@ -10,8 +10,8 @@ using versión_5_asp.Data;
 namespace versión_5_asp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220213054449_ENLACE_ENLACEHECHO")]
-    partial class ENLACE_ENLACEHECHO
+    [Migration("20220216000822_MigracionEnlaceyEnlaceHecho")]
+    partial class MigracionEnlaceyEnlaceHecho
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -219,6 +219,96 @@ namespace versión_5_asp.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("versión_5_asp.Models.Enlace", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("IdMi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdPersonaMi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdPersonaSu")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdSu")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("No")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Si")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Enlace");
+                });
+
+            modelBuilder.Entity("versión_5_asp.Models.EnlaceHecho", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdMi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdPersonaMi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdPersonaSu")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdSu")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EnlaceHecho");
+                });
+
+            modelBuilder.Entity("versión_5_asp.Models.Trueque", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ExtraInfo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdPerson")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("Picture")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Proposition")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Search")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Trueques");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

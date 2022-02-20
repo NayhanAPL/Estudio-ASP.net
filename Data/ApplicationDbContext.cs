@@ -13,7 +13,8 @@ namespace versión_5_asp.Data
             : base(options)
         {
         }
-
-        public DbSet<Trueque>Trueques { get; set; }
+        public DbSet<Enlace> Enlace { get; set; }
+        public DbSet<EnlaceHecho> EnlaceHecho { get; set; }
+        public DbSet<Trueque> Trueques { get; set; }
     }
 }
