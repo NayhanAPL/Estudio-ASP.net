@@ -277,7 +277,6 @@ namespace versión_5_asp.Data.Migrations
                 });
 
             modelBuilder.Entity("versión_5_asp.Models.Trueque", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -308,7 +307,6 @@ namespace versión_5_asp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Trueques");
-
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

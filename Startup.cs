@@ -97,23 +97,7 @@ namespace versión_5_asp
                 endpoints.MapRazorPages();
             });
 
-            //Trueques test
-            if (!context.Trueques.Any())
-            {
-                context.Trueques.AddRange(new List<Trueque>()
-                {
-                    new Trueque(){ Type = Models.Type.Propongo,
-                                    Proposition= "Par de tenis Nike, nuevos"},
-                    new Trueque(){Type = Models.Type.Busco,
-                                    Search= "Chancletas"},
-                     new Trueque(){Type = Models.Type.Completo,
-                                    Search= "Tenis Nike",
-                                    Proposition= "Chancletas"}
-
-                });
-
-                context.SaveChanges();
-            }
+            
         }
     }
 }
