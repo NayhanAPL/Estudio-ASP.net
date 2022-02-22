@@ -121,7 +121,6 @@ C:\Users\Susy\source\repos\Estudio-ASP.net\bin\Debug\net5.0\Microsoft.IdentityMo
 C:\Users\Susy\source\repos\Estudio-ASP.net\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
 C:\Users\Susy\source\repos\Estudio-ASP.net\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\Susy\source\repos\Estudio-ASP.net\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
-C:\Users\Susy\source\repos\Estudio-ASP.net\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\Susy\source\repos\Estudio-ASP.net\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
 C:\Users\Susy\source\repos\Estudio-ASP.net\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
 C:\Users\Susy\source\repos\Estudio-ASP.net\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
@@ -167,3 +166,5 @@ C:\Users\Susy\source\repos\Estudio-ASP.net\obj\Debug\net5.0\versión 5 asp.Razor
 C:\Users\Susy\source\repos\Estudio-ASP.net\obj\Debug\net5.0\versión 5 asp.Views.pdb
 C:\Users\Susy\source\repos\Estudio-ASP.net\obj\Debug\net5.0\versión 5 asp.csproj.CopyComplete
 C:\Users\Susy\source\repos\Estudio-ASP.net\obj\Debug\net5.0\versión 5 asp.genruntimeconfig.cache
+C:\Users\Susy\source\repos\Estudio-ASP.net\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Susy\source\repos\Estudio-ASP.net\obj\Debug\net5.0\versión 5 asp.csproj.AssemblyReference.cache

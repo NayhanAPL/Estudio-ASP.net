@@ -10,8 +10,9 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchUrl": "api/trueques",
+      "launchBrowser": true,
       "environmentVariables": {
+        "llave_super_secreta": "HLKHKLU879B6TB6YN88685464G99BNKJGFF098JHGDCS45VBB657N98MN6",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

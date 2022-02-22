@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using versión_5_asp.Data;
 using versión_5_asp.services;
 using versión_5_asp.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace versión_5_asp
 {
@@ -36,11 +38,33 @@ namespace versión_5_asp
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+            //services.AddIdentity<ApplicationUser, IdentityRole>().
+            //    AddEntityFrameworkStores<ApplicationDbContext>().
+            //    AddDefaultTokenProviders();
+
             services.AddControllersWithViews();
 
             services.AddScoped<IFunciones, EnlacesFunciones>();
 
-        
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters { 
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = "yourdomain.com",
+                ValidAudience = "yourdomain.com",
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    System.Text.Encoding.UTF8.GetBytes(Configuration["llave_super_secreta"])),
+                    ClockSkew = TimeSpan.Zero
+                });
+
+            services.AddAuthorization();
+
+            services.AddRazorPages();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
