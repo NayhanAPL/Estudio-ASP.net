@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Enlace>
+
+
+    <h1>Solicitudes Recibidas</h1>
+
+
+    <div class="col-sm-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Trueque recibido
+                    </th>
+                    <th>
+                        Mi Trueque
+                    </th>
+                    <th>
+                        Estado
+                    </th>
+                    <th>
+                        Acciones
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count() != 0)
+                {
+                    foreach (var item in Model)
+                    {
+                <tr>
+                    <td>
+                        @if (item.TruequeSu != null)
+                        {
+                            <dl>
+                                <dt>
+                                    Le Proponen/Buscan
+                                </dt>
+                                <dd>
+                                    <a asp-action="Details" asp-controller="TruequesWeb" asp-route-id="@item.TruequeSu.Id">@item.TruequeSu.Proposition /<br> @item.TruequeSu.Search</a>
+                                </dd>
+                            </dl>
+                        }
+                    </td>
+                    <td>
+                        @if (item.TruequeMi != null)
+                        {
+                            <dl>
+                                <dt>
+                                    Usted Propone/Busca
+                                </dt>
+                                <dd>
+                                    <a asp-action="Details" asp-controller="TruequesWeb" asp-route-id="@item.TruequeMi.Id">@item.TruequeMi.Proposition /<br> @item.TruequeMi.Search</a>
+                                </dd>
+                            </dl>
+                        }
+                    </td>
+                    <td>@item.State</td>
+                  
+                    <td>
+                        @if (item.State == State.Pendiente)
+                        {
+                            <a asp-action="Aceptar" asp-route-id="@item.Id">Aceptar/</a>
+                            <a asp-action="Rechazar" asp-route-id="@item.Id">Rechazar</a>
+                        }
+                        else if (item.State == State.Aceptado)
+                        {
+                            <a asp-action="Rechazar" asp-route-id="@item.Id">Rechazar</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
+                        }
+                    </td>
+                </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>

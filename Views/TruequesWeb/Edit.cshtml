@@ -1,0 +1,65 @@
+﻿@model versión_5_asp.Models.Trueque
+
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<h1>Editar</h1>
+
+<h4>Trueque</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <img src="@("~/Images/" + Model.Image.ImageUrl)" asp-append-version="true" width="200" height="180" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <select asp-for="Type" class="form-control" asp-items="Html.GetEnumSelectList<versión_5_asp.Models.Type>()">
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            @*<div class="form-group"> Filtrar por rol/permisos
+            <label asp-for="ApplicationUserId" class="control-label"></label>
+            <input asp-for="ApplicationUserId" class="form-control" />
+            <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="Proposition" class="control-label"></label>
+                <input asp-for="Proposition" class="form-control" />
+                <span asp-validation-for="Proposition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Search" class="control-label"></label>
+                <input asp-for="Search" class="form-control" />
+                <span asp-validation-for="Search" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExtraInfo" class="control-label"></label>
+                <input asp-for="ExtraInfo" class="form-control" />
+                <span asp-validation-for="ExtraInfo" class="text-danger"></span>
+            </div>
+            @*<div class="form-group"> //filtrar por rol/permisos
+            <label asp-for="Date" class="control-label"></label>
+            <input asp-for="Date" class="form-control" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="@ViewData["PreviousUrl"]">Regresar a la lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

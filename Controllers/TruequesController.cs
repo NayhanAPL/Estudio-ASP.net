@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
+
 namespace versión_5_asp.Controllers
 {
     [Route("api/[controller]")]
@@ -23,10 +24,23 @@ namespace versión_5_asp.Controllers
         {
             this.context = context;
         }
+
         [HttpGet]
-        public IEnumerable<Trueque> Get()
+        public IActionResult Get()
         {
-            return context.Trueques.ToList();
+            var claims = User.Claims.ToList();
+            var isAdmin = claims.Any(x => x.Type == "Admin" && x.Value == "Y");
+            if (isAdmin)
+            {
+                return Ok(context.Trueques.ToList());
+            }
+            var userId = claims.FirstOrDefault(x => x.Type == "id");
+            
+            if(userId == null)
+            {
+                return Unauthorized();
+            }
+            return Ok(context.Trueques.Where(x => x.ApplicationUserId.ToString() == userId.Value));
         }
 
         [HttpGet("{id}", Name = "truequeCreado")]
@@ -59,7 +73,7 @@ namespace versión_5_asp.Controllers
             {
                 return BadRequest();
             }
-            context.Entry(trueque).State = EntityState.Modified;
+            context.Entry(trueque).State = EntityState.Modified;//modelo desconectado
             context.SaveChanges();
             return Ok();
         }
@@ -78,4 +92,5 @@ namespace versión_5_asp.Controllers
         }
 
     }
+
 }

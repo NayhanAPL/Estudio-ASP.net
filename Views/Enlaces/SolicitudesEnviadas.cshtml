@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Enlace>
+
+
+<h1>Mis Solicitudes</h1>
+
+
+<div class="col-sm-12">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Mi Trueque
+                </th>
+                <th>
+                    Trueque solicitado
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    Acción
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() != 0)
+            {
+                foreach (var item in Model)
+                {
+            <tr>
+                <td>
+                    @if (item.TruequeSu != null)
+                    {
+                        <dl>
+                            <dt>
+                                Usted Propone/Busca
+                            </dt>
+                            <dd>
+                                <a asp-action="Details" asp-controller="TruequesWeb" asp-route-id="@item.TruequeSu.Id">Propone: @item.TruequeSu.Proposition /<br>Busca: @item.TruequeSu.Search</a>
+                            </dd>
+                        </dl>
+                    }
+                </td>
+                <td>
+                    @if (item.TruequeMi != null)
+                    {
+                        <dl>
+                            <dt>
+                                Ella/Él Propone/Busca
+                            </dt>
+                            <dd>
+                                <a asp-action="Details" asp-controller="TruequesWeb" asp-route-id="@item.TruequeMi.Id">Propone: @item.TruequeMi.Proposition /<br>Busca: @item.TruequeMi.Search</a>
+                            </dd>
+                        </dl>
+                    }
+                </td>
+                <td>@item.State</td>
+                @if (item.State == State.Aceptado)
+                {
+                    <td><a asp-action="FinalizarTrueque" asp-route-id="@item.Id">Finalizar</a></td>
+                    <td><a asp-action="Rechazar" asp-route-id="@item.Id">Rechazar</a></td>
+                }
+                else{
+            <td><a asp-action="Delete" asp-route-id="@item.Id">Borrar</a></td>
+                }
+               
+            </tr>
+                }
+            }
+            
+        </tbody>
+    </table>
+</div>

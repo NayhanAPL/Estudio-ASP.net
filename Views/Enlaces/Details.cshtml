@@ -1,0 +1,74 @@
+﻿@model versión_5_asp.Models.Enlace
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Solicitud</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Mi Trueque
+        </dt>
+        @if (@Model.TruequeMi != null)
+        {
+            <dd class="col-sm-10">
+                Propongo: @Model.TruequeMi.Proposition/
+                Busco: @Model.TruequeMi.Search
+            </dd>
+        }
+        else
+        {
+            <dd class="col-sm-10">-</dd>
+        }
+        <dt class="col-sm-2">
+            Trueque objetivo
+        </dt>
+        @if (@Model.TruequeMi != null)
+        {
+            <dd class="col-sm-10">
+                Propongo: @Model.TruequeSu.Proposition/
+                Busco: @Model.TruequeSu.Search
+            </dd>
+        }
+        else
+        {
+            <dd class="col-sm-10">-</dd>
+        }
+        <dt class="col-sm-2">
+            Estado
+        </dt>
+        @if (!Model.Si && !Model.No)
+        {
+            <dd class="col-sm-10">
+                Pendiente
+            </dd>
+        }
+        else if (Model.Si && !Model.No)
+        {
+            <dd class="col-sm-10">
+                Aceptado
+            </dd>
+        }
+        else if (!Model.Si && Model.No)
+        {
+            <dd class="col-sm-10">
+                Rechazado por ella/él
+            </dd>
+        }
+        else if (Model.Si && Model.No)
+        {
+            <dd class="col-sm-10">
+                Rechazado por usted
+            </dd>
+        }
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

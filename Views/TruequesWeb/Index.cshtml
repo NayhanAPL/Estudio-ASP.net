@@ -1,0 +1,93 @@
+﻿@model PaginatedList<Trueque>
+
+@{ ViewData["Title"] = "Index"; }
+
+<h2>Busque los trueques de su interés!</h2>
+
+<p>
+    <a asp-action="Create">Crear trueque</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Filtrar por Propone/Busca: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Regresar al listado inicial</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Propone</a>
+            </th>
+            <th>
+               Busca
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Fecha de creación</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Proposition)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Search)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Date)
+    </td>
+    <td>
+        <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+        <a asp-action="RequestTrueque" asp-route-id="@item.Id">Solicitar trueque</a>
+    </td>
+</tr>}
+    </tbody>
+</table>
+
+@{ var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+var nextDisabled = !Model.HasNextPage ? "disabled" : ""; }
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Anterior
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Siguiente
+</a>
+<p class="text-center">Página @Model.PageIndex de @Model.TotalPages</p>
+
+@*<script>
+         function getTrueques(){
+            $.ajax({
+                url: '@Url.Action("SearchTrueques", "TruequesWeb")',
+                method: "GET",
+                data: { searchText: $('#textSearch').val() },
+                success: function(res) {
+                    $('#grdTrueques').html('').html(res);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+        }
+        $(document).ready(function(){ getTrueques() });
+
+
+    </script>*@

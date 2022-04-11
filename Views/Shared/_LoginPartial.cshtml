@@ -1,26 +1,35 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-info text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @User.Identity.Name!
+            </a>s
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item btn btn-info btn-sm" asp-area="" asp-controller="TruequesWeb" asp-action="Create">Crear Trueque</a>
+                <a class="dropdown-item btn btn-info btn-sm" asp-area="" asp-controller="TruequesWeb" asp-action="GetTruequesFromCurrentUser">Mis Trueques</a>
+                <a class="dropdown-item btn btn-info btn-sm" asp-area="" asp-controller="Enlaces" asp-action="GetMisSolicitudes">Mis Solicitudes</a>
+                <a class="dropdown-item btn btn-info btn-sm" asp-area="" asp-controller="Enlaces" asp-action="GetSolicitudesRecibidas">Solicitudes Recibidas</a>
+                <a class="dropdown-item btn btn-info btn-sm" asp-area="" asp-controller="EnlacesHechos" asp-action="MisTruequesCompletados">Trueques completados</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+    }
 </ul>

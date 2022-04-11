@@ -1,0 +1,74 @@
+﻿@model IEnumerable<versión_5_asp.Models.Enlace>
+
+
+<h1>@ViewData["Title"]</h1>
+
+@*<p>
+    <a asp-action="Create">Crear</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Mi Trueque(Propongo/Busco)
+            </th>
+            <th>
+                Trueque objetivo(Propongo/Busco)
+            </th>
+            <th>
+                Estado
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            @if(item.TruequeMi!=null){
+            <td>
+                @Html.DisplayFor(modelItem => item.TruequeMi.Proposition)/
+                @Html.DisplayFor(modelItem => item.TruequeMi.Search)
+            </td>
+            }
+            else { <td>-</td> }
+            @if (item.TruequeSu != null)
+            {
+            <td>
+                @Html.DisplayFor(modelItem => item.TruequeSu.Proposition)/
+                @Html.DisplayFor(modelItem => item.TruequeSu.Search)
+            </td>
+            }
+            else { <td>-</td> }
+            @if (!item.Si && !item.No)
+            {
+                <td>
+                    Pendiente
+                </td>
+            }
+            else if (item.Si && !item.No)
+            {
+                <td>
+                    Aceptado
+                </td>
+            }
+            else if (!item.Si && item.No)
+            {
+                <td>
+                    Rechazado por ella/él
+                </td>
+            }
+            else if (item.Si && item.No)
+            {
+                <td>
+                    Rechazado por usted
+                </td>
+            }
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
