@@ -11,16 +11,9 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-<<<<<<< HEAD
       "environmentVariables": {
-        "llave_super_secreta": "HLKHKLU879B6TB6YN88685464G99BNKJGFF098JHGDCS45VBB657N98MN6",
+        "llave_super_secreta": "SDFS9767SDF6S98SDF5S65D6F7S7DF09S87DF687SDF9SDF7S8D7897SDF8798S7DF897SDF",
         "ASPNETCORE_ENVIRONMENT": "Development"
-=======
-      "launchUrl": "api/Enlace",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "Clave": "Valor"
->>>>>>> f05bcf120fa7ccae11e42db71374497f50a100d6
       }
     },
     "versión_5_asp": {
