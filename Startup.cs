@@ -47,23 +47,28 @@ namespace versión_5_asp
                 AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
-
             
             services.AddScoped<IFunciones, EnlacesFunciones>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                 {
-                     ValidateIssuer = true,
-                     ValidateAudience = true,
-                     ValidateLifetime = true,
-                     ValidateIssuerSigningKey = true,
-                     ValidIssuer = "yourdomain.com",
-                     ValidAudience = "yourdomain.com",
-                     IssuerSigningKey = new SymmetricSecurityKey(
-                    System.Text.Encoding.UTF8.GetBytes(Configuration["llave_super_secreta"])),
-                     ClockSkew = TimeSpan.Zero
-                 });
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //    .AddJwtBearer(options => options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+            //     {
+            //         ValidateIssuer = true,
+            //         ValidateAudience = true,
+            //         ValidateLifetime = true,
+            //         ValidateIssuerSigningKey = true,
+            //         ValidIssuer = "yourdomain.com",
+            //         ValidAudience = "yourdomain.com",
+            //         IssuerSigningKey = new SymmetricSecurityKey(
+            //        System.Text.Encoding.UTF8.GetBytes(Configuration["llave_super_secreta"])),
+            //         ClockSkew = TimeSpan.Zero
+            //     });
+
+            services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
+                googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+            });
 
             services.AddAuthorization();
 
@@ -100,26 +105,26 @@ namespace versión_5_asp
                 endpoints.MapRazorPages();
             });
 
-            if (!context.Provincias.Any())
-            {
-                context.AddRange(
-                    new Provincia()
-                    {
-                        Name = "La Habana",
-                        Municipalities = new List<Municipio>() { 
-                            new Municipio() { Name = "Regla"},
-                              new Municipio(){Name = "Guanabacoa"}},
-                    },
-                    new Provincia()
-                    {
-                        Name = "Matanzas",
-                        Municipalities = new List<Municipio>() {
-                            new Municipio() { Name = "Cardenas"},
-                              new Municipio(){Name = "Varadero"}},
-                    }
-                );
-                context.SaveChanges();
-            }
+            //if (!context.Provincias.Any())
+            //{
+            //    context.AddRange(
+            //        new Provincia()
+            //        {
+            //            Name = "La Habana",
+            //            Municipalities = new List<Municipio>() { 
+            //                new Municipio() { Name = "Regla"},
+            //                  new Municipio(){Name = "Guanabacoa"}},
+            //        },
+            //        new Provincia()
+            //        {
+            //            Name = "Matanzas",
+            //            Municipalities = new List<Municipio>() {
+            //                new Municipio() { Name = "Cardenas"},
+            //                  new Municipio(){Name = "Varadero"}},
+            //        }
+            //    );
+            //    context.SaveChanges();
+            //}
         }
     }
 }
