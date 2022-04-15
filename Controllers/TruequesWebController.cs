@@ -463,7 +463,12 @@ namespace versión_5_asp.Controllers
         }
         public async Task<IActionResult> RequestTrueque(int id)
         {
-            var targetTrueque = await _context.Trueques.FirstOrDefaultAsync(t => t.Id == id);
+            var targetTrueque = await _context.Trueques.Include(t=>t.Image).FirstOrDefaultAsync(t => t.Id == id);
+            //load image
+            if (targetTrueque.Image != null) { var img = await _context.Imagenes.FindAsync(targetTrueque.Image.Id);
+                targetTrueque.Image = img;
+            }
+            
             var userClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userClaim == null)
             {
