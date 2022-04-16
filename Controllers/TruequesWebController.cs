@@ -516,15 +516,14 @@ namespace versión_5_asp.Controllers
 
                 }
                 _context.Add(trueque);
-                await _context.SaveChangesAsync();
+                //await _context.SaveChangesAsync();
 
                 //
 
                 //var currentUserID = User.FindFirst(ClaimTypes.NameIdentifier);
-                if (currentUserID != null)
+                if (currentUserID != null && truequeMiId != null)
                 {
-                    var trueuqeMi = await _context.Trueques
-                                                     .FirstOrDefaultAsync(t => t.Id == int.Parse(truequeMiId));
+                    var trueuqeMi = await _context.Trueques.FindAsync(int.Parse(truequeMiId));
                     var enlace = new Enlace()
                     {
                         TruequeSu = trueque,
@@ -538,8 +537,39 @@ namespace versión_5_asp.Controllers
                 }         
                                
             }
-            return View("SolicitudesEnviadas", solicitudes);
+            return RedirectToAction("GetMisSolicitudes", "Enlaces", solicitudes);
         }
-        
+        public async Task<IActionResult> StillNotAprovedTruequeDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+
+            }
+
+            var trueque = await _context.Trueques
+                .FirstOrDefaultAsync(m => m.Id == id);
+            //trueque.ApplicationUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == trueque.ApplicationUserId);
+            if (trueque == null)
+            {
+                return NotFound();
+            }
+
+            //load image
+            var wwwRootPath = _hostEnvironment.WebRootPath;
+            ImageModel _default = new() { ImageUrl = "sin_imagen.jpg" };
+            try
+            {
+                var res = await _context.Imagenes.FirstAsync(x => x.TruequeId == id);
+                trueque.Image = res.ImageUrl == null ? _default : res;
+            }
+            catch (Exception)
+            {
+                trueque.Image = _default;
+            }
+            string url = Request.Headers["Referer"].ToString();
+            ViewData["PreviousUrl"] = url;
+            return View(trueque);
+        }
     }
 }
