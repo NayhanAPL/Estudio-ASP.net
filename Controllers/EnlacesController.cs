@@ -198,7 +198,7 @@ namespace versión_5_asp.Controllers
         }
         public async Task<IActionResult> FinalizarTrueque(int id)
         {
-            var enlace = await _context.Enlace.FindAsync(id);
+            var enlace = await _context.Enlace.Include(e=>e.TruequeMi).Include(e=>e.TruequeSu).FirstOrDefaultAsync(e=>e.Id == id);
             if (enlace!=null)
             {
                 //crear entrada en tabla EnlaceHecho
@@ -210,7 +210,7 @@ namespace versión_5_asp.Controllers
                 });
                 _context.Enlace.Remove(enlace);
             }
-            await _context.SaveChangesAsync();            
+            await _context.SaveChangesAsync();      
             
             string url = Request.Headers["Referer"].ToString();
             return Redirect(url);

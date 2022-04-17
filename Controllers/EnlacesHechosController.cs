@@ -158,7 +158,7 @@ namespace versión_5_asp.Controllers
             {
                 res = await _context.EnlaceHecho.Include(e => e.TruequeSu)
                     .Include(e => e.TruequeMi)
-                    .Where(e => e.TruequeSu.ApplicationUserId == currentUserId.Value)
+                    .Where(e => e.TruequeSu.ApplicationUserId == currentUserId.Value || e.TruequeMi.ApplicationUserId == currentUserId.Value)
                     .ToListAsync();
             }
             return View(nameof(Index), res);
