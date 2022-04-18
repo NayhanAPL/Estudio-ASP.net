@@ -34,7 +34,7 @@
                 Autor
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.ApplicationUser.FullName)
+                <a asp-action="Profile" asp-route-uId="@Model.ApplicationUserId">@Model.ApplicationUser.FullName</a>
             </dd>
         }
         <dt class="col-sm-2">

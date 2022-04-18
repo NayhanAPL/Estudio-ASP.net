@@ -189,8 +189,8 @@ namespace versión_5_asp.Controllers
 
             }
 
-            var trueque = await _context.Trueques
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var trueque = await _context.Trueques.FindAsync(id);
+            //var user = await _context.Users.FindAsync(trueque.ApplicationUserId);
             trueque.ApplicationUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == trueque.ApplicationUserId);
             if (trueque == null)
             {
@@ -570,6 +570,13 @@ namespace versión_5_asp.Controllers
             string url = Request.Headers["Referer"].ToString();
             ViewData["PreviousUrl"] = url;
             return View(trueque);
+        }
+
+        public async Task<IActionResult> Profile(string uId)
+        {
+            //var trueque = await _context.Trueques.FirstOrDefaultAsync(t=>t.Id == tId);
+            var user = await _context.Users.FindAsync(uId);
+            return View(user);
         }
     }
 }
