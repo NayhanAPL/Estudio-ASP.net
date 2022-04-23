@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using versión_5_asp.Data;
 using versión_5_asp.Models;
 
 namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
@@ -14,13 +15,16 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _context;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
 
         public string Username { get; set; }
@@ -33,21 +37,41 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            [Display(Name = "Nombre")]
+            public string FName { get; set; }
+
+            [Display(Name = "Apellidos")]
+            public string LName { get; set; }
+
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Número Móvil")]
             public string PhoneNumber { get; set; }
+
+            [EmailAddress]
+            [Display(Name = "Correo Electrónico")]
+            public string Email { get; set; }
+
+            
+            [Display(Name = "Dirección")]
+            public string Address { get; set; }
+         
         }
 
         private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var email = await _userManager.GetEmailAsync(user);
 
             Username = userName;
-
+            
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FName = user.FirstName,
+                LName = user.LastName,
+                Address = user.Address,
+                Email = email
             };
         }
 
@@ -56,7 +80,7 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"No de encontró un usuario con ID '{_userManager.GetUserId(User)}'.");
             }
 
             await LoadAsync(user);
@@ -78,6 +102,11 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var fName = Input.FName;
+            var lName = Input.LName;
+            var address = Input.Address;
+            var email = await _userManager.GetEmailAsync(user);
+
             if (Input.PhoneNumber != phoneNumber)
             {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
@@ -87,9 +116,16 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+           
+                user.FirstName = fName;
+                user.LastName = lName;
+                user.Address = address;
 
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+           
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Su perfil ha sido actualizado";
             return RedirectToPage();
         }
     }

@@ -10,6 +10,7 @@
                 @User.Identity.Name!
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item btn btn-info btn-sm" asp-area="Identity" asp-page="/Account/Manage/Index">Profile</a>       
                 <a class="dropdown-item btn btn-info btn-sm" asp-area="" asp-controller="TruequesWeb" asp-action="Create">Crear Trueque</a>
                 <a class="dropdown-item btn btn-info btn-sm" asp-area="" asp-controller="TruequesWeb" asp-action="GetTruequesFromCurrentUser">Mis Trueques</a>
                 <a class="dropdown-item btn btn-info btn-sm" asp-area="" asp-controller="Enlaces" asp-action="GetMisSolicitudes">Mis Solicitudes</a>

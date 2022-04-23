@@ -167,7 +167,7 @@ namespace versión_5_asp.Controllers
             var enlace = await _context.Enlace.FindAsync(id);
             _context.Enlace.Remove(enlace);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(GetMisSolicitudes));
         }
 
         private bool EnlaceExists(int id)

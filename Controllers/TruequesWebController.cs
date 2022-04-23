@@ -79,7 +79,7 @@ namespace versión_5_asp.Controllers
                     break;
             }
 
-            int pageSize = 3;
+            int pageSize = 10;
             return View(await PaginatedList<Trueque>.CreateAsync(trueques.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
@@ -423,7 +423,7 @@ namespace versión_5_asp.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(GetTruequesFromCurrentUser));
         }
 
         private bool TruequeExists(int id)
@@ -560,8 +560,8 @@ namespace versión_5_asp.Controllers
             ImageModel _default = new() { ImageUrl = "sin_imagen.jpg" };
             try
             {
-                var res = await _context.Imagenes.FirstAsync(x => x.TruequeId == id);
-                trueque.Image = res.ImageUrl == null ? _default : res;
+                var res =  _context.Imagenes.FirstOrDefault(x => x.TruequeId == id);
+                trueque.Image = res.ImageUrl == null ? _default : res;         
             }
             catch (Exception)
             {
