@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,9 +8,10 @@ using System.Threading.Tasks;
 namespace versión_5_asp.Models
 {
     public enum State
-    {
+    {        
         Aceptado,
         Pendiente,
+        [Display(Name = "Rechazado por usted")]
         RechazadoPorUsted,
         Rechazado
     }

@@ -28,7 +28,7 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Type)
         </dd>
-        @if (Model.ApplicationUser != null)
+        @*@if(Model.ApplicationUser != null)
         {
             <dt class="col-sm-2">
                 Autor
@@ -36,7 +36,7 @@
             <dd class="col-sm-10">
                 <a asp-action="Profile" asp-route-uId="@Model.ApplicationUserId">@Model.ApplicationUser.FullName</a>
             </dd>
-        }
+        }*@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Proposition)
         </dt>

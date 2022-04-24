@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Detalles";
 }
-
 <h1>Detalles</h1>
 
 <div>
@@ -28,6 +27,16 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Type)
         </dd>
+        @if(ViewData["State"].ToString()=="Aceptado" && @Model.ApplicationUser != null)
+        {
+            <dt class="col-sm-2">
+                Autor
+            </dt>
+            <dd class="col-sm-10">
+                <a asp-action="Profile" asp-route-uId="@Model.ApplicationUserId">@Model.ApplicationUser.FullName</a>
+            </dd>
+        }
+        
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Proposition)
         </dt>
@@ -50,5 +59,5 @@
 </div>
 <div>
     @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
-    <a href="@ViewData[" PreviousUrl"]">Regresar a la lista</a>
+    <a href="@ViewData["PreviousUrl"]">Regresar a la lista</a>
 </div>

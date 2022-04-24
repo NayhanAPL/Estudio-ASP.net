@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ExtraInfo" class="control-label"></label>
-                <input asp-for="ExtraInfo" class="form-control" />
+                <input class="form-control" />
                 <span asp-validation-for="ExtraInfo" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -100,7 +100,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Regresar a la lista</a>
+    <a href="@ViewData["PreviousUrl"]">Regresar a la lista</a>
 </div>
 
 @section Scripts {

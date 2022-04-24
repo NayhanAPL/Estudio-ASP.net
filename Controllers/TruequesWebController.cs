@@ -181,7 +181,7 @@ namespace versión_5_asp.Controllers
         }
 
         // GET: TruequesWeb/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string returnUrl)
         {
             if (id == null)
             {
@@ -209,16 +209,16 @@ namespace versión_5_asp.Controllers
             {
                 trueque.Image = _default;
             }
-            string url = Request.Headers["Referer"].ToString();
-            ViewData["PreviousUrl"] = url;
+            //string url = Request.Headers["Referer"].ToString();
+            ViewData["PreviousUrl"] = returnUrl;
             return View(trueque);
         }
 
         // GET: TruequesWeb/Create
-        public IActionResult Create()
+        public IActionResult Create(string returnUrl)
         {
-            string url = Request.Headers["Referer"].ToString();
-            ViewData["PreviousUrl"] = url;
+            //string url = Request.Headers["Referer"].ToString();
+            ViewData["PreviousUrl"] = returnUrl;
             return View();
         }
 
@@ -292,7 +292,7 @@ namespace versión_5_asp.Controllers
             }
         }
         // GET: TruequesWeb/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, string returnUrl)
         {
             if (id == null)
             {
@@ -316,8 +316,8 @@ namespace versión_5_asp.Controllers
             {
                 trueque.Image = _default;
             }
-            string url = Request.Headers["Referer"].ToString();
-            ViewData["PreviousUrl"] = url;
+            //string url = Request.Headers["Referer"].ToString();
+            ViewData["PreviousUrl"] = returnUrl;
             return View(trueque);
         }
 
@@ -326,7 +326,7 @@ namespace versión_5_asp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ApplicationUserId,Proposition,Search,ExtraInfo,Picture,Date,Type")] Trueque trueque)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ApplicationUserId,Proposition,Search,ExtraInfo,Picture,Date,Type")] Trueque trueque, string returnUrl)
         {
             if (id != trueque.Id)
             {
@@ -353,13 +353,13 @@ namespace versión_5_asp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            string url = Request.Headers["Referer"].ToString();
-            ViewData["PreviousUrl"] = url;
+            //string url = Request.Headers["Referer"].ToString();
+            ViewData["PreviousUrl"] = returnUrl;
             return View(trueque);
         }
 
         // GET: TruequesWeb/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, string returnUrl)
         {
             if (id == null)
             {
@@ -385,7 +385,7 @@ namespace versión_5_asp.Controllers
                 trueque.Image = _default;
             }
             string url = Request.Headers["Referer"].ToString();
-            ViewData["PreviousUrl"] = url;
+            ViewData["PreviousUrl"] = returnUrl;
             return View(trueque);
         }
 
@@ -461,7 +461,7 @@ namespace versión_5_asp.Controllers
           
             return PartialView("_GridView", res);
         }
-        public async Task<IActionResult> RequestTrueque(int id)
+        public async Task<IActionResult> RequestTrueque(int id, string returnUrl)
         {
             var targetTrueque = await _context.Trueques.Include(t=>t.Image).FirstOrDefaultAsync(t => t.Id == id);
             //load image
@@ -474,6 +474,7 @@ namespace versión_5_asp.Controllers
             {
                 //
             }
+            ViewData["PreviousUrl"] = returnUrl;
             return View("SolicitarTrueque", targetTrueque);
         }
         [HttpPost]
@@ -539,17 +540,16 @@ namespace versión_5_asp.Controllers
             }
             return RedirectToAction("GetMisSolicitudes", "Enlaces", solicitudes);
         }
-        public async Task<IActionResult> StillNotAprovedTruequeDetails(int? id)
+        public async Task<IActionResult> TruequeSolicitudDetails(int? id, string returnUrl, State state)
         {
             if (id == null)
             {
                 return NotFound();
-
             }
 
-            var trueque = await _context.Trueques
-                .FirstOrDefaultAsync(m => m.Id == id);
-            //trueque.ApplicationUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == trueque.ApplicationUserId);
+            var trueque = await _context.Trueques.FindAsync(id);            
+            trueque.ApplicationUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == trueque.ApplicationUserId);
+            
             if (trueque == null)
             {
                 return NotFound();
@@ -561,21 +561,27 @@ namespace versión_5_asp.Controllers
             try
             {
                 var res =  _context.Imagenes.FirstOrDefault(x => x.TruequeId == id);
-                trueque.Image = res.ImageUrl == null ? _default : res;         
+                if(trueque.Image != null) { trueque.Image = res.ImageUrl == null ? _default : res; }
+                else
+                {
+                    trueque.Image = _default;
+                }
             }
             catch (Exception)
             {
                 trueque.Image = _default;
             }
             string url = Request.Headers["Referer"].ToString();
-            ViewData["PreviousUrl"] = url;
+            ViewData["PreviousUrl"] = returnUrl;
+            ViewData["State"] = state.ToString();
             return View(trueque);
         }
 
-        public async Task<IActionResult> Profile(string uId)
+        public async Task<IActionResult> Profile(string uId, string returnUrl)
         {
             //var trueque = await _context.Trueques.FirstOrDefaultAsync(t=>t.Id == tId);
             var user = await _context.Users.FindAsync(uId);
+            ViewData["PreviousUrl"] = returnUrl;
             return View(user);
         }
     }
