@@ -40,10 +40,10 @@ namespace versión_5_asp
         private MimeMessage CreateEmailMessage(Message message)
         {
             var emailMessage = new MimeMessage();
-            emailMessage.From.Add(new MailboxAddress(address:_emailConfig.From, name:_emailConfig.From));
+            emailMessage.From.Add(new MailboxAddress(address:_emailConfig.From, name:"Sitio Web de Trueques"));
             emailMessage.To.AddRange(message.To);
             emailMessage.Subject = message.Subject;
-            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = message.Content };
+            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = message.Content };
             return emailMessage;
         }
         private async Task Send(MimeMessage mailMessage)

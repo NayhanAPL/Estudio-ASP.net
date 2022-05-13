@@ -59,8 +59,8 @@ namespace versión_5_asp.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    "Cambio de contraseña",
+                    $"Por favor, cambien su contraseña a través del siguiente <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>enlace</a>.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }
