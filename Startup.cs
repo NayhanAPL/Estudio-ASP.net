@@ -40,11 +40,12 @@ namespace versión_5_asp
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddTransient<IEmailSender, ApplicationEmailSender>();
-            services.AddTransient<IEmailSender, ApplicationEmailSender>();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>().
-                AddEntityFrameworkStores<ApplicationDbContext>().
-                AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>(opt => { opt.User.RequireUniqueEmail = true;
+                opt.SignIn.RequireConfirmedEmail = true;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
             
@@ -69,6 +70,11 @@ namespace versión_5_asp
                 googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
                 googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
             });
+
+            var emailConfig = Configuration
+            .GetSection("EmailConfiguration")
+            .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
 
             services.AddAuthorization();
 
