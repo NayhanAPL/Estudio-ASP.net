@@ -26,7 +26,7 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
             _context = context;
         }
-
+        [Display(Name = "Nombre de usuario/Correo electrónico")]
         public string Username { get; set; }
 
         [TempData]

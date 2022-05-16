@@ -47,8 +47,8 @@
         @Html.DisplayFor(modelItem => item.Date)
     </td>
     <td>
-        <a asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Detalles</a> |
-        <a asp-action="RequestTrueque" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Solicitar trueque</a>
+        <a asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)">Detalles</a> |
+        <a asp-action="RequestTrueque" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)">Solicitar trueque</a>
     </td>
 </tr>}
     </tbody>
