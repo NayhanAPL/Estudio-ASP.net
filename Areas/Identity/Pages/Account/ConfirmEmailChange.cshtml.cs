@@ -44,7 +44,7 @@ namespace versión_5_asp.Areas.Identity.Pages.Account
             var result = await _userManager.ChangeEmailAsync(user, email, code);
             if (!result.Succeeded)
             {
-                StatusMessage = "Error changing email.";
+                StatusMessage = "Error al intentar cambiar la dirección de correo.";
                 return Page();
             }
 
@@ -58,7 +58,7 @@ namespace versión_5_asp.Areas.Identity.Pages.Account
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Thank you for confirming your email change.";
+            StatusMessage = "Gracias por confirmar el cambio de su dirección de correo.";
             return Page();
         }
     }
