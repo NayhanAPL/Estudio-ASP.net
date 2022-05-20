@@ -1,7 +1,7 @@
 ﻿@page
 @model ExternalLoginModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Registro";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -10,7 +10,7 @@
 
 <p id="external-login-description" class="text-info">
     Usted se ha autenticado satisfactoriamente con <strong>@Model.ProviderDisplayName</strong>.
-    Por favor, ingrese un dirección de correo electrónico para este sitio, debajo, y de clic en el botón de Registrarse para finalizar
+    Por favor, ingrese su dirección de correo electrónico para este sitio, y de click en el botón de Registrarse para finalizar
     la autenticación.
 </p>
 
@@ -23,7 +23,7 @@
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">Registrarse</button>
         </form>
     </div>
 </div>

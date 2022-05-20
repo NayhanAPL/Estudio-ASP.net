@@ -40,7 +40,7 @@ namespace versión_5_asp.Areas.Identity.Pages.Account
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
-            StatusMessage = result.Succeeded ? "Gracias por confirmar su correo!." : "Error confirmando su correo.";
+            StatusMessage = result.Succeeded ? "Gracias por confirmar su dirección de correo!." : "Error confirmando su dirección de correo.";
             return Page();
         }
     }

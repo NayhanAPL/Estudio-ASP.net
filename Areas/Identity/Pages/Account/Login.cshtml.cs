@@ -101,7 +101,7 @@ namespace versión_5_asp.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Error de autenticación.\n Compruebe sus datos");
                     return Page();
                 }
             }

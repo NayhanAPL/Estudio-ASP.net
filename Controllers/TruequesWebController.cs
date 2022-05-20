@@ -90,7 +90,7 @@ namespace versión_5_asp.Controllers
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             if (!String.IsNullOrWhiteSpace(currentUserId))
             {
-                var elems = await _context.Trueques.Where(x => x.ApplicationUserId == currentUserId).ToListAsync();
+                var elems = await _context.Trueques.OrderBy(t=>t.Date).Where(x => x.ApplicationUserId == currentUserId).ToListAsync();
                 return View("MisTrueques", elems);
             }
             return BadRequest("User not uthentiated");

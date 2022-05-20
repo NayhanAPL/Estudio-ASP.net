@@ -34,7 +34,7 @@
                 <span asp-validation-for="ExtraInfo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Image.ImageFile" class="control-label">Imágenes</label>
+                <label asp-for="Image.ImageFile" class="control-label">Imagen</label>
                 <input asp-for="Image.ImageFile" class="form-control" />
                 <span asp-validation-for="Image.ImageFile" class="text-danger"></span>
             </div>
@@ -45,9 +45,6 @@
     </div>
 </div>
 
-<div>
-    <a href="@ViewData["PreviousUrl"]">Regresar</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

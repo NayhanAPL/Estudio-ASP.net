@@ -65,8 +65,8 @@ namespace versión_5_asp.Areas.Identity.Pages.Account
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 Input.Email,
-                "Confirme su correo",
-                $"Por favor, confirme su cuenta a través del siguiente enlace: <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Confirmar</a>.");
+                "Confirme su correo electrónico",
+                $"Por favor, de click <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>aquí</a> para confirmar su dirección de correo");
 
             ModelState.AddModelError(string.Empty, "Se le ha enviado el email de verificación. Por favor, revise su buzón de correo.");
             return Page();

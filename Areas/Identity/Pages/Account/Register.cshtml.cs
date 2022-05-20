@@ -109,8 +109,8 @@ namespace versión_5_asp.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirme su correo electrónico",
+                        $"Por favor, de click <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>aquí</a> para confirmar la creación de su cuenta");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
