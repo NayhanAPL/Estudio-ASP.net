@@ -59,9 +59,12 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    font-family: 'Tangerine';
+    font-size: 48px;
 }
+  
 .footer {
   position: absolute;
   bottom: 0;
