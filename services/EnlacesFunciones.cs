@@ -10,6 +10,8 @@ namespace versión_5_asp.services
         public List<string> TodasLasPosibilidades() 
         {
             List<string> posibilidades = new List<string>() {
+        "Se bienvenido al a este entorno de intercambio creado para ti!!!",
+        "Trueque es la aplicación que le permitirá intercambiar sus objetos en desuso por otros de su interés... Aquí podrá:",
         "Crear tus propios trueques.",
         "Recibir las sugerencias que le ofrecemos para sus trueques.",
         "Iterar por todos los trueques que se encuentren activos para hacer su selección.",

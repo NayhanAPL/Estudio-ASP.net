@@ -15,21 +15,18 @@ namespace versión_5_asp.Controllers
         private readonly ILogger<HomeController> _logger;
 
         public IFunciones funciones1 {get; }
-        public HomeController(IFunciones funciones, ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger)
         {
-            funciones1 = funciones;
             _logger = logger;
         }
 
         public IActionResult Index()
-        {
-            var posibilidades = funciones1.TodasLasPosibilidades();
-            return View(posibilidades);
+        {     
+            return View();
         }
 
         public IActionResult Privacy()
-        {
-           
+        {           
             return View();
         }
 

@@ -49,7 +49,7 @@ namespace versión_5_asp
 
             services.AddControllersWithViews();
             
-            services.AddScoped<IFunciones, EnlacesFunciones>();
+            //services.AddScoped<IFunciones, EnlacesFunciones>();
 
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             //    .AddJwtBearer(options => options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters

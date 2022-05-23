@@ -5,6 +5,7 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+  font-size: 16px
 }
 
 /* Provide sufficient contrast against white background */
@@ -59,12 +60,13 @@ html {
 }
 
 body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-    font-family: 'Tangerine';
-    font-size: 48px;
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
 }
-  
+*{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+}
 .footer {
   position: absolute;
   bottom: 0;
