@@ -48,6 +48,7 @@ namespace versión_5_asp
                 .AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
+            services.AddMvc().AddRazorRuntimeCompilation();
             
             //services.AddScoped<IFunciones, EnlacesFunciones>();
 
