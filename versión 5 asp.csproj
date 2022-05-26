@@ -5,7 +5,12 @@
     <UserSecretsId>aspnet-versión_5_asp-26BC0E93-FE38-4B65-A29B-58BEE8683078</UserSecretsId>
     <RootNamespace>versión_5_asp</RootNamespace>
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="favicon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="3.2.0" />

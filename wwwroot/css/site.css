@@ -1,21 +1,33 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+navbar-brand{
+    position: relative;
+    background: url(../images/trueque_icon.png);
+    width: 170px;
+    left: 15px;
+}
+
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0b2537;
 }
 
+    /* mouse over link */
+    a:hover {
+        color: #2dd59b;
+    }
+
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #0b2537;
+    border-color: #0b2537;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -62,10 +74,7 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
-*{
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -73,3 +82,33 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/*Added*/
+@font-face {
+    font-family: 'CeraPro';
+    src: url('/fonts/Cera Pro Bold.otf')format('opentype');
+}
+
+* {
+    font-family: CeraPro;
+    font-size: 16px;
+}
+
+header {
+    display: block;
+}
+
+.app-header, .app-sweatband, .app-sock, .app-footer {
+    flex-shrink: 0;
+}
+
+.container {
+    --outer-gutter-width: var(--grid-outer-gutter-width);
+}
+
+.navbar-light .navbar-toggler {
+    border: none !important;
+}
+
+
+

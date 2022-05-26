@@ -11,26 +11,23 @@
     <link rel="stylesheet" type="text/css" href="~/css/newglyphicon.css"/>
 </head>
 <body>
-    <header>
+    <header id=header>
+         <div class="container">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white mb-3">
-            <div class="container">
+           
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/trueque_icon.png"/>
+                    <img  style="height:50px; width: 50px" src="~/trueque_icon.png"/>
                 </a>
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <button class="navbar-toggler glyphicon glyphicon-menu-hamburguer" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                            <a class="nav-link fas fa-search" asp-area="" asp-controller="TruequesWeb" asp-action="Index"></a>                     
-                    </ul>
-                   
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">                                  
                     <partial name="_LoginPartial" />
                 </div>
+                 </nav>
             </div>
-        </nav>
+       
     </header>
     <div class="container">
         <main role="main" class="pb-3">
