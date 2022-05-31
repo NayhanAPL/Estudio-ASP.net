@@ -110,5 +110,27 @@ header {
     border: none !important;
 }
 
+.text-center {
+    text-align: center;
+}
 
+.padding-top-7xl {
+    padding-top: 70px !important;
+}
+
+p.intro{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 20px;
+}
+
+.buttons-box {
+    text-align: center;    
+}
+
+.btn-theme{
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
 
