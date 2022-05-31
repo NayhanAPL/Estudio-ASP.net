@@ -39,7 +39,7 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+  font-size: 16px;
 }
 @media (min-width: 768px) {
   html {
@@ -71,8 +71,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-image: url("/Images/pattern.svg");
 }
 
 .footer {
@@ -133,4 +134,5 @@ p.intro{
     background-color: #17a2b8;
     border-color: #17a2b8;
 }
+
 
