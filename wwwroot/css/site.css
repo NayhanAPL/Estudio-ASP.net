@@ -97,6 +97,7 @@ body {
 
 header {
     display: block;
+    background-color: white;
 }
 
 .app-header, .app-sweatband, .app-sock, .app-footer {
