@@ -39,12 +39,7 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 16px;
-}
-@media (min-width: 768px) {
-  html {
     font-size: 16px;
-  }
 }
 
 .border-top {
@@ -92,7 +87,6 @@ body {
 
 * {
     font-family: CeraPro;
-    font-size: 16px;
 }
 
 header {
@@ -135,5 +129,51 @@ p.intro{
     background-color: #17a2b8;
     border-color: #17a2b8;
 }
+@media (max-width: 1200px) {
+    /* For mobile phones: */
+    /* [class*="col-"] {
+        width: 100%;
+    }*/
+    body {
+        color: lightpink;
+    }
+}
 
+@media  (max-width: 992px) {
+    /* For mobile phones: */
+    /* [class*="col-"] {
+        width: 100%;
+    }*/
+    body {
+        color: lightseagreen ;
+    }
+}
+
+@media (max-width: 768px) {
+    /* For mobile phones: */
+    /* [class*="col-"] {
+        width: 100%;
+    }*/
+    body {
+        color: lightgray;
+    }
+}
+
+@media (max-width: 576px) {
+    /* For mobile phones: */
+    /* [class*="col-"] {
+        width: 100%;
+    }*/
+    body {
+        color: lightgreen;
+    }
+
+
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
