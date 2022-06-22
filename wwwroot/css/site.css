@@ -1,4 +1,4 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
 navbar-brand{
@@ -38,9 +38,9 @@ a {
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
-    font-size: 16px;
-}
+/*html {
+    font-size: 14px;
+}*/
 
 .border-top {
   border-top: 1px solid #e5e5e5;
@@ -68,7 +68,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-image: url("/Images/pattern.svg");
+    /*background-image: url("/Images/pattern.svg");*/
 }
 
 .footer {
@@ -82,7 +82,7 @@ body {
 /*Added*/
 @font-face {
     font-family: 'CeraPro';
-    src: url('/fonts/Cera Pro Bold.otf')format('opentype');
+    src: url('/fonts/Cera Pro Light.otf')format('opentype');
 }
 
 * {
@@ -129,51 +129,76 @@ p.intro{
     background-color: #17a2b8;
     border-color: #17a2b8;
 }
-@media (max-width: 1200px) {
-    /* For mobile phones: */
-    /* [class*="col-"] {
-        width: 100%;
-    }*/
-    body {
-        color: lightpink;
-    }
-}
 
-@media  (max-width: 992px) {
-    /* For mobile phones: */
-    /* [class*="col-"] {
-        width: 100%;
-    }*/
-    body {
-        color: lightseagreen ;
-    }
-}
-
-@media (max-width: 768px) {
-    /* For mobile phones: */
-    /* [class*="col-"] {
-        width: 100%;
-    }*/
-    body {
-        color: lightgray;
-    }
-}
-
-@media (max-width: 576px) {
-    /* For mobile phones: */
-    /* [class*="col-"] {
-        width: 100%;
-    }*/
-    body {
-        color: lightgreen;
-    }
-
-
-}
 
 .flex-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+
+:root {
+    --spacing-7xl: calc(1em * 6);
+    font-size: 16px;
+}
+
+.card {
+    border-radius: 0.75em;
+    border: 0em solid #fff;
+}
+
+.padding-y-7xl {
+    padding-top: var(--spacing-7xl) !important;
+    padding-bottom: var(--spacing-7xl) !important;
+}
+
+/* For mobile phones: */
+[class*="col-"] {
+    width: 100%;
+}
+
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;}
+
+.btn-auth{
+    color: white;
+}
+
+.search-bar{
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: calc(4em / 2);;
+  font-size: 16px;
+  background-color: white;
+  padding: 12px 20px 12px 40px; 
+  box-shadow: inset 0 0.25em 0 0 #f0f1f3;
+
+  }
+
+  .search-bar-icon {
+  position: absolute;
+  font-size: 1.4em;
+  padding: 2.6em 0.6em;
+}
+
+.uppercase {
+    text-transform: uppercase;
+  }
+
+ .letter-spacing{letter-spacing: 0.25em;}
+
+ .size-sm{
+    font-size: 1em;
+ }
+
+ .section{
+    padding: 2rem 1rem;
+    /* margin-bottom: 2rem; */
+ }
 

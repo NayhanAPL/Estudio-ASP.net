@@ -1,17 +1,93 @@
-﻿
-@{
-    ViewData["Title"] = "Trueque";    
+﻿@{
+    ViewData["Title"] = "Trueque";
+    List<string> list = new List<string>(){"Electrodomesticos", "Comida", "Celular", "Decoracion", "Aseo", "Cosmetica"};
 }
 
-<article class="card col-8 offset-2 p-4" style="margin-bottom: 3rem; ">
-<div>
-    <h1 class="padding-top-7xl text-center">Bienvenidos a Trueque!</h1>
-    <p class="intro text-center">Trueque es la aplicación que le permitirá intercambiar sus objetos en desuso por otros de su interés</p>
-    
-</div>
-</article>
-<div class="buttons-box">
-        <button class="btn btn-info">Ingresar</button>
-        <button class="btn btn-info">Buscar</button>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-3">Interesado en intercambiar</h1>
+        <p class="lead">Objetos en desuso por otros?</p>
+        <hr class="my-2">
+        <p>Pues has llegado al lugar correcto!</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="Jumbo action link" role="button">Crearme una cuenta</a>
+        </p>
     </div>
+</div>
+<div class="container section">
+    <form>
+        <div class="row">
+            <div class="col">
+                <h1 class="letter-spacing uppercase size-sm">Descubrir Trueques</h1>
+                <!--h1 style="margin: 1em 0;">Aquí están los trueques que buscas!</h1>
+                <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi nihil voluptatibus voluptatum!
+                    Voluptate dolore odio ullam accusamus cupiditate a rerum et nostrum beatae quod eos aperiam
+                    voluptatibus quae, voluptates tenetur?</div-->
+                <span class="fa fa-search search-bar-icon"></span>
+                <input style="margin: 2.5em 0" type="text" class="search-bar" id="search"
+                    placeholder="Busque los trueques de su interés..." name="search">
+            </div>
+        </div>
+    </form>
+</div>
 
+<div class="jumbotron">
+    <div class="container">
+
+
+        <h1 class="letter-spacing uppercase size-sm">Categorías</h1>
+        <h1 style="margin: 1em 0;">Los trueques están agrupado por categorías</h1>
+        <!--div class="d-flex justify-content-between align-content-around flex-wrap">
+            @foreach (var item in @list)
+            {
+                <div class="card m-2 width">
+                    <div class="card-header">
+                        Header
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">@item</h4>
+                        <p class="card-text">Text</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Footer
+                    </div>
+                </div>
+            }
+        </div-->
+
+         @foreach (var item in @list){
+                    <div class="card-columns">
+                <div class="card bg-primary">
+                    <div class="card-body text-center">
+                        <p class="card-text">@item</p>
+                    </div>
+                </div>
+                <div class="card bg-warning">
+                    <div class="card-body text-center">
+                        <p class="card-text">Some text inside the second card</p>
+                    </div>
+                </div>
+                <div class="card bg-success">
+                    <div class="card-body text-center">
+                        <p class="card-text">Some text inside the third card</p>
+                    </div>
+                </div>
+                <div class="card bg-danger">
+                    <div class="card-body text-center">
+                        <p class="card-text">Some text inside the fourth card</p>
+                    </div>
+                </div>
+                <div class="card bg-light">
+                    <div class="card-body text-center">
+                        <p class="card-text">Some text inside the fifth card</p>
+                    </div>
+                </div>
+                <div class="card bg-info">
+                    <div class="card-body text-center">
+                        <p class="card-text">Some text inside the sixth card</p>
+                    </div>
+                </div>
+            </div>
+            }
+    </div>
+</div>
