@@ -3,72 +3,75 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - versión_5_asp</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Inter" />
-    <!--script src="https://kit.fontawesome.com/d4309e7f7a.js" crossorigin="anonymous"></script-->
-     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
-     integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">   
-    <link rel="stylesheet" type="text/css" href="~/css/newglyphicon.css"/>
+    <link rel="stylesheet" href="~/css/common.css" />   
+    <script src="https://kit.fontawesome.com/d4309e7f7a.js" crossorigin="anonymous"></script>
+     @RenderSection("css", false)
 </head>
 <body>
-    <header id=header>
-       <div class="container-fluid">
-       @* <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white mb-3">           
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img  style="height:40px; width: 40px" src="~/trueque_icon.png"/>
-                </a>
-                <button class="navbar-toggler glyphicon glyphicon-menu-hamburguer" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">                                  
-                    <partial name="_LoginPartial" />
-                </div>
-        </nav>*@
-        @*added*@
-         <nav class="navbar navbar-expand-sm">
-            <div class="container">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                    Trueques
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" aria-expanded="true"
-                                aria-controls="collapsibleNavbar">
-                            <span class= "fas fa-hamburger"></span>
-                </button>                      
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-3">
+        <div class="container">
+            <h1 class="navbar-brand logo"><a asp-controller="Home" asp-action="Index">trueque</a></h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="fa fa-hamburger"></span>
+            </button>
 
-                <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="TruequesWeb" asp-action="Index"><span class="fa fa-search"></span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Entrar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Registrarse</a>
-                        </li>
-                    </ul>
-                </div>
-              </div>
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a asp-controller="TruequesWeb" asp-action="Index" class="nav-link"><span class="fa fa-search"></span></a>
+                    </li>                                                     
+                    <partial name="_LoginPartial" />           
+                </ul>                
+            </div>   
+    </nav>
+  
+    @RenderBody()
+   
+    
+   <!-- Footer -->
+    <footer class="footer bg-dark text-light py-5">
+        <div class="container">
+            <div class="d-flex">
+            <div class="copyright text-md-start">
+                <h1>Trueque</h1>
+                <p>Copyright &copy; 2022</p>
+            </div>
+            <div class="links d-flex justify-content-center align-items-center my-3">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#">Contacto</a>
+                    </li>
+                    <li>
+                        <a href="#">Privacidad</a>
+                    </li>
+                    <li>
+                        <a href="#">FAQs</a>
+                    </li>
+                </ul>
             </nav>
-        @*added*@
-       </div>       
-    </header>
-    
-        <main role="main">
-            @RenderBody()
-        </main>
-     
-    
-    <div class="jumbotron text-center" style="margin-bottom:0">
-        <p>Footer</p>
-    </div>
+        </div>
+            <div class="social mt-3 mb-5">
+                <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
+                <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
+                <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+            </div>
+        </div>
+        </div>
+    </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+ 
     @await RenderSectionAsync("Scripts", required: false)
+         <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+        </script>
 </body>
 </html>

@@ -1,0 +1,215 @@
+/*@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');*/
+
+
+
+body{
+    /*font-family: 'Lato', sans-serif;*/
+    color: #333;
+    line-height: 1.6;
+}
+
+.app-content {
+    background-image: url("../images/pattern2.svg");
+}
+
+/* Landingpage */
+/* Showcase */
+.showcase{
+    background-color: var(--bg-blue);
+}
+
+.showcase {
+    position: relative;
+}
+.showcase-text{
+    animation: slideInFromLeft 1s ease;
+}
+
+.showcase-img{
+    animation: slideInFromRight 1s ease;
+}
+
+/* Animations */
+@keyframes slideInFromLeft {
+    0%{
+        transform: translateX(-100%);
+    }
+    100%{
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    0%{
+        transform: translateX(100%);
+    }
+    100%{
+        transform: translateX(0);
+    }
+}
+@keyframes slideInFromTop {
+    0%{
+        transform: translateY(-100%);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInFromBottom {
+    0%{
+        transform: translateY(100%);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+
+@media (min-width: 768px){
+    .search-input{
+        width: 50%;
+    }
+
+    .questions .accordion-body {
+        text-align: start;
+    }
+
+    .links {
+        text-align: start;
+    }   
+}
+
+
+/* Searching */
+.searching h3{
+    text-align: left;
+}
+
+
+/* Categories */
+
+.categories .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 18px 10px 40px;
+    text-align: center;
+    transition: transform 0.2s ease-in;
+}
+
+.categories .card-img {
+    width: 70px;
+    height: 70px;
+}
+
+.categories .card h5{
+    /* font-size: 20px; */
+    margin-bottom: 20px; 
+    text-align: center;
+}
+
+
+.categories h2 {
+    text-transform: uppercase;
+}
+
+
+.categories .card:hover {
+    transform: translateY(-15px);
+}
+
+/* About */
+.about {
+    background-color: #333;
+}
+.about h2 {
+    text-transform: uppercase;
+} 
+/* FAQs */
+
+.questions h2 {
+    text-transform: uppercase;
+}
+
+
+
+@media (max-width: 576px) {
+
+    .search-extra-text{
+        display: none;
+    }
+}
+
+
+
+
+/* Utilities */
+
+.card {
+    background-color: white;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    padding: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:20px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+
+.line {
+    text-align: center;
+    margin-bottom: 10px;
+    /* position: relative; */
+    top: 1rem;
+    margin: 1rem auto 1.5rem auto;
+    width: 3rem;
+    height: 0.2rem;
+    /* background: var(--bg-blue); */
+}
+
+
+/* Login */
+
+/* Search */
+.details-btn{
+    margin-bottom: 0.5rem !important;
+    align-self: flex-end;
+}
+
+.request-btn{
+    margin-bottom: 0.5rem !important;
+}
+@media (max-width: 768px) {
+    
+#search-btn {
+    width: 100%;
+    margin-bottom: 0.5rem !important;
+   
+}
+#reset-btn{
+    width: 100%;
+    margin-top: 0.5rem !important;
+}
+
+
+
+}
+
+/* @media (min-width: 768px) {
+    
+    #reset-btn{
+        margin-left: 1rem !important;
+    }
+} */

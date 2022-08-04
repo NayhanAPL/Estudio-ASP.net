@@ -42,14 +42,14 @@ namespace versión_5_asp
             services.AddTransient<IEmailSender, ApplicationEmailSender>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>(opt => { opt.User.RequireUniqueEmail = true;
-                opt.SignIn.RequireConfirmedEmail = true;
+                opt.SignIn.RequireConfirmedEmail = false;
             })
             .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
             services.AddMvc().AddRazorRuntimeCompilation();
-            
+
             //services.AddScoped<IFunciones, EnlacesFunciones>();
 
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -66,11 +66,11 @@ namespace versión_5_asp
             //         ClockSkew = TimeSpan.Zero
             //     });
 
-            services.AddAuthentication().AddGoogle(googleOptions =>
-            {
-                googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
-                googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-            });
+            //services.AddAuthentication().AddGoogle(googleOptions =>
+            //{
+            //    googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
+            //    googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+            //});
 
             var emailConfig = Configuration
             .GetSection("EmailConfiguration")

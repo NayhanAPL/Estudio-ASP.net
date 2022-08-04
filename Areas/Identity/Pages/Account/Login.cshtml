@@ -4,81 +4,8 @@
 @{
     ViewData["Title"] = "Autenticarse";
 }
-<!--div class= "card p-4">
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-12">
-        <section>
-            <form id="account" method="post">
-                <h4>Usar una cuenta local para entrar.</h4>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Ingresar</button>
-                </div>
-                <div class="form-group">
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">¿Olvidó su contraseña?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registrar nuevo usuario</a>
-                    </p>
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Reenviar email de confirmación</a>
-                    </p>
-                </div>
-            </form>
-        </section>
-        <section>
-            <h4>Usar otro servicio para autenticarse.</h4>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Entrar usando mi cuenta de @provider.DisplayName">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
-    </div>
-</div>
-</div-->
 
+@*
         <div class="container py-5 h-100">
           <div class="row d-flex align-items-center justify-content-center h-100">
              <!-- SVG -->
@@ -145,7 +72,64 @@
            
             </div>
           </div>
-        </div>
+        </div>*@
+@section css {
+    <link href="@Url.Content("~/css/login.css")" rel="stylesheet"/>
+}
+
+    <!--Login-->
+    <main role="main" class="app-content px-3" style="padding: calc(1rem*5); ">
+        <div class="container d-flex justify-content-center align-items-center">
+        <div class="line-length-sm">         
+            <article class="card py-5">  
+                <div class="header">                      
+                  <span class="text-uppercase margin-bottom-xl" style="display: block; letter-spacing: 0.25em; font-weight: 700;; color: #fab005;">
+                    &iexcl;Qu&eacute; bueno verlo!</span>
+                  <i><img style="width: 5rem; height:5rem;" src="/images/svg/happy-emoji-svgrepo-com.svg" alt=""></i>
+                  <h2 class="margin-y-sm">Autent&iacute;quese</h2>
+                  <p>Entrar con una cuenta local</p>
+                </div>
+                <div style="text-align: left;">
+                     <div asp-validation-summary="All" class="text-danger"></div>
+                  <form method="post">
+                      <div style="position: relative;" class="margin-bottom-2xl">
+                          <div>
+                              <label class="form-label" for="email-address" style="font-weight: bold;">Correo</label>
+                          </div>
+                          <div>
+                              <span class="fas fa-envelope-square" style="position: absolute; display: inline-block; margin: 1.75rem 2rem; font-size: 1.5rem;"></span>
+                              <input asp-for="Input.Email" type="email" class="form-control form-control-lg" style="padding-left: 4rem; line-height: 0.1rem;" placeholder="Ej: fulano@gmail.com">
+                          </div>
+                          
+                      </div> 
+                      <div class="margin-bottom-2xl">     
+                          <div> 
+                              <label class="form-label" for="password" style="font-weight: bold;">Contraseña</label>
+                          </div>  
+                          <div>                        
+                              <i class="fa fa-lock" style="position: absolute; display: inline-block; margin:  1.7rem 2rem; font-size: 1.5rem;"></i>
+                              <input asp-for="Input.Password" type="password" class="form-control form-control-lg" style="padding-left: 4rem;line-height: 0.1rem;" >
+                          </div>
+                      </div>
+                          <div class="d-flex justify-content-around align-items-baseline mb-4">
+                              <div><input asp-for="Input.RememberMe"  type="checkbox" checked >
+                              <label asp-for="Input.RememberMe" class="form-label">Recordarme</label>
+                            </div>
+                              <a asp-page="./ForgotPassword">Olvid&oacute; su contrase&ntilde;a?</a>
+                           </div>
+                           <div class="d-grid gap-2">
+                            <button class="btn btn-primary btn-lg" type="submit">Entrar</button>
+                            <div class="d-flex justify-content-between align-items-center mt-3" style="flex-direction: column;">
+                                <p>Entrar con mi cuenta de:</p>
+                                <button class="btn btn-primary btn-lg" type="button" style="background-color: #3b5998; width: 100%;"><span class="fab fa-facebook-f me-2"></span>Facebook</button>
+                            </div>
+                          </div>
+                  </form>
+                </div>
+            </article>
+            </div>
+       
+      </main>
    
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

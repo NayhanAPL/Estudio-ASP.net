@@ -46,9 +46,9 @@ namespace versión_5_asp.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
             [Display(Name = "Nombre")]
             public string FirstName { get; set; }
+
             [Required]
             [Display(Name = "Apellido")]
             public string LastName { get; set; }
@@ -65,21 +65,28 @@ namespace versión_5_asp.Areas.Identity.Pages.Account
             [Display(Name = "Provincia")]
             public Provincia Province { get; set; }
 
+           
+            [Display(Name = "No. Celular")]
+            public string Cellphone { get; set; }
+
+            [Display(Name = "No. Fijo")]
+            public string Landline { get; set; }
+
             [Required]
             [EmailAddress]
             [Display(Name = "Correo Electrónico")]
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "La {0} debe tener al menos {2} y como máximo {1} caracteres.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Contraseña")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirmar Contraseña")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; }
+            [Compare("Password", ErrorMessage = "La contraseña y la confirmación de la contraseña no coinciden.")]
+            public string ConfirmationPassword { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -93,24 +100,24 @@ namespace versión_5_asp.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
-            {
-               
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName, Address = Input.Address, Province = Input.Province, Municipality = Input.Municipality };
-                var result = await _userManager.CreateAsync(user, Input.Password);
+            {               
+                var appUser = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName, Address = Input.Address, Province = Input.Province, Municipality = Input.Municipality };
+                var result = await _userManager.CreateAsync(appUser, Input.Password);
+                await _userManager.SetPhoneNumberAsync(appUser, Input.Cellphone);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
+                    //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    //var callbackUrl = Url.Page(
+                    //    "/Account/ConfirmEmail",
+                    //    pageHandler: null,
+                    //    values: new { area = "Identity", userId = appUser.Id, code = code, returnUrl = returnUrl },
+                    //    protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirme su correo electrónico",
-                        $"Por favor, de click <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>aquí</a> para confirmar la creación de su cuenta");
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirme su correo electrónico",
+                    //    $"Por favor, de click <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>aquí</a> para confirmar la creación de su cuenta");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -118,7 +125,7 @@ namespace versión_5_asp.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        await _signInManager.SignInAsync(appUser, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
                 }

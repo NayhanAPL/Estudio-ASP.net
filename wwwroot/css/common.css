@@ -1,0 +1,76 @@
+:root {
+    --bg-blue: #047aed;
+    text-align: center;
+}
+
+@font-face {
+    font-family: 'CeraPro';
+    src: url('/fonts/Cera\ Pro\ Light.otf')format('opentype');
+}
+
+* {
+    font-family: CeraPro;
+}
+
+/* Navbar */
+
+.logo a {
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+a {
+    color: var(--bg-blue);
+}
+
+    a:hover {
+        color: #6ba5fb;
+    }
+nav ul {
+    list-style-type: none;
+}
+
+.navbar {
+    background-color: var(--bg-blue);
+}
+
+/* .navbar a:hover {
+    border-bottom: 2px #fff solid;
+} */
+
+/* Footer */
+footer a {
+    text-decoration: none;
+}
+
+footer .social a {
+    margin: 0 10px;
+}
+
+@media (min-width: 768px) {
+
+    .links {
+        text-align: start;
+    }
+}
+
+@media (max-width: 768px) {
+
+    footer .d-flex {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    footer ul {
+        padding-left: 0;
+    }
+}
+
+
+@media (min-width: 768px) {
+    footer .d-flex {
+        justify-content: space-between;
+        align-items: center;
+    }
+}    

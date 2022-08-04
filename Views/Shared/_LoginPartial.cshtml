@@ -5,19 +5,27 @@
 <ul class="navbar-nav navbar-right">
     @if (SignInManager.IsSignedIn(User))
     {
+   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+      <ul class="navbar-nav">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-info text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                @User.Identity.Name!
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item btn btn-info btn-sm" asp-area="Identity" asp-page="/Account/Manage/Index">Perfil</a>       
-                <a class="dropdown-item btn btn-info btn-sm" asp-area="" asp-controller="TruequesWeb" asp-action="Create" asp-route-returnUrl="@Context.Request.Path">Crear Trueque</a>
-                <a class="dropdown-item btn btn-info btn-sm" asp-area="" asp-controller="TruequesWeb" asp-action="GetTruequesFromCurrentUser">Mis Trueques</a>
-                <a class="dropdown-item btn btn-info btn-sm" asp-area="" asp-controller="Enlaces" asp-action="GetMisSolicitudes">Mis Solicitudes</a>
-                <a class="dropdown-item btn btn-info btn-sm" asp-area="" asp-controller="Enlaces" asp-action="GetSolicitudesRecibidas">Solicitudes Recibidas</a>
-                <a class="dropdown-item btn btn-info btn-sm" asp-area="" asp-controller="EnlacesHechos" asp-action="MisTruequesCompletados">Trueques completados</a>
-            </div>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            @User.Identity.Name
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+            <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Perfil</a></li>
+            <li><a class="dropdown-item" asp-controller="TruequesWeb" asp-action="Create" asp-route-returnUrl="@Context.Request.Path">Crear trueque</a></li>
+            <li><a class="dropdown-item" asp-controller="TruequesWeb" asp-action="GetTruequesFromCurrentUser">Mis trueques</a></li>
+            <li><a class="dropdown-item" asp-controller="Enlaces" asp-action="GetMisSolicitudes">Mis solicitudes</a></li>
+            <li><a class="dropdown-item" asp-controller="Enlaces" asp-action="GetSolicitudesRecibidas">Solicitudes recibidas</a></li>
+            <li><a class="dropdown-item" asp-controller="EnlacesHechos" asp-action="MisTruequesCompletados">Trueques completados</a></li>
+          </ul>
         </li>
+      </ul>
+    </div>
+       
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button type="submit" class="nav-link btn btn-link"><span class="glyphicon glyphicon-log-out"></span> Salir</button>
@@ -25,15 +33,12 @@
         </li>
     }
     else
-    {    <li class="nav-item">      
-         <a class="nav-link" asp-area="" asp-controller="TruequesWeb" asp-action="Index"><span class=" glyphicon glyphicon-search"></span> Buscar</a>                     
+    {    
+         <li class="nav-item">
+           <a asp-area="Identity" asp-page="/Account/Login" class="nav-link">Entrar</a>
+         </li>
+         <li class="nav-item">
+           <a asp-area="Identity" asp-page="/Account/Register" class="nav-link">Registrarse</a>
          </li>         
-        <li class="nav-item">            
-            <a class="nav-link" asp-area="Identity" asp-page="/Account/Register"><span class="glyphicon glyphicon-user"></span> Registrarse</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login"><span class="glyphicon glyphicon-log-in"></span> Entrar</a>
-        </li>
-        
     }
 </ul>
