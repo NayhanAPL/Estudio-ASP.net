@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using versión_5_asp.Data;
 using versión_5_asp.Models;
 
@@ -26,7 +29,7 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
             _context = context;
         }
-        [Display(Name = "Nombre de usuario/Correo electrónico")]
+        [Display(Name = "Correo electrónico")]
         public string Username { get; set; }
 
         [TempData]
@@ -35,8 +38,11 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
         [BindProperty]
         public InputModel Input { get; set; }
 
+        Provincia P { get; set; }
+        Municipio M { get; set; }   
         public class InputModel
         {
+        
             [Display(Name = "Nombre")]
             public string FName { get; set; }
 
@@ -47,6 +53,10 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Número Móvil")]
             public string PhoneNumber { get; set; }
 
+            [Phone]
+            [Display(Name = "Número Fijo")]
+            public string Landline { get; set; }
+
             [EmailAddress]
             [Display(Name = "Correo Electrónico")]
             public string Email { get; set; }
@@ -54,7 +64,11 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
             
             [Display(Name = "Dirección")]
             public string Address { get; set; }
-         
+
+            [Display(Name = "Provincia")]
+            public List<SelectListItem> Provinces{ get; set; }
+            [Display(Name = "Municipio")]
+            public List<SelectListItem> Municipalities { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -63,36 +77,72 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var email = await _userManager.GetEmailAsync(user);
 
-            Username = userName;
-            
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
                 FName = user.FirstName,
                 LName = user.LastName,
                 Address = user.Address,
-                Email = email
+                Landline = user.Landline,
+                Email = email,
+
+                Provinces = new List<SelectListItem>(),
+                Municipalities = new List<SelectListItem>()
+
             };
+
+            Username = userName;
+            P = user.Province;
+            M = user.Municipality;
+
+           await _context.Provincias.ForEachAsync(a =>
+           Input.Provinces.Add(
+           new SelectListItem()
+           {
+               Value = a.Id.ToString(),
+               Text = a.Name,
+               Selected = user.Province != null && a.Name == user.Province.Name
+           }));
+
+
+           await _context.Municipios.ForEachAsync(a =>
+           Input.Municipalities.Add(
+            ( new SelectListItem() { 
+                Value = a.Id.ToString(),
+                Text = a.Name,
+                Selected = user.Municipality != null && a.Name == user.Municipality.Name
+            })));
+
+            
+            ViewData["ps"] = Input.Provinces;
+            ViewData["ms"] = Input.Municipalities;
         }
 
         public async Task<IActionResult> OnGetAsync()
-        {
-            var user = await _userManager.GetUserAsync(User);
+        {       
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = await _context.Users.Include(u => u.Municipality).Include(u => u.Province)
+                                                   .Where(u => u.Id == currentUserId)
+                                                     .FirstOrDefaultAsync();
+
             if (user == null)
             {
                 return NotFound($"No de encontró un usuario con ID '{_userManager.GetUserId(User)}'.");
             }
 
+            P = user.Province;
+            M = user.Municipality;
+
             await LoadAsync(user);
             return Page();
-        }
+            }
 
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"No se encontró el ususario con ID '{_userManager.GetUserId(User)}'.");
             }
 
             if (!ModelState.IsValid)
@@ -105,6 +155,9 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
             var fName = Input.FName;
             var lName = Input.LName;
             var address = Input.Address;
+            var llandline = Input.Landline;
+            var provId = ((List<SelectListItem>)ViewData["ps"]).Find(p => p.Selected).Value;
+            var munId = Input.Municipalities.Find(m => m.Selected).Value;
             var email = await _userManager.GetEmailAsync(user);
 
             if (Input.PhoneNumber != phoneNumber)
@@ -120,6 +173,9 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
                 user.FirstName = fName;
                 user.LastName = lName;
                 user.Address = address;
+                user.Landline = llandline;
+                user.Province = P;
+                user.Municipality = M;
 
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();

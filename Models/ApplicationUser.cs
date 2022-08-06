@@ -12,18 +12,13 @@ namespace versión_5_asp.Models
     {
         //Propiedad Navigacional
         public List<Trueque> Trueques{ get; set; }
-        [Display(Name = "Nombre")]
         public string FirstName { get; set; }
-        [Display(Name = "Apellido")]
         public string LastName { get; set; }
         [NotMapped]
-        [Display(Name = "Nombre")]
-        public string FullName { get { return FirstName + " " + LastName; } }
-        [Display(Name = "Dirección")]
+        public string FullName { get { return FirstName + " " + LastName; } }    
         public string Address { get; set; }
-        [Display(Name = "Municipio")]
+        public string Landline { get; set; }
         public Municipio Municipality { get; set; }
-        [Display(Name = "Provincia")]
         public Provincia Province { get; set; }
     }
 }

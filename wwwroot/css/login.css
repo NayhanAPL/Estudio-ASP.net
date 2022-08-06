@@ -8,13 +8,7 @@
     --line-length-sm: 70ch;
     --spacing-xl: calc(1em * 1.5);
     --spacing-sm: calc(1em * 12 / 16);
-    --spacing-2xl: calc(1em * 2);
-   
-}
-
-
-.app-content {
-    background-image: url("../images/pattern2.svg");
+    --spacing-2xl: calc(1em * 2);   
 }
 
 .padding-y-6x{ 

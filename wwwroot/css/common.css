@@ -11,6 +11,10 @@
 * {
     font-family: CeraPro;
 }
+/*Background*/
+.app-content {
+    background-image: url("../images/svg/pattern2.svg");
+}
 
 /* Navbar */
 
