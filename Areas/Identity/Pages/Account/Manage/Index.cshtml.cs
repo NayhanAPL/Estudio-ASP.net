@@ -39,10 +39,10 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
         public InputModel Input { get; set; }
 
         Provincia P { get; set; }
-        Municipio M { get; set; }   
+        Municipio M { get; set; }
         public class InputModel
         {
-        
+
             [Display(Name = "Nombre")]
             public string FName { get; set; }
 
@@ -61,13 +61,17 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Correo Electrónico")]
             public string Email { get; set; }
 
-            
+
             [Display(Name = "Dirección")]
             public string Address { get; set; }
 
             [Display(Name = "Provincia")]
-            public List<SelectListItem> Provinces{ get; set; }
+            [BindProperty]
+            public int ChosenProv { get; set; }
+            public List<SelectListItem> Provinces { get; set; }
             [Display(Name = "Municipio")]
+            [BindProperty]
+            public int ChosenMun { get; set; }
             public List<SelectListItem> Municipalities { get; set; }
         }
 
@@ -92,36 +96,33 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
             };
 
             Username = userName;
-            P = user.Province;
-            M = user.Municipality;
-
-           await _context.Provincias.ForEachAsync(a =>
-           Input.Provinces.Add(
-           new SelectListItem()
-           {
-               Value = a.Id.ToString(),
-               Text = a.Name,
-               Selected = user.Province != null && a.Name == user.Province.Name
-           }));
 
 
-           await _context.Municipios.ForEachAsync(a =>
-           Input.Municipalities.Add(
-            ( new SelectListItem() { 
+            await _context.Provincias.ForEachAsync(a =>
+            Input.Provinces.Add(
+            new SelectListItem()
+            {
                 Value = a.Id.ToString(),
                 Text = a.Name,
-                Selected = user.Municipality != null && a.Name == user.Municipality.Name
-            })));
+                Selected = user.Province != null && a.Name == user.Province.Name
+            }));
+            Input.ChosenProv = user.ProvinceId;
 
-            
-            ViewData["ps"] = Input.Provinces;
-            ViewData["ms"] = Input.Municipalities;
+            await _context.Municipios.ForEachAsync(a =>
+            Input.Municipalities.Add(
+              new SelectListItem()
+              {
+                  Value = a.Id.ToString(),
+                  Text = a.Name,
+                  Selected = user.Municipality != null && a.Name == user.Municipality.Name
+              }));
+            Input.ChosenMun = user.MunicipalityId;
         }
 
         public async Task<IActionResult> OnGetAsync()
-        {       
+        {
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var user = await _context.Users.Include(u => u.Municipality).Include(u => u.Province)
+            var user = await _context.Users.Include(u => u.Municipality).ThenInclude(u => u.Province)
                                                    .Where(u => u.Id == currentUserId)
                                                      .FirstOrDefaultAsync();
 
@@ -135,7 +136,7 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
 
             await LoadAsync(user);
             return Page();
-            }
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -156,32 +157,32 @@ namespace versión_5_asp.Areas.Identity.Pages.Account.Manage
             var lName = Input.LName;
             var address = Input.Address;
             var llandline = Input.Landline;
-            var provId = ((List<SelectListItem>)ViewData["ps"]).Find(p => p.Selected).Value;
-            var munId = Input.Municipalities.Find(m => m.Selected).Value;
-            var email = await _userManager.GetEmailAsync(user);
+            var provId = Input.ChosenProv;
+            var munId = Input.ChosenMun;
+            //var email = await _userManager.GetEmailAsync(user);
 
             if (Input.PhoneNumber != phoneNumber)
             {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
+                    StatusMessage = "Error inesperado al tratar de actualizar el número de móvil.";
                     return RedirectToPage();
                 }
             }
-           
-                user.FirstName = fName;
-                user.LastName = lName;
-                user.Address = address;
-                user.Landline = llandline;
-                user.Province = P;
-                user.Municipality = M;
 
-                _context.Users.Update(user);
-                await _context.SaveChangesAsync();
-           
+            user.FirstName = fName;
+            user.LastName = lName;
+            user.Address = address;
+            user.Landline = llandline;
+            user.ProvinceId = provId;
+            user.MunicipalityId = munId;
+
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Su perfil ha sido actualizado";
+            StatusMessage = "Su perfil ha sido actualizado correctamente";
             return RedirectToPage();
         }
     }

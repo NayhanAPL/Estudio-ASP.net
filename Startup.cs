@@ -49,8 +49,7 @@ namespace versión_5_asp
 
             services.AddControllersWithViews();
             services.AddMvc().AddRazorRuntimeCompilation();
-
-            //services.AddScoped<IFunciones, EnlacesFunciones>();
+         
 
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             //    .AddJwtBearer(options => options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
@@ -96,6 +95,8 @@ namespace versión_5_asp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -112,26 +113,7 @@ namespace versión_5_asp
                 endpoints.MapRazorPages();
             });
 
-            //if (!context.Provincias.Any())
-            //{
-            //    context.AddRange(
-            //        new Provincia()
-            //        {
-            //            Name = "La Habana",
-            //            Municipalities = new List<Municipio>() { 
-            //                new Municipio() { Name = "Regla"},
-            //                  new Municipio(){Name = "Guanabacoa"}},
-            //        },
-            //        new Provincia()
-            //        {
-            //            Name = "Matanzas",
-            //            Municipalities = new List<Municipio>() {
-            //                new Municipio() { Name = "Cardenas"},
-            //                  new Municipio(){Name = "Varadero"}},
-            //        }
-            //    );
-            //    context.SaveChanges();
-            //}
+           
         }
     }
 }
