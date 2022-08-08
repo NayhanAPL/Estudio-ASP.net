@@ -187,7 +187,7 @@ namespace versión_5_asp.Data.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int?>("MunicipalityId")
+                    b.Property<int>("MunicipalityId")
                         .HasColumnType("int");
 
                     b.Property<string>("NormalizedEmail")
@@ -207,7 +207,7 @@ namespace versión_5_asp.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ProvinceId")
+                    b.Property<int>("ProvinceId")
                         .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
@@ -321,7 +321,7 @@ namespace versión_5_asp.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProvinceId")
+                    b.Property<int>("ProvinceId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -436,11 +436,15 @@ namespace versión_5_asp.Data.Migrations
                 {
                     b.HasOne("versión_5_asp.Models.Municipio", "Municipality")
                         .WithMany()
-                        .HasForeignKey("MunicipalityId");
+                        .HasForeignKey("MunicipalityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("versión_5_asp.Models.Provincia", "Province")
                         .WithMany()
-                        .HasForeignKey("ProvinceId");
+                        .HasForeignKey("ProvinceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Municipality");
 
@@ -490,7 +494,9 @@ namespace versión_5_asp.Data.Migrations
                 {
                     b.HasOne("versión_5_asp.Models.Provincia", "Province")
                         .WithMany("Municipalities")
-                        .HasForeignKey("ProvinceId");
+                        .HasForeignKey("ProvinceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Province");
                 });

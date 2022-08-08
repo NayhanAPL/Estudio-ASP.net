@@ -91,7 +91,7 @@ form .with-icon-before {
 .container-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(5, 1fr);
+    /*grid-template-rows: repeat(5, 1fr);*/
     gap: 20px;
     grid-auto-rows: auto;
     text-align: start;

@@ -11,8 +11,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using versión_5_asp.Data;
 using versión_5_asp.Models;
 
 namespace versión_5_asp.Areas.Identity.Pages.Account
@@ -24,17 +27,20 @@ namespace versión_5_asp.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
@@ -50,22 +56,23 @@ namespace versión_5_asp.Areas.Identity.Pages.Account
             public string FirstName { get; set; }
 
             [Required]
-            [Display(Name = "Apellido")]
+            [Display(Name = "Apellidos")]
             public string LastName { get; set; }
 
-            
+
             [Display(Name = "Dirección")]
             public string Address { get; set; }
 
-        
-            [Display(Name = "Municipio")]
-            public Municipio Municipality { get; set; }
-
-           
             [Display(Name = "Provincia")]
-            public Provincia Province { get; set; }
+            [BindProperty]
+            public int ChosenProvId { get; set; }
+            public List<SelectListItem> Provinces { get; set; }
+            [Display(Name = "Municipio")]
+            [BindProperty]
+            public int ChosenMunId { get; set; }
+            public List<SelectListItem> Municipalities { get; set; }
 
-           
+
             [Display(Name = "No. Celular")]
             public string Cellphone { get; set; }
 
@@ -93,6 +100,32 @@ namespace versión_5_asp.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            await LoadAsync();
+        }
+
+        private async Task LoadAsync()
+        {
+            Input = new InputModel() { Provinces = new List<SelectListItem>(),
+                                        Municipalities = new List<SelectListItem>()};
+
+            await _context.Provincias.ForEachAsync(a =>
+            Input.Provinces.Add(
+            new SelectListItem()
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name,
+                
+            }));           
+
+            await _context.Municipios.ForEachAsync(a =>
+            Input.Municipalities.Add(
+              new SelectListItem()
+              {
+                  Value = a.Id.ToString(),
+                  Text = a.Name,
+                
+              }));
+
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -100,8 +133,17 @@ namespace versión_5_asp.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
-            {               
-                var appUser = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName, Address = Input.Address, Province = Input.Province, Municipality = Input.Municipality };
+            {
+                var appUser = new ApplicationUser { 
+                                    UserName = Input.Email,
+                                    Email = Input.Email,
+                                    FirstName = Input.FirstName,
+                                    LastName = Input.LastName,
+                                    Address = Input.Address,
+                                    Landline = Input.Landline,
+                                    ProvinceId = Input.ChosenProvId,
+                                    MunicipalityId = Input.ChosenMunId };
+
                 var result = await _userManager.CreateAsync(appUser, Input.Password);
                 await _userManager.SetPhoneNumberAsync(appUser, Input.Cellphone);
                 if (result.Succeeded)

@@ -130,7 +130,7 @@
                                 <label asp-for="Input.Landline" for="landline">Tel&eacute;fono fijo</label>
                                 <input asp-for="Input.Landline" type="text" class="form-control"
                                  aria-describedby="helpId">
-                                  <span asp-validation-for="Input.Address" class="text-danger"></span>
+                                  <span asp-validation-for="Input.Landline" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Input.Address">Direcci&oacute;n</label>
@@ -140,20 +140,16 @@
                             </div>
 
                             <div class="form-group ">
-                                <label asp-for="Input.Province"></label>
-                                <select class="form-control" >
-                                    <option selected>La Habana</option>
-                                    <option>Matanzas</option>
-                                    <option>Cienfuegos</option>
+                                <label asp-for="@Model.Input.Provinces"></label>
+                                <select class="form-control"  asp-for=@Model.Input.ChosenProvId asp-items=@Model.Input.Provinces>
+                                    <option value=0>--Seleccione--</option>                                    
                                 </select>
                             </div>
 
                             <div class="form-group ">
-                                <label asp-for="Input.Municipality"></label>
-                                <select class="form-control" >
-                                    <option selected>Regla</option>
-                                    <option>Habana Vieja</option>
-                                    <option>Guanabacoa</option>
+                                <label asp-for="@Model.Input.Provinces"></label>
+                                <select class="form-control"  asp-for=@Model.Input.ChosenMunId asp-items=@Model.Input.Municipalities>
+                                    <option value=0>--Seleccione--</option>
                                 </select>
                             </div>     
 
