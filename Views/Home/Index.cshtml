@@ -5,159 +5,131 @@
     ViewData["Title"] = "Trueque";
 }
 @section css {
-    <link href="@Url.Content("~/css/style.css")" rel="stylesheet"/>
+<link href="@Url.Content("~/css/style.css")" rel="stylesheet" />
 }
-    <!-- Showcase -->
-            <section class="showcase bg-dark">
-                <div class="container text-sm-start text-light p-5 py-sm-5 px-sm-3">
-                    <div class="d-sm-flex justify-content-between align-items-center">
-                        <div class="showcase-text">
-                            <h1>Bienvenido a <spam class="text-warning">Trueque</spam></h1>
-                            <p class="lead my-4">¿Posee bienes en desuso que desearía intercambiar por otros más acordes con su necesidad?</p>
-                            <p>Pues ha llegado al lugar correcto!</p>
-                            @if (!SignInManager.IsSignedIn(User))
-                            {
-                                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg">Crear una cuenta</a>
-                            }
-                        </div>
-                        <img class="image-fluid w-50 d-none d-sm-block showcase-img" src="/images/svg/undraw_login_re_4vu2.svg" alt="Trueques">
-                    </div>
-            </section>
-            
-    <!-- Searching -->
-    <section class="searching bg-primary text-light p-5">
-      <div class="container">      
-            <form asp-action="Index" method="get">
-                <div class="d-md-flex justify-content-between align-items-center">
-                <h3 class="mb-3 mb-md-0">Buscar trueques <span class="search-extra-text">por palabra clave</span></h3>
-                <div class="input-group search-input">
-                    <input type="text" class="form-control" placeholder="arroz, café, celular..." name="SearchString" value="@ViewData["CurrentFilter"]">
-                    <button class="btn btn-dark btn-lg" type="submit"  asp-controller="TruequesWeb" asp-action="Index">Buscar</button>
+<style>
+    .card i{
+     font-size: 5rem;
+     }
+</style>
+<!-- Search bar -->
+<section class="searching text-white p-3">
+    <div class="container">
+        <form asp-action="Index" method="get">
+            @*<div class="d-md-flex justify-content-between align-items-center">*@
+                @*<h3 class="mb-3 mb-md-0">Buscar trueques <span class="search-extra-text">por palabra clave</span></h3>*@
+                <div class="d-flex justify-content-center align-items-center input-group search-input">
+                    <input type="text" class="form-control" placeholder="Buscar trueques por palabra clave: arroz, café, celular..." name="SearchString" value="@ViewData["CurrentFilter"]">
+                    <button class="btn btn-dark" type="submit" asp-controller="TruequesWeb" asp-action="Index">Buscar</button>
                 </div>
-                </div>
-            </form>
-      </div>       
-    </section>
+            @*</div>*@
+        </form>
+    </div>
+</section>
+
+<!-- Showcase -->
+<section class="showcase bg-gray">
+    <div class="container text-sm-start text-dark p-5 py-sm-5 px-sm-3">
+        <div class="d-sm-flex justify-content-between align-items-center">
+            <div class="showcase-text">
+                <h1>Bienvenido a <spam class="txt">Trueque</spam></h1>
+                <p class="lead my-4">¿Posee bienes en desuso que desearía intercambiar por otros más acordes con su necesidad?</p>
+                <p>Pues ha llegado al lugar correcto!</p>
+                @if (!SignInManager.IsSignedIn(User))
+                {
+                    <a asp-area="Identity" asp-page="/Account/Register" class="btn bg-orange btn-lg text-white">Crear una cuenta</a>
+                }
+            </div>
+            @*<img class="image-fluid w-50 d-none d-sm-block showcase-img" src="/images/svg/undraw_login_re_4vu2.svg" alt="Trueques">*@
+        </div>
+</section>
 
 
-    <!-- About -->
-    <div class="about p-5 bg-light text-md-start">
-        <div class="container">
-            <div class="d-sm-flex justify-content-center align-items-center">
-                <div class="col-md mb-sm-5">
-                    <img src="/images/svg/undraw_sharing_articles_re_jnkp.svg" class="img-fluid w-70 d-none d-md-block" alt="intercambiar">
-                </div>
-                <div class="col-md p-md-5 pe-md-1">
-                    <h2>¿Qu&eacute; es un trueque?</h2>
-                    <div class="line"></div>
-                    <p class="lead">Un <span class="text-primary">trueque</span> es una propuesta de intercambio creada por un ususario de la plataforma. Esta puede ser completa o parcial, es decir, el usuario puede especificar qué busca y qué propone a cambio, indistintamente.</p>
-                    <p class="lead"> Estos trueques son descubiertos por otros usuarios, quienes pueden solicitar su completitud enviando propuestas que complementen el intercambio</p>
-                    <!-- <p class="lead">Este sitio sirve como pasarela para la gestión y registro de sus trueques. Les permite a los ususarios en ultima instancia, intercambiar la información personal provista para cumplimetar su intercambio de manera presencial.</p> -->
-                    <a href="#" class="btn btn-primary mt-3"><span class="bi bi-chevron-right">Leer más</span></a>                    
-                </div>
+<!-- About -->
+<div class="about p-5 bg-white text-md-start">
+    <div class="container">
+        <div class="d-sm-flex justify-content-center align-items-center">
+          
+            <div class="col-md p-md-5 pe-md-1">
+                <h2>¿Qu&eacute; es un trueque?</h2>
+                <div class="line"></div>
+                <p class="lead">Un <span class="txt-orange">trueque</span> es una propuesta de intercambio creada por un ususario de la plataforma. Esta puede ser completa o parcial, es decir, el usuario puede especificar qué busca y qué propone a cambio, indistintamente.</p>
+                <p class="lead"> Estos trueques son descubiertos por otros usuarios, quienes pueden solicitar su completitud enviando propuestas que complementen el intercambio</p>
+                <!-- <p class="lead">Este sitio sirve como pasarela para la gestión y registro de sus trueques. Les permite a los ususarios en ultima instancia, intercambiar la información personal provista para cumplimetar su intercambio de manera presencial.</p> -->
+                <a href="#" class="btn bg-orange text-white mt-3"><span class="bi bi-chevron-right">Leer más</span></a>
+            </div>
+              <div class="col-md mb-sm-5">
+                <img src="/images/svg/undraw_sharing_articles_re_jnkp.svg" class="img-fluid w-70 d-none d-md-block" alt="intercambiar">
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Categories -->
-    <section class="categories pb-5 bg-white">
-        <h2 class="md my-2 pt-4">Categor&iacute;as</h2>
-        <div class="line"></div>
-        <div class="container d-flex flex-wrap justify-content-around">
-            <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Artículos del hogar">
-               
-                <img class="card-img" src="/images/handcraft/undraw_handcrafts_house.svg" alt="Artículos del hogar">
-            </div>
-            <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Alimentos">
-              
-                <img class="card-img" src="/images/handcraft/undraw_handcrafts_birthday_cake.svg" alt="Alimentos">
-            </div>
-            <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Celulares">
-                
-                <img class="card-img" src="/images/handcraft/undraw_handcrafts_smartphone.svg" alt="Celulares">
-            </div>
-            <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Decoración">
-               
-                <img class="card-img" src="/images/handcraft/undraw_handcrafts_plants.svg" alt="Decoración">
-            </div>
-            <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Regalos">
-              
-                <img class="card-img" src="/images/handcraft/undraw_handcrafts_present.svg" alt="Regalos">
-            </div>
-            <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Electrodomésticos">
-               
-                <img class="card-img" src="/images/handcraft/undraw_handcrafts_computer.svg" alt="Electrodomésticos">
-            </div>
-            <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Ropa">
-            
-                <img class="card-img" src="/images/handcraft/undraw_handcrafts_woman.svg" alt="Ropa">
-            </div>
-            <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Especias y medicinas">
-               
-                <img class=" card-img" src="/images/handcraft/undraw_handcrafts_leaf.svg" alt="Especias y medicinas">
-            </div>
-            <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Artículos del hogar">
-              
-                <img class="card-img" src="/images/handcraft/undraw_handcrafts_house.svg" alt="Artículos del hogar">
-            </div>
-            <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Alimentos">
-                
-                <img class="card-img" src="/images/handcraft/undraw_handcrafts_birthday_cake.svg" alt="Alimentos">
-            </div>
-            <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Celulares">
-             
-                <img class="card-img" src="/images/handcraft/undraw_handcrafts_smartphone.svg" alt="Celulares">
-            </div>
-            <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Decoración">
-               
-                <img class="card-img" src="/images/handcraft/undraw_handcrafts_plants.svg" alt="Decoración">
-            </div>
-            <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Regalos">
-               
-                <img class="card-img" src="/images/handcraft/undraw_handcrafts_present.svg" alt="Regalos">
-            </div>
-            <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Electrodomésticos">
-              
-                <img class="card-img" src="/images/handcraft/undraw_handcrafts_computer.svg" alt="Electrodomésticos">
-            </div>
-            <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Ropa">
-                
-                <img class="card-img" src="/images/handcraft/undraw_handcrafts_woman.svg" alt="Ropa">
-            </div>    
+<!-- Categories -->
+<section class="categories pb-5 bg-gray">
+    <h2 class="md my-2 pt-4">Categor&iacute;as</h2>
+    <div class="line"></div>
+    <div class="container d-flex flex-wrap justify-content-around">
+        <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Regalos">
+            <i class="fa fa-gifts" alt="Regalos"></i>
         </div>
-    </section>
+        <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Alimentos">
+
+            <i class="fa fa-hotdog" alt="Alimentos"></i>
+        </div>
+        <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Celulares">
+
+            <i class="fa fa-mobile-alt" alt="Celulares"></i>
+        </div>
+        <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Medicina">
+
+            <i class="fa fa-pills" alt="Medicamentos"></i>
+        </div>
+        <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Aseo y limpieza">
+
+            <i class="fa fa-soap" alt="Aseo y limpieza"></i>
+        </div>
+        <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Electrodomésticos">
+
+            <i class="fa fa-laptop" alt="Electrodomésticos"></i>
+        </div>
+
+    </div>
+</section>
+
 
 <!-- Application -->
-<div class="about p-5 bg-light text-md-start">
+<div class="about p-5 bg-white text-md-start">
     <div class="container">
         <div class="d-sm-flex justify-content-center align-items-center">
+            <div class="col-md mb-sm-5">
+                <img src="/images/svg/undraw_mobile_app_re_catg.svg" class="img-fluid w-70 d-none d-md-block" alt="intercambiar">
+            </div>
             <div class="col-md p-md-5 pe-md-1">
                 <h2>Aplicación Android</h2>
                 <div class="line"></div>
                 <p class="lead">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid alias illum, molestiae saepe illo maxime ipsam harum. Minus, autem quidem quod quis voluptas saepe rem nobis cum optio expedita molestias?</p>
                 <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, a.</p>
                 <!-- <p class="lead">Este sitio sirve como pasarela para la gestión y registro de sus trueques. Les permite a los ususarios en ultima instancia, intercambiar la información personal provista para cumplimetar su intercambio de manera presencial.</p> -->
-                <a href="#" class="btn btn-primary mt-3"><span class="bi bi-chevron-right"><i class="fa fa-download"></i> Descargar App</span></a>                    
+                <a href="#" class="btn bg-orange text-white mt-3"><span class="bi bi-chevron-right"><i class="fa fa-download"></i> Descargar App</span></a>
             </div>
-            <div class="col-md mb-sm-5">
-                <img src="/images/svg/undraw_mobile_app_re_catg.svg" class="img-fluid w-70 d-none d-md-block" alt="intercambiar">
-            </div>
+            
         </div>
     </div>
 </div>
 
-    <!-- FQAs -->
-    <section class="questions py-5 bg-dark">
-        <div class="container">
-            <div class="card">
+<!-- FQAs -->
+<section class="questions py-5 bg-gray">
+    <div class="container">
+        <div class="card">
             <h2 class="my-2 pt-4 ">Peguntas frecuentes</h2>
             <div class="line"></div>
             <div class="accordion accordion-flush" id="questions">
-                   <!-- item 1 -->
-                   <div class="accordion-item">
+                <!-- item 1 -->
+                <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#question-one" aria-expanded="false">
+                                data-bs-target="#question-one" aria-expanded="false">
                             ¿Es necesario tener una cuenta para buscar trueques?
                         </button>
                     </h2>
@@ -169,7 +141,7 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#question-two" aria-expanded="false">
+                                data-bs-target="#question-two" aria-expanded="false">
                             ¿Cómo sé cuando mi propuesta de trueque fue aceptada?
                         </button>
                     </h2>
@@ -181,7 +153,7 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#question-three" aria-expanded="false">
+                                data-bs-target="#question-three" aria-expanded="false">
                             ¿Cómo accedo a la información de contacto de la otra persona?
                         </button>
                     </h2>
@@ -191,5 +163,5 @@
                 </div>
             </div>
         </div>
-        </div>
-    </section>
+    </div>
+</section>

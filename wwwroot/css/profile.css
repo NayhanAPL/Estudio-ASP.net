@@ -48,7 +48,7 @@
     margin-bottom: var(--spacing-2xl);
 }
 
-[type="email"], [type="password"], [type="text"], textarea, .input-text {
+/*[type="email"], [type="password"], [type="text"], textarea, .input-text {
     margin: 0 0 calc(1em * 4 / 16) 0;
     border-width: 0.125em;
     border-style: solid;
@@ -61,7 +61,7 @@
 
 form .with-icon-before {
     position: relative;
-}
+}*/
 
 .svg-inline--fa {
     display: inline-block;

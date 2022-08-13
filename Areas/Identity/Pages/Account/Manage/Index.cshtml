@@ -63,56 +63,56 @@
                     <form method="post">
                         <div class="container-grid">
                               <div class="form-group">
-                                <label asp-for="Username"></label>
+                                <label class="form-label" asp-for="Username"></label>
                                 <input asp-for="Username" type="text" class="form-control" >
                                      <span asp-validation-for="Username" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Input.FName"></label>
+                                <label class="form-label" asp-for="Input.FName"></label>
                                 <input asp-for="Input.FName" type="text" class="form-control" 
                                     aria-describedby="helpId">
                                      <span asp-validation-for="Input.FName" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="Input.LName"></label>
+                                <label class="form-label" asp-for="Input.LName"></label>
                                 <input asp-for="Input.LName" type="text" class="form-control" 
                                     aria-describedby="helpId">
                                      <span asp-validation-for="Input.LName" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Input.PhoneNumber">No. Celular</label>
+                                <label class="form-label" asp-for="Input.PhoneNumber">No. Celular</label>
                                 <input asp-for="Input.PhoneNumber" type="text"  class="form-control"
                                     aria-describedby="helpId">
                                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="Input.Landline" for="landline">Tel&eacute;fono fijo</label>
+                                <label class="form-label" asp-for="Input.Landline" for="landline">Tel&eacute;fono fijo</label>
                                 <input asp-for="Input.Landline" type="text" class="form-control"
                                  aria-describedby="helpId">
                                   <span asp-validation-for="Input.Landline" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Input.Address">Direcci&oacute;n</label>
+                                <label class="form-label" asp-for="Input.Address">Direcci&oacute;n</label>
                                 <input asp-for="Input.Address" type="text"class="form-control"
                                     aria-describedby="helpId">
                                <span asp-validation-for="Input.Address" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="Input.Provinces"></label>                     
+                                <label class="form-label" asp-for="Input.Provinces"></label>                     
                                 <select class="form-control" asp-for=@Model.Input.ChosenProv asp-items=@Model.Input.Provinces></select>
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="Input.Municipalities"></label>                     
+                                <label class="form-label" asp-for="Input.Municipalities"></label>                     
                                 <select class="form-control" asp-for=@Model.Input.ChosenMun asp-items=@Model.Input.Municipalities>                                    
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-lg"
+                                <button type="submit" class="btn bg-orange text-white btn-lg"
                                     style="width:100%;">Actualizar</button>
                             </div>                           
                         </div>

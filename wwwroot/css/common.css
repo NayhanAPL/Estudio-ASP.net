@@ -1,6 +1,7 @@
 :root {
     --bg-blue: #047aed;
     text-align: center;
+    --bg-orange: #FFAB33;
 }
 
 @font-face {
@@ -24,18 +25,18 @@
 }
 
 a {
-    color: var(--bg-blue);
+    color: var(--bg-orange);
 }
 
     a:hover {
-        color: #6ba5fb;
+        color: #FFBF68;
     }
 nav ul {
     list-style-type: none;
 }
 
 .navbar {
-    background-color: var(--bg-blue);
+    background-color: var(--bg-orange);
 }
 
 /* .navbar a:hover {
@@ -43,6 +44,9 @@ nav ul {
 } */
 
 /* Footer */
+footer{
+    font-size: 0.85rem;
+}
 footer a {
     text-decoration: none;
 }
@@ -78,3 +82,11 @@ footer .social a {
         align-items: center;
     }
 }    
+
+.bg-orange {
+    background-color: var(--bg-orange);
+}
+
+.txt-orange {
+    color: var(--bg-orange);
+}

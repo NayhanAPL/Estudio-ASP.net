@@ -3,67 +3,81 @@
     ViewData["Title"] = "Mis Trueques";
 }
 
-<h1>Mis Trueques</h1>
-<a asp-action="Create" asp-route-returnUrl="@Context.Request.Path">Crear trueque</a>
+@section css {
+<link href="@Url.Content("~/css/style.css")" rel="stylesheet" />
+}
 
-<div class="col-sm-12">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Proposition)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Search)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ExtraInfo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Type)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Count() > 0)
-            {
-                foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Proposition)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Search)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ExtraInfo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Type)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Editar</a> |
-                            <a asp-action="Details" asp-route-returnUrl="@Context.Request.Path" asp-route-id="@item.Id">Detalles</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Eliminar</a>
-                        </td>
-                    </tr>
-                }
-            }
-            else
-            {
-                <tr>
-                    <td colspan="3" class="text-center">No se encontraron resultados!</td>
-                </tr>
-            }
+<main role="main" class="app-content px-3" style="padding: calc(1rem*5); ">
+    <div class="container">
+        <div class="line-length-sm">
+            <article class="card py-5">
+                <h2 class="text-center">Mis Trueques</h2>
+                <form asp-action="Index" method="get">
+                    <div class="filters d-flex flex-column flex-md-row justify-content-center align-items-center">
+                        <p class="lead m-3">Filtrar por Propone/Busca:</p>
+                        <input type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]">
+                        <button type="submit" id="search-btn" class="btn bg-orange text-white my-3 mx-2"><i class="fa fa-search"></i></button>
+                        <a asp-action="Index" id="reset-btn" class="btn bg-orange text-white my-3"><i class="fa-solid fa-arrows-rotate"></i></a>
+                    </div>
+                </form>
+                <p>
 
-        </tbody>
-    </table>
-</div>
+                </p>
+                <div class="table-responsive">
+                    <table class="table caption-top">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Tipo</th>
+                                <th scope="col"> <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Propongo</a></th>
+                                <th scope="col">Busco</th>
+                                <th scope="col"><a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Fecha de creación</a></th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (@Model.Count() > 0)
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        @if (item.Type == versión_5_asp.Models.Type.Completo)
+                                        {
+                                            <td><i class="fa-solid fa-arrow-right-arrow-left"></i></td>
+                                        }
+                                        else if (item.Type == versión_5_asp.Models.Type.Propongo)
+                                        {
+                                            <td><i class="fa-solid fa-arrow-right"></i></td>
+                                        }
+                                        else
+                                        {
+                                            <td><i class="fa-solid fa-arrow-left"></i></td>
+                                        }
+
+                                        <td>@item.Proposition</td>
+                                        <td>@item.Search</td>
+                                        <td>@item.Date</td>
+
+                                        <th scope="col">
+                                            <div class="options">
+                                                @*<a class="details-btn text-success me-2" asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)" data-bs-placement="top" data-bs-toggle="tooltip" title="Ver detalles"><i class="fa fa-eye"></i></a>*@
+                                                <a class="details-btn text-success me-2" asp-action="Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Editar"><i class="fa fa-edit"></i></a>
+                                                <a class="request-btn text-danger" data-bs-placement="top" data-bs-toggle="tooltip" title="Eliminar" asp-action="Delete" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)" data-bs-placement="top" title="Eliminar"><i class="fa fa-trash-alt"></i></a>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                }
+
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5" class="text-center">No se encontraron resultados!</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        </div>
+    </div>
+</main>

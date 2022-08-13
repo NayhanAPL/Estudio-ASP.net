@@ -100,71 +100,73 @@
                     <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
                         <div class="container-grid">
                             <div class="form-group">
-                                <label asp-for="Input.FirstName"></label>
+                                <div >
+                                <label class="form-label" asp-for="Input.FirstName"></label>
+                                </div>
                                 <input asp-for="Input.FirstName" type="text" class="form-control" 
                                     aria-describedby="helpId">
                                      <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                             </div>
 
-                            <div class="form-group ">
-                                <label asp-for="Input.LastName"></label>
+                            <div class="form-group">
+                                <label class="form-label" asp-for="Input.LastName"></label>
                                 <input asp-for="Input.LastName" type="text" class="form-control" 
                                     aria-describedby="helpId">
                                      <span asp-validation-for="Input.LastName" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="Input.Email"></label>
+                                <label class="form-label" asp-for="Input.Email"></label>
                                 <input asp-for="Input.Email" type="email" class="form-control" 
                                     aria-describedby="emailHelpId">
                                 <span asp-validation-for="Input.Email" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Input.Cellphone">No. Celular</label>
+                                <label class="form-label"  asp-for="Input.Cellphone">No. Celular</label>
                                 <input asp-for="Input.Cellphone" type="text"  class="form-control"
                                     aria-describedby="helpId">
                                 <span asp-validation-for="Input.Cellphone" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="Input.Landline" for="landline">Tel&eacute;fono fijo</label>
+                                <label class="form-label"  asp-for="Input.Landline" for="landline">Tel&eacute;fono fijo</label>
                                 <input asp-for="Input.Landline" type="text" class="form-control"
                                  aria-describedby="helpId">
                                   <span asp-validation-for="Input.Landline" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Input.Address">Direcci&oacute;n</label>
+                                <label class="form-label"  asp-for="Input.Address">Direcci&oacute;n</label>
                                 <input asp-for="Input.Address" type="text"class="form-control"
                                     aria-describedby="helpId">
                                <span asp-validation-for="Input.Address" class="text-danger"></span>
                             </div>
 
                             <div class="form-group ">
-                                <label asp-for="@Model.Input.Provinces"></label>
+                                <label class="form-label"  asp-for="@Model.Input.Provinces"></label>
                                 <select class="form-control"  asp-for=@Model.Input.ChosenProvId asp-items=@Model.Input.Provinces>
                                     <option value=0>--Seleccione--</option>                                    
                                 </select>
                             </div>
 
                             <div class="form-group ">
-                                <label asp-for="@Model.Input.Provinces"></label>
+                                <label class="form-label"  asp-for="@Model.Input.Provinces"></label>
                                 <select class="form-control"  asp-for=@Model.Input.ChosenMunId asp-items=@Model.Input.Municipalities>
                                     <option value=0>--Seleccione--</option>
                                 </select>
                             </div>     
 
                             <div class="form-group">
-                                <label asp-for="Input.Password"></label>
+                                <label class="form-label"  asp-for="Input.Password"></label>
                                 <input asp-for="Input.Password" type="password" class="form-control" >
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="Input.ConfirmationPassword"></label>
+                                <label class="form-label"  asp-for="Input.ConfirmationPassword"></label>
                                 <input asp-for="Input.ConfirmationPassword" type="password" class="form-control" >
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-lg"
+                                <button type="submit" class="btn bg-orange text-white btn-lg"
                                     style="width:100%;">Registrarme</button>
                             </div>
                             @{

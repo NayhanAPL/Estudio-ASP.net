@@ -24,11 +24,11 @@
                 </select>
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
-            @*<div class="form-group"> Filtrar por rol/permisos
+            <div hidden class="form-group">
             <label asp-for="ApplicationUserId" class="control-label"></label>
             <input asp-for="ApplicationUserId" class="form-control" />
             <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
-        </div>*@
+        </div>
             <div class="form-group">
                 <label asp-for="Proposition" class="control-label"></label>
                 <input asp-for="Proposition" class="form-control" />
@@ -44,11 +44,11 @@
                 <input asp-for="ExtraInfo" class="form-control" />
                 <span asp-validation-for="ExtraInfo" class="text-danger"></span>
             </div>
-            @*<div class="form-group"> //filtrar por rol/permisos
+            <div hidden class="form-group"> //filtrar por rol/permisos
             <label asp-for="Date" class="control-label"></label>
             <input asp-for="Date" class="form-control" />
             <span asp-validation-for="Date" class="text-danger"></span>
-        </div>*@
+        </div>
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>

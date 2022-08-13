@@ -118,8 +118,8 @@ var nextDisabled = !Model.HasNextPage ? "disabled" : ""; }
                             <div class="filters d-flex flex-column flex-md-row justify-content-center align-items-center">
                                 <p class="lead m-3">Filtrar por Propone/Busca:</p>
                                 <input type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]">
-                                <button type="submit" id="search-btn" class="btn btn-primary my-3 mx-2"><i class="fa fa-search"></i></button>
-                                <a asp-action="Index" id="reset-btn" class="btn btn-primary my-3"><i class="fa-solid fa-arrows-rotate"></i></a>
+                                <button type="submit" id="search-btn" class="btn bg-orange text-white my-3 mx-2"><i class="fa fa-search"></i></button>
+                                <a asp-action="Index" id="reset-btn" class="btn bg-orange text-white my-3"><i class="fa-solid fa-arrows-rotate"></i></a>
                              </div>
                         </form>                   
                     <p>
@@ -152,7 +152,7 @@ var nextDisabled = !Model.HasNextPage ? "disabled" : ""; }
                                     <th scope="col">
                                         <div class="opciones">
                                             <a class="btn btn-secondary details-btn" asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)"  data-bs-placement="top" title="Ver detalles"><i class="fa fa-eye"></i></a> 
-                                            <a class="btn btn-success request-btn" data-bs-placement="top" data-bs-toggle="tooltip" title="Solicitar" asp-action="RequestTrueque" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)"><i class="fa fa-comment"></i></a>
+                                            <a class="btn bg-orange text-white request-btn" data-bs-placement="top" data-bs-toggle="tooltip" title="Solicitar" asp-action="RequestTrueque" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)"><i class="fa fa-comment"></i></a>
                                            
                                         </div>
                                     </th>

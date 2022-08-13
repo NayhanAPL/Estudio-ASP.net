@@ -1,74 +1,164 @@
 ﻿@model IEnumerable<Enlace>
 
 
-<h1>Mis Solicitudes</h1>
-
-
-<div class="col-sm-12">
+@*
+    <div class="col-sm-12">
     <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Mi Trueque
-                </th>
-                <th>
-                    Trueque solicitado
-                </th>
-                <th>
-                    Estado
-                </th>
-                <th>
-                    Acción
-                </th>
-                
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Count() != 0)
-            {
-                foreach (var item in Model)
-                {
-            <tr>
-                <td>
-                    @if (item.TruequeSu != null)
-                    {
-                        <dl>
-                            <dt>
-                                Usted Propone/Busca
-                            </dt>
-                            <dd>
-                                <a asp-action="Details" asp-controller="TruequesWeb" asp-route-id="@item.TruequeSu.Id" asp-route-returnUrl="@Context.Request.Path">Propone: @item.TruequeSu.Proposition /<br>Busca: @item.TruequeSu.Search</a>
-                            </dd>
-                        </dl>
-                    }
-                </td>
-                <td>
-                    @if (item.TruequeMi != null)
-                    {
-                        <dl>
-                            <dt>
-                                Ella/Él Propone/Busca
-                            </dt>
-                            <dd>
-                                <a asp-action="TruequeSolicitudDetails" asp-controller="TruequesWeb" asp-route-id="@item.TruequeMi.Id" asp-route-returnUrl="@Context.Request.Path" asp-route-state="@item.State">Propone: @item.TruequeMi.Proposition /<br>Busca: @item.TruequeMi.Search</a>
-                            </dd>
-                        </dl>
-                    }
-                </td>
-                <td>@item.State</td>
-                @if (item.State == State.Aceptado)
-                {
-                    <td><a asp-action="FinalizarTrueque" alt="Se realizó el intercambio exitosamente" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Finalizar</a></td>
-                    <td><a asp-action="Rechazar" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Rechazar</a></td>
-                }
-                else{
-            <td><a asp-action="Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Borrar</a></td>
-                }
-               
-            </tr>
-                }
-            }
-            
-        </tbody>
+    <thead>
+    <tr>
+    <th>
+    Mi Trueque
+    </th>
+    <th>
+    Trueque solicitado
+    </th>
+    <th>
+    Estado
+    </th>
+    <th>
+    Acción
+    </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model.Count() != 0)
+    {
+    foreach (var item in Model)
+    {
+    <tr>
+    <td>
+    @if (item.TruequeSu != null)
+    {
+    <dl>
+    <dt>
+    Usted Propone/Busca
+    </dt>
+    <dd>
+    <a asp-action="Details" asp-controller="TruequesWeb" asp-route-id="@item.TruequeSu.Id" asp-route-returnUrl="@Context.Request.Path">Propone: @item.TruequeSu.Proposition /<br>Busca: @item.TruequeSu.Search</a>
+    </dd>
+    </dl>
+    }
+    </td>
+    <td>
+    @if (item.TruequeMi != null)
+    {
+    <dl>
+    <dt>
+    Ella/Él Propone/Busca
+    </dt>
+    <dd>
+    <a asp-action="TruequeSolicitudDetails" asp-controller="TruequesWeb" asp-route-id="@item.TruequeMi.Id" asp-route-returnUrl="@Context.Request.Path" asp-route-state="@item.State">Propone: @item.TruequeMi.Proposition /<br>Busca: @item.TruequeMi.Search</a>
+    </dd>
+    </dl>
+    }
+    </td>
+    <td>@item.State</td>
+    @if (item.State == State.Aceptado)
+    {
+    <td><a asp-action="FinalizarTrueque" alt="Se realizó el intercambio exitosamente" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Finalizar</a></td>
+    <td><a asp-action="Rechazar" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Rechazar</a></td>
+    }
+    else{
+    <td><a asp-action="Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Borrar</a></td>
+    }
+
+    </tr>
+    }
+    }
+
+    </tbody>
     </table>
-</div>
+    </div>*@
+
+@section css {
+<link href="@Url.Content("~/css/style.css")" rel="stylesheet" />
+}
+
+<main role="main" class="app-content px-3" style="padding: calc(1rem*5); ">
+    <div class="container">
+        <div class="line-length-sm">
+            <article class="card py-5">
+                <h2 class="text-center">Mis Solicitudes</h2>
+                <form asp-action="Index" method="get">
+                    <div class="filters d-flex flex-column flex-md-row justify-content-center align-items-center">
+                        <p class="lead m-3">Filtrar por Propone/Busca:</p>
+                        <input type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]">
+                        <button type="submit" id="search-btn" class="btn bg-orange text-white my-3 mx-2"><i class="fa fa-search"></i></button>
+                        <a asp-action="Index" id="reset-btn" class="btn bg-orange text-white my-3"><i class="fa-solid fa-arrows-rotate"></i></a>
+                    </div>
+                </form>
+                <p>
+                </p>
+                <div class="table-responsive">
+                    <table class="table caption-top">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Mi trueque</th>
+                                <th scope="col">Trueque solicitado</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Count() != 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (item.TruequeSu != null)
+                                            {
+                                                <dl>
+                                                    <dt>
+                                                        Usted Propone/Busca
+                                                    </dt>
+                                                    <dd>
+                                                        <a asp-action="Details" asp-controller="TruequesWeb" asp-route-id="@item.TruequeSu.Id" asp-route-returnUrl="@Context.Request.Path">Propone: @item.TruequeSu.Proposition /<br>Busca: @item.TruequeSu.Search</a>
+                                                    </dd>
+                                                </dl>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.TruequeMi != null)
+                                            {
+                                                <dl>
+                                                    <dt>
+                                                        Ella/Él Propone/Busca
+                                                    </dt>
+                                                    <dd>
+                                                        <a asp-action="TruequeSolicitudDetails" asp-controller="TruequesWeb" asp-route-id="@item.TruequeMi.Id" asp-route-returnUrl="@Context.Request.Path" asp-route-state="@item.State">Propone: @item.TruequeMi.Proposition /<br>Busca: @item.TruequeMi.Search</a>
+                                                    </dd>
+                                                </dl>
+                                            }
+                                        </td>
+                                        @if (item.State == State.Pendiente)
+                                            {<td><i class="fa fa-clock state mt-2 text-secondary" data-bs-placement="top" data-bs-toggle="tooltip" title="@item.State"></i></td>}
+                                       
+                                        @if (item.State == State.Aceptado)
+                                        {                                           
+                                            <th class="options">
+                                                <a class="details-btn text-success me-2" asp-action="FinalizarTrueque" alt="Se realizó el intercambio exitosamente" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Aceptar"><i class="fa fa-handshake"></i></a>
+                                                <a class="request-btn text-danger me-2" asp-action="Rechazar" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Rechazar"><i class="fa fa-handshake-slash"></i></a>
+                                            </th>
+                                        }
+                                        else
+                                        {
+                                            <th class="options">                                               
+                                                <a class="details-btn text-success me-2" asp-action="Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Editar" ><i class="fa fa-edit"></i></a>
+                                                <a class="request-btn text-danger me-2" asp-action="Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Eliminar" ><i class="fa fa-trash-alt"></i></a>
+                                            </th>
+
+                                        }
+
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        </div>
+    </div>
+</main>
