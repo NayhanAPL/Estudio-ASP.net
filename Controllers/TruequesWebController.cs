@@ -38,7 +38,8 @@ namespace versión_5_asp.Controllers
                            select t;
 
             var claim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (claim != null) {
+            if (claim != null)
+            {
                 string currentUserId = claim.Value;
                 trueques = trueques.Where(t => t.ApplicationUserId != currentUserId);
             }
@@ -57,7 +58,7 @@ namespace versión_5_asp.Controllers
             }
 
             ViewData["CurrentFilter"] = searchString;
-        
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 trueques = trueques.Where(t => t.Proposition.Contains(searchString)
@@ -90,7 +91,7 @@ namespace versión_5_asp.Controllers
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             if (!String.IsNullOrWhiteSpace(currentUserId))
             {
-                var elems = await _context.Trueques.OrderBy(t=>t.Date).Where(x => x.ApplicationUserId == currentUserId).ToListAsync();
+                var elems = await _context.Trueques.OrderBy(t => t.Date).Where(x => x.ApplicationUserId == currentUserId).ToListAsync();
                 return View("MisTrueques", elems);
             }
             return BadRequest("User not uthentiated");
@@ -395,11 +396,11 @@ namespace versión_5_asp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var trueque = await _context.Trueques.FindAsync(id);
-            ImageModel image= new();
+            ImageModel image = new();
             //load image url
             if (await _context.Imagenes.AnyAsync(x => x.TruequeId == id))
             {
-               image = await _context.Imagenes.FirstOrDefaultAsync(x => x.TruequeId == id);
+                image = await _context.Imagenes.FirstOrDefaultAsync(x => x.TruequeId == id);
                 //delete image     
                 var splitRes = image.ImageUrl.Split(".");
                 var filePath = Path.Combine(_hostEnvironment.WebRootPath + "/Images/" + image.ImageUrl);
@@ -416,9 +417,10 @@ namespace versión_5_asp.Controllers
                 }
                 //delete records
                 _context.Imagenes.Remove(image);
-            }  
+            }
 
-            if(!_context.Enlace.Any(e => e.TruequeMi.Id == id || e.TruequeSu.Id == id)){
+            if (!_context.Enlace.Any(e => e.TruequeMi.Id == id || e.TruequeSu.Id == id))
+            {
                 _context.Trueques.Remove(trueque);
                 await _context.SaveChangesAsync();
             }
@@ -434,7 +436,7 @@ namespace versión_5_asp.Controllers
 
         public async Task<PartialViewResult> SearchTrueques(string searchText)
         {
-            if (searchText == null) { searchText = ""; }   
+            if (searchText == null) { searchText = ""; }
             var res = new List<Trueque>();
             if (searchText != "")
             {
@@ -442,7 +444,7 @@ namespace versión_5_asp.Controllers
                 //res = await _context.Trueques.Where(t => t.Proposition.Contains(searchText.ToLower())
                 //                    || t.Search.Contains(searchText)
                 //                        || t.ExtraInfo.Contains(searchText)).ToListAsync();
-                var users_trueques =  await _context.Users.Include(u => u.Trueques).ToListAsync();
+                var users_trueques = await _context.Users.Include(u => u.Trueques).ToListAsync();
                 foreach (var user in users_trueques)
                 {
                     user.Trueques.ForEach(t => t.ApplicationUser = user);
@@ -450,25 +452,27 @@ namespace versión_5_asp.Controllers
                                           || t.ExtraInfo.ToLower().Contains(searchText)).ToList());
                 }
                 //res = _context.Trueques.Include(t => t.ApplicationUser).Where(t => t.Proposition.Contains(searchText) || t.Search.Contains(searchText)
-                                          //|| t.ExtraInfo.Contains(searchText)).ToList();
+                //|| t.ExtraInfo.Contains(searchText)).ToList();
                 //await users_trueques.ForEachAsync(u => res.AddRange(u.Trueques.Where(t => t.Proposition.Contains(searchText) || t.Search.Contains(searchText)
                 //                          || t.ExtraInfo.Contains(searchText)).ToList()));
             }
             else
             {
-                res = await _context.Trueques.Include(t=>t.ApplicationUser).ToListAsync();
+                res = await _context.Trueques.Include(t => t.ApplicationUser).ToListAsync();
             }
-          
+
             return PartialView("_GridView", res);
         }
         public async Task<IActionResult> RequestTrueque(int id, string returnUrl)
         {
-            var targetTrueque = await _context.Trueques.Include(t=>t.Image).FirstOrDefaultAsync(t => t.Id == id);
+            var targetTrueque = await _context.Trueques.Include(t => t.Image).FirstOrDefaultAsync(t => t.Id == id);
             //load image
-            if (targetTrueque.Image != null) { var img = await _context.Imagenes.FindAsync(targetTrueque.Image.Id);
+            if (targetTrueque.Image != null)
+            {
+                var img = await _context.Imagenes.FindAsync(targetTrueque.Image.Id);
                 targetTrueque.Image = img;
             }
-            
+
             var userClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userClaim == null)
             {
@@ -483,73 +487,80 @@ namespace versión_5_asp.Controllers
             var solicitudes = new List<Enlace>();
             if (ModelState.IsValid)
             {
-                //Create Trueque
-                var currentDate = DateTime.Now;
-                var currentUserID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                trueque.Date = currentDate;
-                trueque.ApplicationUserId = currentUserID;
+                //Validate same trueque has not been requested
+                var res = _context.Enlace.AnyAsync(e => e.TruequeMi.Id.ToString() == truequeMiId).Result;
+                if (res)
+                { return RedirectToAction("Index"); }
 
-                //Save image to wwwroot
-                if (trueque.Image != null)
-                {
-                    var wwwRootPath = _hostEnvironment.WebRootPath;
-                    //var fileName = Path.GetFileNameWithoutExtension(trueque.Image.ImageFile.FileName);
-                    var extension = Path.GetExtension(trueque.Image.ImageFile.FileName);
-                    var rname = Path.GetRandomFileName().Split('.')[0];
-                    trueque.Image.ImageUrl = rname + extension;//DateTime.Now.ToString("ddMMyyyyfff") + extension;
-                                                               //trueque.Thumbnail.ImageUrl = rname + "_thumb." + extension;
+                    //Create Trueque
+                    var currentDate = DateTime.Now;
+                    var currentUserID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    trueque.Date = currentDate;
+                    trueque.ApplicationUserId = currentUserID;
 
-                    var path = Path.Combine(wwwRootPath + "/Images/", rname + extension);
-                    var thumbnailPath = Path.Combine(wwwRootPath + "/Images/thumbnails/", rname + "_thumb" + extension);
-
-                    using (var memoryStream = new MemoryStream())
+                    //Save image to wwwroot
+                    if (trueque.Image != null)
                     {
-                        await trueque.Image.ImageFile.CopyToAsync(memoryStream);
-                        using (var fileStream = new FileStream(path, FileMode.Create))
+                        var wwwRootPath = _hostEnvironment.WebRootPath;
+                        //var fileName = Path.GetFileNameWithoutExtension(trueque.Image.ImageFile.FileName);
+                        var extension = Path.GetExtension(trueque.Image.ImageFile.FileName);
+                        var rname = Path.GetRandomFileName().Split('.')[0];
+                        trueque.Image.ImageUrl = rname + extension;//DateTime.Now.ToString("ddMMyyyyfff") + extension;
+                                                                   //trueque.Thumbnail.ImageUrl = rname + "_thumb." + extension;
+
+                        var path = Path.Combine(wwwRootPath + "/Images/", rname + extension);
+                        var thumbnailPath = Path.Combine(wwwRootPath + "/Images/thumbnails/", rname + "_thumb" + extension);
+
+                        using (var memoryStream = new MemoryStream())
                         {
-                            await trueque.Image.ImageFile.CopyToAsync(fileStream);
-                            var img = Image.FromStream(memoryStream);
-                            // TODO: ResizeImage(img, 100, 100);
-                            var thumb = img.GetThumbnailImage(100, 100, () => false, IntPtr.Zero);
-                            thumb.Save(thumbnailPath);
+                            await trueque.Image.ImageFile.CopyToAsync(memoryStream);
+                            using (var fileStream = new FileStream(path, FileMode.Create))
+                            {
+                                await trueque.Image.ImageFile.CopyToAsync(fileStream);
+                                var img = Image.FromStream(memoryStream);
+                                // TODO: ResizeImage(img, 100, 100);
+                                var thumb = img.GetThumbnailImage(100, 100, () => false, IntPtr.Zero);
+                                thumb.Save(thumbnailPath);
+                            };
                         };
-                    };
 
-                }
-                _context.Add(trueque);
-                //await _context.SaveChangesAsync();
+                    }
+                    _context.Add(trueque);
+                    //await _context.SaveChangesAsync();
 
-                //
+                    //
 
-                //var currentUserID = User.FindFirst(ClaimTypes.NameIdentifier);
-                if (currentUserID != null && truequeMiId != null)
-                {
-                    var trueuqeMi = await _context.Trueques.FindAsync(int.Parse(truequeMiId));
-                    var enlace = new Enlace()
+                    //var currentUserID = User.FindFirst(ClaimTypes.NameIdentifier);
+                    if (currentUserID != null && truequeMiId != null)
                     {
-                        TruequeSu = trueque,
-                        TruequeMi = trueuqeMi                       
-                    };
+                        var trueuqeMi = await _context.Trueques.FindAsync(int.Parse(truequeMiId));
+                        var enlace = new Enlace()
+                        {
+                            TruequeSu = trueque,
+                            TruequeMi = trueuqeMi
+                        };
 
-                    _context.Enlace.Add(enlace);
-                    await _context.SaveChangesAsync();
+                        _context.Enlace.Add(enlace);
+                        await _context.SaveChangesAsync();
 
-                    solicitudes = await _context.Enlace.Include(x => x.TruequeMi).Where(x => x.TruequeSu.ApplicationUserId == currentUserID).ToListAsync();
-                }         
-                               
+                        solicitudes = await _context.Enlace.Include(x => x.TruequeMi).Where(x => x.TruequeSu.ApplicationUserId == currentUserID).ToListAsync();
+                    
+                }
+
+
             }
             return RedirectToAction("GetMisSolicitudes", "Enlaces", solicitudes);
         }
-        public async Task<IActionResult> TruequeSolicitudDetails(int? id, string returnUrl, State state)
+        public async Task<IActionResult> TruequeSolicitudDetails(int? id, string returnUrl, State? state)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var trueque = await _context.Trueques.FindAsync(id);            
+            var trueque = await _context.Trueques.FindAsync(id);
             trueque.ApplicationUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == trueque.ApplicationUserId);
-            
+
             if (trueque == null)
             {
                 return NotFound();
@@ -560,8 +571,8 @@ namespace versión_5_asp.Controllers
             ImageModel _default = new() { ImageUrl = "sin_imagen.jpg" };
             try
             {
-                var res =  _context.Imagenes.FirstOrDefault(x => x.TruequeId == id);
-                if(trueque.Image != null) { trueque.Image = res.ImageUrl == null ? _default : res; }
+                var res = _context.Imagenes.FirstOrDefault(x => x.TruequeId == id);
+                if (trueque.Image != null) { trueque.Image = res.ImageUrl == null ? _default : res; }
                 else
                 {
                     trueque.Image = _default;
@@ -573,7 +584,7 @@ namespace versión_5_asp.Controllers
             }
             string url = Request.Headers["Referer"].ToString();
             ViewData["PreviousUrl"] = returnUrl;
-            ViewData["State"] = state.ToString();
+            if (state != null) { ViewData["State"] = state.ToString(); }           
             return View(trueque);
         }
 

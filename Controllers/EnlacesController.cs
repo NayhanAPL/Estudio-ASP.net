@@ -201,18 +201,25 @@ namespace versión_5_asp.Controllers
             var enlace = await _context.Enlace.Include(e=>e.TruequeMi).Include(e=>e.TruequeSu).FirstOrDefaultAsync(e=>e.Id == id);
             if (enlace!=null)
             {
-                //crear entrada en tabla EnlaceHecho
-                await _context.EnlaceHecho.AddAsync(new EnlaceHecho()
+                // Validate if there is not already a request on the same trueque
+                 var res = _context.EnlaceHecho.AnyAsync(e => e.TruequeMi.Id == id).Result;
+                if (!res)
                 {
-                    TruequeMi = enlace.TruequeMi,
-                    TruequeSu = enlace.TruequeSu,
-                    Fecha = DateTime.Now
-                });
-                _context.Enlace.Remove(enlace);
-            }
-            await _context.SaveChangesAsync();      
+                    //crear entrada en tabla EnlaceHecho
+                    await _context.EnlaceHecho.AddAsync(new EnlaceHecho()
+                    {
+                        TruequeMi = enlace.TruequeMi,
+                        TruequeSu = enlace.TruequeSu,
+                        Fecha = DateTime.Now
+                    });
+
+                    _context.Enlace.Remove(enlace);
+                    await _context.SaveChangesAsync();
+                }
+            }               
             
-            string url = Request.Headers["Referer"].ToString();
+            string url = Request.Headers["Referer"].ToString();            
+            //ViewData["Message"] = "Diríjase a la página de Trueques finalizados para contactar con el ususario";
             return Redirect(url);
         }
     }

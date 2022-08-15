@@ -76,6 +76,7 @@
 }
 
 <main role="main" class="app-content px-3" style="padding: calc(1rem*5); ">
+    <partial name="_StatusMessage" model=@ViewData["Message"]/>
     <div class="container">
         <div class="line-length-sm">
             <article class="card py-5">
@@ -133,12 +134,17 @@
                                             }
                                         </td>
                                         @if (item.State == State.Pendiente)
-                                            {<td><i class="fa fa-clock state mt-2 text-secondary" data-bs-placement="top" data-bs-toggle="tooltip" title="@item.State"></i></td>}
+                                            {<td><i class="fa fa-clock state mt-2 text-secondary" data-bs-placement="top" data-bs-toggle="tooltip" title="@item.State"></i></td>
+                                                <th class="options">                                               
+                                                   <a class="request-btn text-danger me-2" asp-action="Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Eliminar" ><i class="fa fa-trash-alt"></i></a>
+                                                </th>
+                                            }
                                        
-                                        @if (item.State == State.Aceptado)
-                                        {                                           
+                                        else if (item.State == State.Aceptado)
+                                        {              
+                                            <td><i class="fa fa-check state mt-2 text-success" data-bs-placement="top" data-bs-toggle="tooltip" title="@item.State"></i></td>
                                             <th class="options">
-                                                <a class="details-btn text-success me-2" asp-action="FinalizarTrueque" alt="Se realizó el intercambio exitosamente" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Aceptar"><i class="fa fa-handshake"></i></a>
+                                                <a class="details-btn text-success me-2" asp-action="FinalizarTrueque" alt="Se realizó el intercambio exitosamente" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Finalizar"><i class="fa fa-handshake"></i></a>
                                                 <a class="request-btn text-danger me-2" asp-action="Rechazar" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Rechazar"><i class="fa fa-handshake-slash"></i></a>
                                             </th>
                                         }
