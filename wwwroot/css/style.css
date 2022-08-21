@@ -145,7 +145,12 @@ body {
     .search-extra-text {
         display: none;
     }
+
+    .btn-options {
+        width: 100%;
+    }
 }
+
 
 
 /* Utilities */

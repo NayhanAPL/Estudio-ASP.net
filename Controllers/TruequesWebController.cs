@@ -268,7 +268,7 @@ namespace versión_5_asp.Controllers
                 _context.Add(trueque);
                 await _context.SaveChangesAsync();
                 //
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(GetTruequesFromCurrentUser));
             }
             string url = Request.Headers["Referer"].ToString();
             ViewData["PreviousUrl"] = url;
@@ -352,11 +352,11 @@ namespace versión_5_asp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(GetTruequesFromCurrentUser));
             }
             //string url = Request.Headers["Referer"].ToString();
             ViewData["PreviousUrl"] = returnUrl;
-            return View(trueque);
+            return View(nameof(GetTruequesFromCurrentUser));
         }
 
         // GET: TruequesWeb/Delete/5
@@ -396,36 +396,38 @@ namespace versión_5_asp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var trueque = await _context.Trueques.FindAsync(id);
-            ImageModel image = new();
-            //load image url
-            if (await _context.Imagenes.AnyAsync(x => x.TruequeId == id))
-            {
-                image = await _context.Imagenes.FirstOrDefaultAsync(x => x.TruequeId == id);
-                //delete image     
-                var splitRes = image.ImageUrl.Split(".");
-                var filePath = Path.Combine(_hostEnvironment.WebRootPath + "/Images/" + image.ImageUrl);
-                var thumbPath = Path.Combine(_hostEnvironment.WebRootPath + "/Images/thumbnails/" + splitRes[0] + "_thumb." + splitRes[1]);
-                //delete img
-                if (System.IO.File.Exists(filePath))
-                {
-                    System.IO.File.Delete(filePath);
-                }
-                //delete thumbnail
-                if (System.IO.File.Exists(thumbPath))
-                {
-                    System.IO.File.Delete(thumbPath);
-                }
-                //delete records
-                _context.Imagenes.Remove(image);
-            }
-
+            //Check if the trueque has not been includen within a request
             if (!_context.Enlace.Any(e => e.TruequeMi.Id == id || e.TruequeSu.Id == id))
             {
+                ImageModel image = new();
+                //load image url
+                if (await _context.Imagenes.AnyAsync(x => x.TruequeId == id))
+                {
+                    image = await _context.Imagenes.FirstOrDefaultAsync(x => x.TruequeId == id);
+                    //delete image     
+                    var splitRes = image.ImageUrl.Split(".");
+                    var filePath = Path.Combine(_hostEnvironment.WebRootPath + "/Images/" + image.ImageUrl);
+                    var thumbPath = Path.Combine(_hostEnvironment.WebRootPath + "/Images/thumbnails/" + splitRes[0] + "_thumb." + splitRes[1]);
+                    //delete img
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                    //delete thumbnail
+                    if (System.IO.File.Exists(thumbPath))
+                    {
+                        System.IO.File.Delete(thumbPath);
+                    }
+                    //delete records
+                    _context.Imagenes.Remove(image);
+                }
                 _context.Trueques.Remove(trueque);
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction(nameof(GetTruequesFromCurrentUser));
+            //Prompt an alert warning the user that the trueque is been requested
+            TempData["ErrorMsg"] = "Error: No se puede eliminar un trueque que está en procesamiento de petición";
+            return RedirectToAction(nameof(Delete), id);
         }
 
         private bool TruequeExists(int id)
@@ -492,59 +494,59 @@ namespace versión_5_asp.Controllers
                 if (res)
                 { return RedirectToAction("Index"); }
 
-                    //Create Trueque
-                    var currentDate = DateTime.Now;
-                    var currentUserID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                    trueque.Date = currentDate;
-                    trueque.ApplicationUserId = currentUserID;
+                //Create Trueque
+                var currentDate = DateTime.Now;
+                var currentUserID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                trueque.Date = currentDate;
+                trueque.ApplicationUserId = currentUserID;
 
-                    //Save image to wwwroot
-                    if (trueque.Image != null)
+                //Save image to wwwroot
+                if (trueque.Image != null)
+                {
+                    var wwwRootPath = _hostEnvironment.WebRootPath;
+                    //var fileName = Path.GetFileNameWithoutExtension(trueque.Image.ImageFile.FileName);
+                    var extension = Path.GetExtension(trueque.Image.ImageFile.FileName);
+                    var rname = Path.GetRandomFileName().Split('.')[0];
+                    trueque.Image.ImageUrl = rname + extension;//DateTime.Now.ToString("ddMMyyyyfff") + extension;
+                                                               //trueque.Thumbnail.ImageUrl = rname + "_thumb." + extension;
+
+                    var path = Path.Combine(wwwRootPath + "/Images/", rname + extension);
+                    var thumbnailPath = Path.Combine(wwwRootPath + "/Images/thumbnails/", rname + "_thumb" + extension);
+
+                    using (var memoryStream = new MemoryStream())
                     {
-                        var wwwRootPath = _hostEnvironment.WebRootPath;
-                        //var fileName = Path.GetFileNameWithoutExtension(trueque.Image.ImageFile.FileName);
-                        var extension = Path.GetExtension(trueque.Image.ImageFile.FileName);
-                        var rname = Path.GetRandomFileName().Split('.')[0];
-                        trueque.Image.ImageUrl = rname + extension;//DateTime.Now.ToString("ddMMyyyyfff") + extension;
-                                                                   //trueque.Thumbnail.ImageUrl = rname + "_thumb." + extension;
-
-                        var path = Path.Combine(wwwRootPath + "/Images/", rname + extension);
-                        var thumbnailPath = Path.Combine(wwwRootPath + "/Images/thumbnails/", rname + "_thumb" + extension);
-
-                        using (var memoryStream = new MemoryStream())
+                        await trueque.Image.ImageFile.CopyToAsync(memoryStream);
+                        using (var fileStream = new FileStream(path, FileMode.Create))
                         {
-                            await trueque.Image.ImageFile.CopyToAsync(memoryStream);
-                            using (var fileStream = new FileStream(path, FileMode.Create))
-                            {
-                                await trueque.Image.ImageFile.CopyToAsync(fileStream);
-                                var img = Image.FromStream(memoryStream);
-                                // TODO: ResizeImage(img, 100, 100);
-                                var thumb = img.GetThumbnailImage(100, 100, () => false, IntPtr.Zero);
-                                thumb.Save(thumbnailPath);
-                            };
+                            await trueque.Image.ImageFile.CopyToAsync(fileStream);
+                            var img = Image.FromStream(memoryStream);
+                            // TODO: ResizeImage(img, 100, 100);
+                            var thumb = img.GetThumbnailImage(100, 100, () => false, IntPtr.Zero);
+                            thumb.Save(thumbnailPath);
                         };
+                    };
 
-                    }
-                    _context.Add(trueque);
-                    //await _context.SaveChangesAsync();
+                }
+                _context.Add(trueque);
+                //await _context.SaveChangesAsync();
 
-                    //
+                //
 
-                    //var currentUserID = User.FindFirst(ClaimTypes.NameIdentifier);
-                    if (currentUserID != null && truequeMiId != null)
+                //var currentUserID = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (currentUserID != null && truequeMiId != null)
+                {
+                    var trueuqeMi = await _context.Trueques.FindAsync(int.Parse(truequeMiId));
+                    var enlace = new Enlace()
                     {
-                        var trueuqeMi = await _context.Trueques.FindAsync(int.Parse(truequeMiId));
-                        var enlace = new Enlace()
-                        {
-                            TruequeSu = trueque,
-                            TruequeMi = trueuqeMi
-                        };
+                        TruequeSu = trueque,
+                        TruequeMi = trueuqeMi
+                    };
 
-                        _context.Enlace.Add(enlace);
-                        await _context.SaveChangesAsync();
+                    _context.Enlace.Add(enlace);
+                    await _context.SaveChangesAsync();
 
-                        solicitudes = await _context.Enlace.Include(x => x.TruequeMi).Where(x => x.TruequeSu.ApplicationUserId == currentUserID).ToListAsync();
-                    
+                    solicitudes = await _context.Enlace.Include(x => x.TruequeMi).Where(x => x.TruequeSu.ApplicationUserId == currentUserID).ToListAsync();
+
                 }
 
 
@@ -584,7 +586,7 @@ namespace versión_5_asp.Controllers
             }
             string url = Request.Headers["Referer"].ToString();
             ViewData["PreviousUrl"] = returnUrl;
-            if (state != null) { ViewData["State"] = state.ToString(); }           
+            if (state != null) { ViewData["State"] = state.ToString(); }
             return View(trueque);
         }
 

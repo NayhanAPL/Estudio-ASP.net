@@ -1,8 +1,5 @@
 ﻿@model versión_5_asp.Models.Trueque
 
-@{
-    ViewData["Title"] = "Crear Trueque";
-}
 @section css {
 <link href="@Url.Content("~/css/login.css")" rel="stylesheet" />
 }
@@ -12,7 +9,7 @@
         <div class="line-length-sm">
             <article class="card py-5">
                 <div class="pb-4">
-                        <h2>@ViewData["title"]</h2>
+                        <h2>Crear Trueque</h2>
                     </div>
                 <div style="text-align: left;">
                     <div asp-validation-summary="All" class="text-danger"></div>
@@ -43,7 +40,7 @@
                         </div>
                         <div class="form-group margin-bottom-2xl">
                             <label class="form-label" asp-for="Image.ImageFile" class="form-label"></label>
-                            <div class="">
+                            <div>
                                 <input asp-for="Image.ImageFile" class="form-control" type="file" id="formFile" onchange="preview()">                                                             
                                 <button id="trash-btn" style="width:100%;" onclick="clearImage" class="btn bg-orange text-white my-3"><i class="fa fa-trash-alt"></i></button>
                                  <img class="img-fluid rounded mx-auto d-block" id="frame" src="" style="width:204px;height:auto;"/>

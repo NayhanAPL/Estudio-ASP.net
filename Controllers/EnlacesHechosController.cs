@@ -132,7 +132,7 @@ namespace versión_5_asp.Controllers
                 return NotFound();
             }
 
-            return View(enlaceHecho);
+            return View("Index", _context.EnlaceHecho.ToListAsync());
         }
 
         // POST: EnlacesHechos/Delete/5

@@ -129,10 +129,10 @@ var nextDisabled = !Model.HasNextPage ? "disabled" : ""; }
                         <table class="table caption-top">
                             <thead class="table-dark">
                                 <tr>
-                                    <th scope="col">Tipo</th>
+                                    @*<th scope="col">Tipo</th>*@
                                     <th scope="col"> <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Propone</a></th>
                                     <th scope="col">Busca</th>
-                                    <th scope="col"><a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Fecha de creación</a></th>
+                                    @*<th scope="col"><a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Fecha de creación</a></th>*@
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -141,18 +141,18 @@ var nextDisabled = !Model.HasNextPage ? "disabled" : ""; }
                                  @foreach (var item in Model)
                                 {
                                 <tr>
-                                    @if(item.Type == versión_5_asp.Models.Type.Completo){<td><i class="fa-solid fa-arrow-right-arrow-left"></i></td>}
+                                    @*@if(item.Type == versión_5_asp.Models.Type.Completo){<td><i class="fa-solid fa-arrow-right-arrow-left"></i></td>}
                                     else if(item.Type == versión_5_asp.Models.Type.Propongo){<td><i class="fa-solid fa-arrow-right"></i></td>}
-                                    else{<td><i class="fa-solid fa-arrow-left"></i></td>}                                    
+                                    else{<td><i class="fa-solid fa-arrow-left"></i></td>}                                    *@
                                     
                                     <td>@item.Proposition</td>                                   
                                     <td>@item.Search</td>      
-                                    <td>@item.Date</td>  
+                                    @*<td>@item.Date</td>  *@
                                     
                                     <th scope="col">
-                                        <div class="opciones">
-                                            <a class="btn btn-secondary details-btn" asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)"  data-bs-placement="top" title="Ver detalles"><i class="fa fa-eye"></i></a> 
-                                            <a class="btn bg-orange text-white request-btn" data-bs-placement="top" data-bs-toggle="tooltip" title="Solicitar" asp-action="RequestTrueque" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)"><i class="fa fa-comment"></i></a>
+                                        <div class="options">
+                                            <a class="text-secondary details-btn me-2" asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)"  data-bs-placement="top" title="Ver detalles"><i class="fa fa-eye"></i></a> 
+                                            <a class="txt-orange request-btn" data-bs-placement="top" data-bs-toggle="tooltip" title="Solicitar" asp-action="RequestTrueque" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)"><i class="fa fa-comment"></i></a>
                                            
                                         </div>
                                     </th>
@@ -200,24 +200,7 @@ var nextDisabled = !Model.HasNextPage ? "disabled" : ""; }
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Detalles de trueque</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <!-- <div class="modal-body modal-grid">
-            <div class="">
-                <img class="p-5" src="/images/wink-svgrepo-com.svg" alt="">
-            </div>
-            <div class="d-flex justify-content-between align-items-center flex-wrap">
-                  <dl>
-                    <dt>Fecha</dt>
-                    <dd>05/04/2039</dd>
-                    <dt>Tipo</dt>
-                    <dd>Completo</dd>   
-                    <dt>Propone</dt>
-                    <dd>Laptop de uso</dd>
-                    <dt>Busca</dt>
-                    <dd>Disco duro externo</dd>
-                  </dl>
-            </div>
-        </div> -->
+        </div>       
         <div class="d-flex justify-content-around align-items-center m-5">
             <img src="/images/wink-svgrepo-com.svg" alt=""style="width: 100px; height: 100px;">
             <div class="details-list-grid ms-5">
