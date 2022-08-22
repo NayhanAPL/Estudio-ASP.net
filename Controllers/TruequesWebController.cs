@@ -356,7 +356,7 @@ namespace versión_5_asp.Controllers
             }
             //string url = Request.Headers["Referer"].ToString();
             ViewData["PreviousUrl"] = returnUrl;
-            return View(nameof(GetTruequesFromCurrentUser));
+            return RedirectToAction(nameof(Edit), id);
         }
 
         // GET: TruequesWeb/Delete/5

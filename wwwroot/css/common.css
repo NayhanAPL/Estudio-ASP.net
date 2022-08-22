@@ -1,6 +1,6 @@
 :root {
-    --bg-blue: #047aed;
-    text-align: center;
+    /*--bg-blue: #047aed;*/
+    /*text-align: center;*/
     --bg-orange: #FFAB33;
 }
 
@@ -89,4 +89,10 @@ footer .social a {
 
 .txt-orange {
     color: var(--bg-orange);
+}
+@media (max-width: 576px) {
+
+    .btn-options {
+        width: 100%;
+    }
 }
