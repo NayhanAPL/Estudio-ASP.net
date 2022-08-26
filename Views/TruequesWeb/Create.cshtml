@@ -42,13 +42,13 @@
                             <label class="form-label" asp-for="Image.ImageFile" class="form-label"></label>
                             <div>
                                 <input asp-for="Image.ImageFile" class="form-control" type="file" id="formFile" onchange="preview()">                                                             
-                                <button id="trash-btn" style="width:100%;" onclick="clearImage" class="btn bg-orange text-white my-3"><i class="fa fa-trash-alt"></i></button>
+                                <a style="display: none; width:100%;" id="trash-btn" onclick="clearImage()" class="btn bg-orange text-white my-3"><i class="fa fa-trash-alt"></i></a>
                                  <img class="img-fluid rounded mx-auto d-block" id="frame" src="" style="width:204px;height:auto;"/>
                             </div>
                              
                         </div>
 
-                        <button class="btn bg-orange text-white btn-lg" style="width:100%;" type="submit">Crear</button>
+                        <button class="btn bg-orange text-white" style="width:100%;" type="submit">Crear</button>
                     </form>
                 </div>
             </article>
@@ -61,12 +61,28 @@
 }
 <script>
     function preview() {
+         //debugger;
+        //var frame = document.getElementById('frame');
         frame.src = URL.createObjectURL(event.target.files[0]);
-         //document.getElementById('trash-btn').show();
-    }
+        var trash = document.getElementById("trash-btn");
+        if(trash.style.display === "none"){
+            trash.style.display = "block";}
+            //else{
+            //    trash.style.display = "none";
+            //}
+        }
+    
     function clearImage() {
         document.getElementById('formFile').value = null;
+         //var frame = document.getElementById('frame');
         frame.src = "";
-    }   
+        var trash = document.getElementById("trash-btn");
+         if(trash.style.display === "block"){
+            trash.style.display = "none";}
+            //else{
+            //    trash.style.display = "none";
+            //}
+        }
+     
 </script>
 }
