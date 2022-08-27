@@ -33,7 +33,20 @@ namespace versión_5_asp.Controllers
     string searchString,
     int? pageNumber)
         {
-            //string currentUserId = "";
+            return await Filter(sortOrder, currentFilter, searchString, pageNumber, "Index");
+        }
+
+        //get all trueques from certain user
+        //[Route("trueques/user/{id}")]//this action is attribute-routed
+        public async Task<IActionResult> GetTruequesFromCurrentUser(string sortOrder, string currentFilter,
+    string searchString,
+    int? pageNumber)
+        {
+            return await Filter(sortOrder, currentFilter, searchString, pageNumber, "MisTrueques", true);
+        }
+
+        async Task<ActionResult> Filter(string sortOrder, string currentFilter, string searchString, int? pageNumber, string returnView, bool currentUser=false)
+        {
             var trueques = from t in _context.Trueques
                            select t;
 
@@ -41,7 +54,15 @@ namespace versión_5_asp.Controllers
             if (claim != null)
             {
                 string currentUserId = claim.Value;
-                trueques = trueques.Where(t => t.ApplicationUserId != currentUserId);
+                switch (returnView)
+                {
+                    case "MisTrueques":
+                        trueques = trueques.Where(t => t.ApplicationUserId == currentUserId);
+                        break;
+                    default:
+                        trueques = trueques.Where(t => t.ApplicationUserId != currentUserId);
+                        break;
+                }
             }
 
             ViewData["CurrentSort"] = sortOrder;
@@ -81,20 +102,7 @@ namespace versión_5_asp.Controllers
             }
 
             int pageSize = 10;
-            return View(await PaginatedList<Trueque>.CreateAsync(trueques.AsNoTracking(), pageNumber ?? 1, pageSize));
-        }
-
-        //get all trueques from certain user
-        //[Route("trueques/user/{id}")]//this action is attribute-routed
-        public async Task<IActionResult> GetTruequesFromCurrentUser()
-        {
-            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            if (!String.IsNullOrWhiteSpace(currentUserId))
-            {
-                var elems = await _context.Trueques.OrderBy(t => t.Date).Where(x => x.ApplicationUserId == currentUserId).ToListAsync();
-                return View("MisTrueques", elems);
-            }
-            return BadRequest("User not uthentiated");
+            return View(returnView, await PaginatedList<Trueque>.CreateAsync(trueques.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         //get all trueques of certain province and not current user
@@ -427,7 +435,7 @@ namespace versión_5_asp.Controllers
 
             //Prompt an alert warning the user that the trueque is been requested
             TempData["ErrorMsg"] = "Error: No se puede eliminar un trueque que está en procesamiento de petición";
-            return RedirectToAction(nameof(Delete), id);
+            return RedirectToAction("GetTruequesFromCurrentUser");
         }
 
         private bool TruequeExists(int id)

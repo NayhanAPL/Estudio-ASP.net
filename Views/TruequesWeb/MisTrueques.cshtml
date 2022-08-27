@@ -6,31 +6,34 @@
 @section css {
 <link href="@Url.Content("~/css/style.css")" rel="stylesheet" />
 }
-
+<style>
+   table {
+   text-align: start;}
+</style>
 <main role="main" class="app-content px-3" style="padding: calc(1rem*5); ">
     <div class="container">
         <div class="line-length-sm">
             <article class="card py-5">
                 <h2 class="text-center">Mis Trueques</h2>
-                <form asp-action="Index" method="get">
+                <form asp-action="GetTruequesFromCurrentUser" method="get">
                     <div class="filters d-flex flex-column flex-md-row justify-content-center align-items-center">
                         <p class="lead m-3">Filtrar por Propone/Busca:</p>
                         <input type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]">
-                        <button type="submit" id="search-btn" class="btn bg-orange text-white my-3 mx-2"><i class="fa fa-search"></i></button>
-                        <a asp-action="Index" id="reset-btn" class="btn bg-orange text-white my-3"><i class="fa-solid fa-arrows-rotate"></i></a>
+                        <button id="search-btn" class="btn bg-orange text-white my-3 mx-2"><i class="fa fa-search"></i></button>
+                        <a asp-action="GetTruequesFromCurrentUser" asp-route-searchString="" id="reset-btn" class="btn bg-orange text-white my-3"><i class="fa-solid fa-arrows-rotate"></i></a>
                     </div>
                 </form>
                 <p>
 
                 </p>
                 <div class="table-responsive">
-                    <table class="table caption-top">
+                    <table class="table caption-top table-striped">
                         <thead class="table-dark">
                             <tr>
-                                <th scope="col">Tipo</th>
-                                <th scope="col"> <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Propongo</a></th>
+                                @*<th scope="col">Tipo</th>*@
+                                <th scope="col"> <a asp-action="GetTruequesFromCurrentUser" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Propongo</a></th>
                                 <th scope="col">Busco</th>
-                                <th scope="col"><a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Fecha de creación</a></th>
+                                <th scope="col"><a asp-action="GetTruequesFromCurrentUser" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Fecha de creación</a></th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -40,7 +43,7 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr>
-                                        @if (item.Type == versión_5_asp.Models.Type.Completo)
+                                      @*  @if (item.Type == versión_5_asp.Models.Type.Completo)
                                         {
                                             <td><i class="fa-solid fa-arrow-right-arrow-left"></i></td>
                                         }
@@ -51,7 +54,7 @@
                                         else
                                         {
                                             <td><i class="fa-solid fa-arrow-left"></i></td>
-                                        }
+                                        }*@
 
                                         <td>@item.Proposition</td>
                                         <td>@item.Search</td>
@@ -59,7 +62,7 @@
 
                                         <th scope="col">
                                             <div class="options">
-                                                @*<a class="details-btn text-success me-2" asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)" data-bs-placement="top" data-bs-toggle="tooltip" title="Ver detalles"><i class="fa fa-eye"></i></a>*@
+                                                <a class="details-btn txt-orange me-2" asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)" data-bs-placement="top" data-bs-toggle="tooltip" title="Ver detalles"><i class="fa fa-eye"></i></a>
                                                 <a class="details-btn text-success me-2" asp-action="Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Editar"><i class="fa fa-edit"></i></a>
                                                 <a class="request-btn text-danger" data-bs-placement="top" data-bs-toggle="tooltip" title="Eliminar" asp-action="Delete" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)" data-bs-placement="top" title="Eliminar"><i class="fa fa-trash-alt"></i></a>
                                             </div>

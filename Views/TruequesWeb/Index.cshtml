@@ -1,228 +1,261 @@
 ﻿@model PaginatedList<Trueque>
 
-@{ ViewData["Title"] = "Buscar trueques"; }
+@{
+    ViewData["Title"] = "Buscar trueques";
+}
 
 @*<h2>Busque los trueques de su interés!</h2>
 
-<p>
+    <p>
     <a asp-action="Create" asp-route-returnUrl="@Context.Request.Path">Crear trueque</a>
-</p>
+    </p>
 
-<form asp-action="Index" method="get">
+    <form asp-action="Index" method="get">
     <div class="form-actions no-color">
-        <p>
-            Filtrar por Propone/Busca: 
-            <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
-            <input type="submit" value="Buscar" class="btn btn-default" /> |
-            <a asp-action="Index">Limpiar filtros</a>
-        </p>
+    <p>
+    Filtrar por Propone/Busca:
+    <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+    <input type="submit" value="Buscar" class="btn btn-default" /> |
+    <a asp-action="Index">Limpiar filtros</a>
+    </p>
     </div>
-</form>
+    </form>
 
-<table class="table">
+    <table class="table">
     <thead>
-        <tr>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Propone</a>
-            </th>
-            <th>
-               Busca
-            </th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Fecha de creación</a>
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+    <th>
+    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Propone</a>
+    </th>
+    <th>
+    Busca
+    </th>
+    <th>
+    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Fecha de creación</a>
+    </th>
+    <th></th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-<tr>
+    @foreach (var item in Model)
+    {
+    <tr>
     <td>
-        @Html.DisplayFor(modelItem => item.Proposition)
+    @Html.DisplayFor(modelItem => item.Proposition)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Search)
+    @Html.DisplayFor(modelItem => item.Search)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Date)
+    @Html.DisplayFor(modelItem => item.Date)
     </td>
     <td>
-        <a asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)">Detalles</a> |
-        <a asp-action="RequestTrueque" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)">Solicitar trueque</a>
+    <a asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)">Detalles</a> |
+    <a asp-action="RequestTrueque" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)">Solicitar trueque</a>
     </td>
-</tr>}
+    </tr>}
     </tbody>
-</table>
+    </table>
 
-@{ var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-var nextDisabled = !Model.HasNextPage ? "disabled" : ""; }
+    @{ var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : ""; }
 
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex - 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-default @prevDisabled">
+    <a asp-action="Index"
+    asp-route-sortOrder="@ViewData["CurrentSort"]"
+    asp-route-pageNumber="@(Model.PageIndex - 1)"
+    asp-route-currentFilter="@ViewData["CurrentFilter"]"
+    class="btn btn-default @prevDisabled">
     Anterior
-</a>
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex + 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-default @nextDisabled">
+    </a>
+    <a asp-action="Index"
+    asp-route-sortOrder="@ViewData["CurrentSort"]"
+    asp-route-pageNumber="@(Model.PageIndex + 1)"
+    asp-route-currentFilter="@ViewData["CurrentFilter"]"
+    class="btn btn-default @nextDisabled">
     Siguiente
-</a>
-<p class="text-center">Página @Model.PageIndex de @Model.TotalPages</p>*@
+    </a>
+    <p class="text-center">Página @Model.PageIndex de @Model.TotalPages</p>*@
 
 @*<script>
-         function getTrueques(){
-            $.ajax({
-                url: '@Url.Action("SearchTrueques", "TruequesWeb")',
-                method: "GET",
-                data: { searchText: $('#textSearch').val() },
-                success: function(res) {
-                    $('#grdTrueques').html('').html(res);
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            })
-        }
-        $(document).ready(function(){ getTrueques() });
+    function getTrueques(){
+    $.ajax({
+    url: '@Url.Action("SearchTrueques", "TruequesWeb")',
+    method: "GET",
+    data: { searchText: $('#textSearch').val() },
+    success: function(res) {
+    $('#grdTrueques').html('').html(res);
+    },
+    error: function (err) {
+    console.log(err);
+    }
+    })
+    }
+    $(document).ready(function(){ getTrueques() });
 
 
     </script>*@
-    @section css {
-    <link href="@Url.Content("~/css/style.css")" rel="stylesheet"/>
+@section css {
+<link href="@Url.Content("~/css/style.css")" rel="stylesheet" />
 }
-    <style>
-        .modal-grid, .details-list-grid{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            column-width: auto;
-        }
-       dd, dt{
+<style>
+    .modal-grid, .details-list-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-width: auto;
+    }
+
+    dd, dt {
         text-align: start;
-       }
+    }
 
-    </style>
+    table {
+        text-align: start;
+    }
+</style>
 
 
-    <main role="main" class="app-content px-3" style="padding: calc(1rem*5); ">
-        <div class="container">
-            <!--revisar si se puede quitar-->
-            <div class="line-length-sm">
-                <article class="card py-5">
-                    <h2 class="text-center">Buscar Trueques</h2>                   
-                        <form asp-action="Index" method="get">
-                            <div class="filters d-flex flex-column flex-md-row justify-content-center align-items-center">
-                                <p class="lead m-3">Filtrar por Propone/Busca:</p>
-                                <input type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]">
-                                <button type="submit" id="search-btn" class="btn bg-orange text-white my-3 mx-2"><i class="fa fa-search"></i></button>
-                                <a asp-action="Index" id="reset-btn" class="btn bg-orange text-white my-3"><i class="fa-solid fa-arrows-rotate"></i></a>
-                             </div>
-                        </form>                   
-                    <p>
-               
-</p>
-                    <div class="table-responsive">
-                        <table class="table caption-top">
-                            <thead class="table-dark">
-                                <tr>
-                                    @*<th scope="col">Tipo</th>*@
-                                    <th scope="col"> <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Propone</a></th>
-                                    <th scope="col">Busca</th>
-                                    @*<th scope="col"><a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Fecha de creación</a></th>*@
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if(Model.Count > 0){
-                                 @foreach (var item in Model)
-                                {
-                                <tr>
-                                    @*@if(item.Type == versión_5_asp.Models.Type.Completo){<td><i class="fa-solid fa-arrow-right-arrow-left"></i></td>}
-                                    else if(item.Type == versión_5_asp.Models.Type.Propongo){<td><i class="fa-solid fa-arrow-right"></i></td>}
-                                    else{<td><i class="fa-solid fa-arrow-left"></i></td>}                                    *@
-                                    
-                                    <td>@item.Proposition</td>                                   
-                                    <td>@item.Search</td>      
-                                    @*<td>@item.Date</td>  *@
-                                    
-                                    <th scope="col">
-                                        <div class="options">
-                                            <a class="text-secondary details-btn me-2" asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)"  data-bs-placement="top" title="Ver detalles"><i class="fa fa-eye"></i></a> 
-                                            <a class="txt-orange request-btn" data-bs-placement="top" data-bs-toggle="tooltip" title="Solicitar" asp-action="RequestTrueque" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)"><i class="fa fa-comment"></i></a>
-                                           
-                                        </div>
-                                    </th>
-                                </tr>
+
+<main role="main" class="app-content px-3" style="padding: calc(1rem*5); ">
+    <div class="container">
+        <!--revisar si se puede quitar-->
+        <div class="line-length-sm">
+            <article class="card py-5">
+                <h2 class="text-center">Buscar Trueques</h2>
+                <form asp-action="Index" method="get">
+                    <div class="filters d-flex flex-column flex-md-row justify-content-center align-items-center">
+                        <p class="lead m-3">Filtrar por Propone/Busca:</p>
+                        <input type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]">
+                        <button type="submit" id="search-btn" class="btn bg-orange text-white my-3 mx-2"><i class="fa fa-search"></i></button>
+                        <a asp-action="Index" id="reset-btn" class="btn bg-orange text-white my-3"><i class="fa-solid fa-arrows-rotate"></i></a>
+                    </div>
+                </form>
+                <p>
+
+                </p>
+                <div class="table-responsive">
+                    <table class="table caption-top table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                @*<th scope="col">Tipo</th>*@
+                                @{
+                                    var propArrowIcon = "up";
+                                    var dateArrowIcon = "up";
+                                    if (ViewData["CurrentFilter"] != null)
+                                    {
+                                        string currentFilter = ViewData["CurrentFilter"].ToString();
+
+                                        if (currentFilter == "name-desc")
+                                        {
+                                            propArrowIcon = "up";
+                                            dateArrowIcon = "down";
+                                        }
+                                        else if (currentFilter == "Date")
+                                        {
+                                            propArrowIcon = "down";
+                                            dateArrowIcon = "up";
+                                        }
+                                          else if (currentFilter == "date-desc")
+                                        {
+                                            propArrowIcon = "up";
+                                            dateArrowIcon = "down";
+                                        }
+                                    }
+
                                 }
-                              
-                               <!-- Pagination -->
+                                <th scope="col"> <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Propone <span class="fa fa-arrow-@propArrowIcon"></span></a></th>
+                                <th scope="col">Busca</th>
+                                <th scope="col"><a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Fecha de creación <span class="fa fa-arrow-@dateArrowIcon"></span></a></th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Count > 0)
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        @*@if(item.Type == versión_5_asp.Models.Type.Completo){<td><i class="fa-solid fa-arrow-right-arrow-left"></i></td>}
+                                            else if(item.Type == versión_5_asp.Models.Type.Propongo){<td><i class="fa-solid fa-arrow-right"></i></td>}
+                                            else{<td><i class="fa-solid fa-arrow-left"></i></td>}                                    *@
+
+                                        <td>@item.Proposition</td>
+                                        <td>@item.Search</td>
+                                        <td>@item.Date</td>
+
+                                        <th scope="col">
+                                            <div class="options">
+                                                <a class="text-secondary details-btn me-2" asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)" data-bs-placement="top" title="Ver detalles"><i class="fa fa-eye"></i></a>
+                                                <a class="txt-orange request-btn" data-bs-placement="top" data-bs-toggle="tooltip" title="Solicitar" asp-action="RequestTrueque" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)"><i class="fa fa-comment"></i></a>
+
+                                            </div>
+                                        </th>
+                                    </tr>
+                                }
+
+                                <!-- Pagination -->
                                 var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-                                var nextDisabled = !Model.HasNextPage ? "disabled" : ""; 
-                                                         
-                               <div class="d-flex justify-content-center align-items-center m-4">
-                                   <a asp-action="Index"
+                                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+
+                                <div class="d-flex justify-content-center align-items-center m-4">
+                                    <a asp-action="Index"
                                    asp-route-sortOrder="@ViewData["CurrentSort"]"
                                    asp-route-pageNumber="@(Model.PageIndex - 1)"
                                    asp-route-currentFilter="@ViewData["CurrentFilter"]"
                                    class="btn btn-default @prevDisabled">
-                                   <i class="fa fa-chevron-left"></i>
-                                </a>
-                                <h2 class="lead">Página @Model.PageIndex de @Model.TotalPages</h2>
-                                 <a asp-action="Index"
+                                        <i class="fa fa-chevron-left"></i>
+                                    </a>
+                                    <h2 class="lead">Página @Model.PageIndex de @Model.TotalPages</h2>
+                                    <a asp-action="Index"
                                    asp-route-sortOrder="@ViewData["CurrentSort"]"
                                    asp-route-pageNumber="@(Model.PageIndex + 1)"
                                    asp-route-currentFilter="@ViewData["CurrentFilter"]"
                                    class="btn btn-default @nextDisabled">
-                                    <i class="fa fa-chevron-right"></i>
-                                </a>
-                               
+                                        <i class="fa fa-chevron-right"></i>
+                                    </a>
+
                                 </div>
                             }
                             else
                             {
-                               <tr>
-                                 <td colspan="5" class="text-center">No se encontraron resultados!</td>
-                               </tr>
+                                <tr>
+                                    <td colspan="5" class="text-center">No se encontraron resultados!</td>
+                                </tr>
                             }
                         </tbody>
-                        </table>
-                    </div>
+                    </table>
+                </div>
 
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Detalles de trueque</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>       
-        <div class="d-flex justify-content-around align-items-center m-5">
-            <img src="/images/wink-svgrepo-com.svg" alt=""style="width: 100px; height: 100px;">
-            <div class="details-list-grid ms-5">
-                <dt>Fecha</dt>
-                <dd>14/11/2675</dd>
-                <dt>Tipo</dt>
-                <dd>Completo</dd>
-                <dt>Propone</dt>
-                <dd>Laptop de uso</dd>
-                <dt>Busca</dt>
-                <dd>Disco duro externo</dd>
-            </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Detalles de trueque</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="d-flex justify-content-around align-items-center m-5">
+                                <img src="/images/wink-svgrepo-com.svg" alt="" style="width: 100px; height: 100px;">
+                                <div class="details-list-grid ms-5">
+                                    <dt>Fecha</dt>
+                                    <dd>14/11/2675</dd>
+                                    <dt>Tipo</dt>
+                                    <dd>Completo</dd>
+                                    <dt>Propone</dt>
+                                    <dd>Laptop de uso</dd>
+                                    <dt>Busca</dt>
+                                    <dd>Disco duro externo</dd>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary">Aceptar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Aceptar</button>
-        </div>
-      </div>
     </div>
-  </div>
-  
-                </article>
-            </div>
-        </div>
-    </main>
+</main>
