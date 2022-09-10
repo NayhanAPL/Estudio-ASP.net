@@ -12,7 +12,9 @@ namespace versión_5_asp.Models
     {
         Completo,
         Propongo,
-        Busco     
+        Busco,
+        Compro,
+        Vendo
     }
     public class Trueque
     {        

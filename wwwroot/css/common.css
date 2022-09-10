@@ -96,3 +96,8 @@ footer .social a {
         width: 100%;
     }
 }
+
+
+table {
+    text-align: start;
+}

@@ -4,96 +4,6 @@
     ViewData["Title"] = "Buscar trueques";
 }
 
-@*<h2>Busque los trueques de su interés!</h2>
-
-    <p>
-    <a asp-action="Create" asp-route-returnUrl="@Context.Request.Path">Crear trueque</a>
-    </p>
-
-    <form asp-action="Index" method="get">
-    <div class="form-actions no-color">
-    <p>
-    Filtrar por Propone/Busca:
-    <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
-    <input type="submit" value="Buscar" class="btn btn-default" /> |
-    <a asp-action="Index">Limpiar filtros</a>
-    </p>
-    </div>
-    </form>
-
-    <table class="table">
-    <thead>
-    <tr>
-    <th>
-    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Propone</a>
-    </th>
-    <th>
-    Busca
-    </th>
-    <th>
-    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Fecha de creación</a>
-    </th>
-    <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
-    {
-    <tr>
-    <td>
-    @Html.DisplayFor(modelItem => item.Proposition)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.Search)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.Date)
-    </td>
-    <td>
-    <a asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)">Detalles</a> |
-    <a asp-action="RequestTrueque" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)">Solicitar trueque</a>
-    </td>
-    </tr>}
-    </tbody>
-    </table>
-
-    @{ var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : ""; }
-
-    <a asp-action="Index"
-    asp-route-sortOrder="@ViewData["CurrentSort"]"
-    asp-route-pageNumber="@(Model.PageIndex - 1)"
-    asp-route-currentFilter="@ViewData["CurrentFilter"]"
-    class="btn btn-default @prevDisabled">
-    Anterior
-    </a>
-    <a asp-action="Index"
-    asp-route-sortOrder="@ViewData["CurrentSort"]"
-    asp-route-pageNumber="@(Model.PageIndex + 1)"
-    asp-route-currentFilter="@ViewData["CurrentFilter"]"
-    class="btn btn-default @nextDisabled">
-    Siguiente
-    </a>
-    <p class="text-center">Página @Model.PageIndex de @Model.TotalPages</p>*@
-
-@*<script>
-    function getTrueques(){
-    $.ajax({
-    url: '@Url.Action("SearchTrueques", "TruequesWeb")',
-    method: "GET",
-    data: { searchText: $('#textSearch').val() },
-    success: function(res) {
-    $('#grdTrueques').html('').html(res);
-    },
-    error: function (err) {
-    console.log(err);
-    }
-    })
-    }
-    $(document).ready(function(){ getTrueques() });
-
-
-    </script>*@
 @section css {
 <link href="@Url.Content("~/css/style.css")" rel="stylesheet" />
 }
@@ -123,7 +33,7 @@
                 <h2 class="text-center">Buscar Trueques</h2>
                 <form asp-action="Index" method="get">
                     <div class="filters d-flex flex-column flex-md-row justify-content-center align-items-center">
-                        <p class="lead m-3">Filtrar por Propone/Busca:</p>
+                        <h6 class="m-3">Filtrar por Propone/Busca:</h6>
                         <input type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]">
                         <button type="submit" id="search-btn" class="btn bg-orange text-white my-3 mx-2"><i class="fa fa-search"></i></button>
                         <a asp-action="Index" id="reset-btn" class="btn bg-orange text-white my-3"><i class="fa-solid fa-arrows-rotate"></i></a>
@@ -185,7 +95,7 @@
                                         <th scope="col">
                                             <div class="options">
                                                 <a class="text-secondary details-btn me-2" asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)" data-bs-placement="top" title="Ver detalles"><i class="fa fa-eye"></i></a>
-                                                <a class="txt-orange request-btn" data-bs-placement="top" data-bs-toggle="tooltip" title="Solicitar" asp-action="RequestTrueque" asp-route-id="@item.Id" asp-route-returnUrl="@string.Concat(@Context.Request.Path, @Context.Request.QueryString)"><i class="fa fa-comment"></i></a>
+                                                <a class="txt-orange request-btn" data-bs-placement="top" data-bs-toggle="tooltip" title="Solicitar" asp-action="RequestTrueque" asp-route-id="@item.Id")"><i class="fa fa-comment"></i></a>
 
                                             </div>
                                         </th>

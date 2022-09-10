@@ -116,7 +116,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label" asp-for="Input.Email"></label>
+                                <label class="form-label">Correo Electrónico*</label>
                                 <input asp-for="Input.Email" type="email" class="form-control" 
                                     aria-describedby="emailHelpId">
                                 <span asp-validation-for="Input.Email" class="text-danger"></span>
@@ -142,26 +142,26 @@
                             </div>
 
                             <div class="form-group ">
-                                <label class="form-label"  asp-for="@Model.Input.Provinces"></label>
+                                <label class="form-label">Provincia*</label>
                                 <select class="form-control"  asp-for=@Model.Input.ChosenProvId asp-items=@Model.Input.Provinces>
                                     <option value=0>--Seleccione--</option>                                    
                                 </select>
                             </div>
 
                             <div class="form-group ">
-                                <label class="form-label"  asp-for="@Model.Input.Provinces"></label>
+                                <label class="form-label">Municipio*</label>
                                 <select class="form-control"  asp-for=@Model.Input.ChosenMunId asp-items=@Model.Input.Municipalities>
                                     <option value=0>--Seleccione--</option>
                                 </select>
                             </div>     
 
                             <div class="form-group">
-                                <label class="form-label"  asp-for="Input.Password"></label>
+                                <label class="form-label">Contraseña*</label>
                                 <input asp-for="Input.Password" type="password" class="form-control" >
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label"  asp-for="Input.ConfirmationPassword"></label>
+                                <label class="form-label">Confirmar Contraseña*</label>
                                 <input asp-for="Input.ConfirmationPassword" type="password" class="form-control" >
                             </div>
 

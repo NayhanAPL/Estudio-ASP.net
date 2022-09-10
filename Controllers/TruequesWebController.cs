@@ -476,11 +476,16 @@ namespace versión_5_asp.Controllers
         public async Task<IActionResult> RequestTrueque(int id, string returnUrl)
         {
             var targetTrueque = await _context.Trueques.Include(t => t.Image).FirstOrDefaultAsync(t => t.Id == id);
+            if (targetTrueque == null) { return View(); }
             //load image
-            if (targetTrueque.Image != null)
+            if (targetTrueque!= null && targetTrueque.Image != null)
             {
                 var img = await _context.Imagenes.FindAsync(targetTrueque.Image.Id);
                 targetTrueque.Image = img;
+            }
+            else
+            {
+                targetTrueque.Image = new ImageModel { ImageUrl = "sin_imagen.jpg" };
             }
 
             var userClaim = User.FindFirst(ClaimTypes.NameIdentifier);
@@ -497,7 +502,7 @@ namespace versión_5_asp.Controllers
             var solicitudes = new List<Enlace>();
             if (ModelState.IsValid)
             {
-                //Validate same trueque has not been requested
+                //Validate this trueque hasn't already been requested by the same user
                 var res = _context.Enlace.AnyAsync(e => e.TruequeMi.Id.ToString() == truequeMiId).Result;
                 if (res)
                 { return RedirectToAction("Index"); }

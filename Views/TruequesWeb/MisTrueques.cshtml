@@ -7,8 +7,9 @@
 <link href="@Url.Content("~/css/style.css")" rel="stylesheet" />
 }
 <style>
-   table {
-   text-align: start;}
+    table, a{
+        text-align: start;
+    }
 </style>
 <main role="main" class="app-content px-3" style="padding: calc(1rem*5); ">
     <div class="container">
@@ -17,15 +18,13 @@
                 <h2 class="text-center">Mis Trueques</h2>
                 <form asp-action="GetTruequesFromCurrentUser" method="get">
                     <div class="filters d-flex flex-column flex-md-row justify-content-center align-items-center">
-                        <p class="lead m-3">Filtrar por Propone/Busca:</p>
+                        <h6 class="m-3">Filtrar por Propone/Busca:</h6>
                         <input type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]">
                         <button id="search-btn" class="btn bg-orange text-white my-3 mx-2"><i class="fa fa-search"></i></button>
                         <a asp-action="GetTruequesFromCurrentUser" asp-route-searchString="" id="reset-btn" class="btn bg-orange text-white my-3"><i class="fa-solid fa-arrows-rotate"></i></a>
                     </div>
                 </form>
-                <p>
-
-                </p>
+                <a asp-action="Create" class="my-3">Crear trueque</a>
                 <div class="table-responsive">
                     <table class="table caption-top table-striped">
                         <thead class="table-dark">
@@ -43,18 +42,18 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr>
-                                      @*  @if (item.Type == versión_5_asp.Models.Type.Completo)
-                                        {
+                                        @*  @if (item.Type == versión_5_asp.Models.Type.Completo)
+                                            {
                                             <td><i class="fa-solid fa-arrow-right-arrow-left"></i></td>
-                                        }
-                                        else if (item.Type == versión_5_asp.Models.Type.Propongo)
-                                        {
+                                            }
+                                            else if (item.Type == versión_5_asp.Models.Type.Propongo)
+                                            {
                                             <td><i class="fa-solid fa-arrow-right"></i></td>
-                                        }
-                                        else
-                                        {
+                                            }
+                                            else
+                                            {
                                             <td><i class="fa-solid fa-arrow-left"></i></td>
-                                        }*@
+                                            }*@
 
                                         <td>@item.Proposition</td>
                                         <td>@item.Search</td>

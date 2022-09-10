@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<Enlace>
 
+    
+@{
+    ViewData["Title"] = "Mis Solicitudes";
+}
+
 
 @*
     <div class="col-sm-12">
@@ -74,16 +79,21 @@
 @section css {
 <link href="@Url.Content("~/css/style.css")" rel="stylesheet" />
 }
-
+<style>
+    .details_link {
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+</style>
 <main role="main" class="app-content px-3" style="padding: calc(1rem*5); ">
-    <partial name="_StatusMessage" model=@ViewData["Message"]/>
+    <partial name="_StatusMessage" model=@ViewData["Message"] />
     <div class="container">
         <div class="line-length-sm">
             <article class="card py-5">
                 <h2 class="text-center">Mis Solicitudes</h2>
                 <form asp-action="Index" method="get">
                     <div class="filters d-flex flex-column flex-md-row justify-content-center align-items-center">
-                        <p class="lead m-3">Filtrar por Propone/Busca:</p>
+                        <h6 class="m-3">Filtrar por Propone/Busca:</h6>
                         <input type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]">
                         <button type="submit" id="search-btn" class="btn bg-orange text-white my-3 mx-2"><i class="fa fa-search"></i></button>
                         <a asp-action="Index" id="reset-btn" class="btn bg-orange text-white my-3"><i class="fa-solid fa-arrows-rotate"></i></a>
@@ -92,7 +102,7 @@
                 <p>
                 </p>
                 <div class="table-responsive">
-                    <table class="table caption-top">
+                    <table class="table caption-top table-striped">
                         <thead class="table-dark">
                             <tr>
                                 <th scope="col">Mi trueque</th>
@@ -115,7 +125,9 @@
                                                         Usted Propone/Busca
                                                     </dt>
                                                     <dd>
-                                                        <a asp-action="Details" asp-controller="TruequesWeb" asp-route-id="@item.TruequeSu.Id" asp-route-returnUrl="@Context.Request.Path">Propone: @item.TruequeSu.Proposition /<br>Busca: @item.TruequeSu.Search</a>
+                                                        Propone: @item.TruequeSu.Proposition /
+                                                        <br>Busca: @item.TruequeSu.Search
+                                                        <br> <a class="details_link" asp-action="Details" asp-controller="TruequesWeb" asp-route-id="@item.TruequeSu.Id">Detalles</a>
                                                     </dd>
                                                 </dl>
                                             }
@@ -128,20 +140,22 @@
                                                         Ella/Él Propone/Busca
                                                     </dt>
                                                     <dd>
-                                                        <a asp-action="TruequeSolicitudDetails" asp-controller="TruequesWeb" asp-route-id="@item.TruequeMi.Id" asp-route-returnUrl="@Context.Request.Path" asp-route-state="@item.State">Propone: @item.TruequeMi.Proposition /<br>Busca: @item.TruequeMi.Search</a>
+                                                        Propone: @item.TruequeMi.Proposition /<br>Busca: @item.TruequeMi.Search<br>
+                                                        <a class="details_link" asp-action="TruequeSolicitudDetails" asp-controller="TruequesWeb" asp-route-id="@item.TruequeMi.Id" asp-route-returnUrl="@Context.Request.Path" asp-route-state="@item.State">Detalles</a>
                                                     </dd>
                                                 </dl>
                                             }
                                         </td>
                                         @if (item.State == State.Pendiente)
-                                            {<td><i class="fa fa-clock state mt-2 text-secondary" data-bs-placement="top" data-bs-toggle="tooltip" title="@item.State"></i></td>
-                                                <th class="options">                                               
-                                                   <a class="request-btn text-danger me-2" asp-action="Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Eliminar" ><i class="fa fa-trash-alt"></i></a>
-                                                </th>
-                                            }
-                                       
+                                        {
+                                            <td><i class="fa fa-clock state mt-2 text-secondary" data-bs-placement="top" data-bs-toggle="tooltip" title="@item.State"></i></td>
+                                            <th class="options">
+                                                <a class="request-btn text-danger me-2" asp-action="Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-alt"></i></a>
+                                            </th>
+                                        }
+
                                         else if (item.State == State.Aceptado)
-                                        {              
+                                        {
                                             <td><i class="fa fa-check state mt-2 text-success" data-bs-placement="top" data-bs-toggle="tooltip" title="@item.State"></i></td>
                                             <th class="options">
                                                 <a class="details-btn text-success me-2" asp-action="FinalizarTrueque" alt="Se realizó el intercambio exitosamente" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Finalizar"><i class="fa fa-handshake"></i></a>
@@ -150,15 +164,21 @@
                                         }
                                         else
                                         {
-                                            <th class="options">                                               
-                                                <a class="details-btn text-success me-2" asp-action="Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Editar" ><i class="fa fa-edit"></i></a>
-                                                <a class="request-btn text-danger me-2" asp-action="Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Eliminar" ><i class="fa fa-trash-alt"></i></a>
+                                            <th class="options">
+                                                <a class="details-btn text-success me-2" asp-action="Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Editar"><i class="fa fa-edit"></i></a>
+                                                <a class="request-btn text-danger me-2" asp-action="Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path" data-bs-placement="top" data-bs-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-alt"></i></a>
                                             </th>
 
                                         }
 
                                     </tr>
                                 }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5" class="text-center">No se encontraron resultados!</td>
+                                </tr>
                             }
 
                         </tbody>

@@ -1,0 +1,94 @@
+﻿@model versión_5_asp.Models.Trueque
+
+@{
+    string id = ViewData["targetId"].ToString();
+}
+
+@section css {
+<link href="@Url.Content("~/css/login.css")" rel="stylesheet" />
+}
+
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="line-length-sm">
+        <article class="card">
+            <div class="pb-4">
+                <h2>Crear Trueque</h2>
+            </div>
+            <div style="text-align: left;">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form asp-action="SendRequest" asp-route-truequeMiId="@id" enctype="multipart/form-data">
+                    <div class="form-group mb-3">
+                        <div>
+                            <label class="form-label">Categor&iacute;a</label>
+                        </div>
+                        <div>
+                            <select class="form-control" asp-items="Html.GetEnumSelectList<versión_5_asp.Models.Type>()"></select>
+                        </div>
+                    </div>
+                      <div class="form-group mb-3">
+                        <label class="form-label" asp-for="Proposition" class="control-label"></label>
+                        <input onfocus="onFocusProp()" asp-for="Proposition" class="form-control" id="input_prop" value=""/>
+                        <span asp-validation-for="Proposition" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label" asp-for="Search"></label>
+                        <input onfocus="onFocusSearch()" asp-for="Search" type="text" class="form-control" id="input_search" value="">
+                        <span asp-validation-for="Search" class="text-danger"></span>
+                    </div>                 
+
+                    <div class="form-group mb-3">
+                        <label class="form-label" asp-for="ExtraInfo"></label>
+                        <input type="text" class="form-control">
+                        <span asp-validation-for="ExtraInfo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label" asp-for="Image.ImageFile" class="form-label"></label>
+                        <div>
+                            <input asp-for="Image.ImageFile" class="form-control" type="file" id="formFile" onchange="preview()">
+                            <a style="display: none; width:100%;" id="trash-btn" onclick="clearImage()" class="btn bg-orange text-white my-3"><i class="fa fa-trash-alt"></i></a>
+                            <img class="img-fluid rounded mx-auto d-block" id="frame" src="" style="width:204px;height:auto;" />
+                        </div>
+
+                    </div>
+
+                    <button class="btn bg-orange text-white" style="width:100%;" type="submit">Enviar Solicitud</button>
+                </form>
+            </div>
+        </article>
+    </div>
+</div>
+
+<script  type="text/javascript">
+    function preview() {
+         //debugger;
+        //var frame = document.getElementById('frame');
+        frame.src = URL.createObjectURL(event.target.files[0]);
+        var trash = document.getElementById("trash-btn");
+        if(trash.style.display === "none"){
+            trash.style.display = "block";}
+            //else{
+            //    trash.style.display = "none";
+            //}
+        }
+    
+    function clearImage() {
+        document.getElementById('formFile').value = null;
+         //var frame = document.getElementById('frame');
+        frame.src = "";
+        var trash = document.getElementById("trash-btn");
+         if(trash.style.display === "block"){
+            trash.style.display = "none";}
+            //else{
+            //    trash.style.display = "none";
+            //}
+        }
+        
+        function onFocusProp(){
+            document.getElementById('input_prop').value = '@ViewData["Search"]';
+        }      
+        
+        function onFocusSearch(){
+            document.getElementById('input_search').value = '@ViewData["Proposition"]';
+        }
+</script>
+
