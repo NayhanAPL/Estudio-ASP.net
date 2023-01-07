@@ -5,28 +5,29 @@
     ViewData["Title"] = "Trueque";
 }
 @section css {
-<link href="@Url.Content("~/css/style.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/css/style.css")" rel="stylesheet" />
 }
 <style>
-    .card i{
-     font-size: 5rem;
-     }
+    .card img{
+        height:50%;
+     /*   width: 50%;*/
+            }
+        
+   /* .card i {
+        font-size: 1rem;
+    }*/
 
-     .categorie {
-         width: 50px;
-         height: 50px;
-     }
 </style>
 <!-- Search bar -->
 <section class="searching text-white p-3">
     <div class="container">
         <form asp-action="Index" method="get">
             @*<div class="d-md-flex justify-content-between align-items-center">*@
-                @*<h3 class="mb-3 mb-md-0">Buscar trueques <span class="search-extra-text">por palabra clave</span></h3>*@
-                <div class="d-flex justify-content-center align-items-center input-group search-input">
-                    <input type="text" class="form-control" placeholder="Buscar trueques por palabra clave: arroz, café, celular..." name="SearchString" value="@ViewData["CurrentFilter"]">
-                    <button class="btn btn-dark" type="submit" asp-controller="TruequesWeb" asp-action="Index">Buscar</button>
-                </div>
+            @*<h3 class="mb-3 mb-md-0">Buscar trueques <span class="search-extra-text">por palabra clave</span></h3>*@
+            <div class="d-flex justify-content-center align-items-center input-group search-input">
+                <input type="text" class="form-control" placeholder="Buscar trueques por palabra clave: arroz, café, celular..." name="SearchString" value="@ViewData["CurrentFilter"]">
+                <button class="btn btn-dark" type="submit" asp-controller="TruequesWeb" asp-action="Index">Buscar</button>
+            </div>
             @*</div>*@
         </form>
     </div>
@@ -47,6 +48,7 @@
             </div>
             @*<img class="image-fluid w-50 d-none d-sm-block showcase-img" src="/images/svg/undraw_login_re_4vu2.svg" alt="Trueques">*@
         </div>
+    </div>
 </section>
 
 
@@ -54,7 +56,7 @@
 <div class="about p-5 bg-white text-md-start">
     <div class="container">
         <div class="d-sm-flex justify-content-center align-items-center">
-          
+
             <div class="col-md p-md-5 pe-md-1">
                 <h2>¿Qu&eacute; es un trueque?</h2>
                 <div class="line"></div>
@@ -63,7 +65,7 @@
                 <!-- <p class="lead">Este sitio sirve como pasarela para la gestión y registro de sus trueques. Les permite a los ususarios en ultima instancia, intercambiar la información personal provista para cumplimetar su intercambio de manera presencial.</p> -->
                 <a href="#" class="btn bg-orange text-white mt-3"><span class="bi bi-chevron-right">Leer más</span></a>
             </div>
-              <div class="col-md mb-sm-5">
+            <div class="col-md mb-sm-5">
                 <img src="/images/svg/undraw_sharing_articles_re_jnkp.svg" class="img-fluid w-70 d-none d-md-block" alt="intercambiar">
             </div>
         </div>
@@ -71,34 +73,84 @@
 </div>
 
 <!-- Categories -->
-<section class="categories pb-5 bg-gray">
+<section class="categories pb-3 bg-gray">
     <h2 class="md my-2 pt-4">Categor&iacute;as</h2>
     <div class="line"></div>
-    <div class="container d-flex flex-wrap justify-content-around">
+   @* <div class="container d-flex justify-content-around">
         <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Regalos">
-            <img src="/Images/laptop.png"/>
+            <img class="img-fluid" src="/Images/laptop.png" />
         </div>
         <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Alimentos">
-            <img src="/Images/food.png"/>
+            <img class="img-fluid" src="/Images/food.png" />
         </div>
         <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Celulares">
 
-           <img src="/Images/cellphone.png"/>
+            <img class="img-fluid" src="/Images/cellphone.png" />
         </div>
         <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Medicina">
 
-            <img src="/Images/appliance.png"/>
+            <img class="img-fluid" src="/Images/appliance.png" />
         </div>
         <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Aseo y limpieza">
 
-            <img src="/Images/amenities.png"/>
+            <img class="img-fluid" src="/Images/amenities.png" />
         </div>
         <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Electrodomésticos">
 
-            <img src="/Images/medicine.png"/>
+            <img class="img-fluid" src="/Images/medicine.png" />
         </div>
+        <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Regalos">
+            <img class="img-fluid" src="/Images/laptop.png" />
+        </div>
+        <div class="card" data-bs-placement="top" data-bs-toggle="tooltip" title="Alimentos">
+            <img class="img-fluid" src="/Images/food.png" />
+        </div>
+    </div>*@
 
+    <div class="container my-5">
+        <div class="row">
+            <div class="owl-carousel owl-theme">
+                <div class="item">
+                    <a href="#">
+                        <div class="card" data-bs-placement=" top" data-bs-toggle="tooltip" title="Alimentos">
+                       <img src="~/Images/medicine.png" alt="" >
+                    </div>
+                    </a>
+                </div>
+                <div class="item">
+                    <div class="card">
+                        <a href="#"><img src="~/Images/cellphone.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="card">
+                        <a href="#"><img src="~/Images/medicine.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="card">
+                        <a href="#"><img src="~/Images/cellphone.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="card">
+                        <a href="#"><img src="~/Images/medicine.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="card">
+                        <a href="#"><img src="~/Images/cellphone.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="card">
+                        <a href="#"><img src="~/Images/medicine.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 </section>
 
 
@@ -117,7 +169,7 @@
                 <!-- <p class="lead">Este sitio sirve como pasarela para la gestión y registro de sus trueques. Les permite a los ususarios en ultima instancia, intercambiar la información personal provista para cumplimetar su intercambio de manera presencial.</p> -->
                 <a href="#" class="btn bg-orange text-white mt-3"><span class="bi bi-chevron-right"><i class="fa fa-download"></i> Descargar App</span></a>
             </div>
-            
+
         </div>
     </div>
 </div>
@@ -169,3 +221,28 @@
         </div>
     </div>
 </section>
+
+@section Scripts{
+    <script type="text/javascript">
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: true
+                },
+                600: {
+                    items: 3,
+                    nav: false
+                },
+                1000: {
+                    items: 5,
+                    nav: true,
+                    loop: false
+                }
+            }
+        })
+    </script>
+}

@@ -9,7 +9,7 @@
 <link href="@Url.Content("~/css/style.css")" rel="stylesheet" />
 }
 
-<main role="main" class="app-content px-3" style="padding: calc(1rem*5); ">
+@*<main role="main" class="app-content px-3" style="padding: calc(1rem*5); ">
     <partial name="_StatusMessage" model=@ViewData["Message"] />
     <div class="container">
         <div class="line-length-sm">
@@ -83,4 +83,110 @@
             </article>
         </div>
     </div>
+</main>*@
+
+<main role="main" class="app-content px-3" style="padding: calc(1rem*5); ">
+    <partial name="_StatusMessage" model=@ViewData["Message"] />
+    <div class="container">
+        <div class="line-length-sm">
+            <article class="card py-5">
+                <h2 class="text-center">Trueques Terminados</h2>
+                <form asp-action="Index" method="get">
+                    <div class="filters d-flex flex-column flex-md-row justify-content-center align-items-center">
+                        <h6 class="m-3">Filtrar por Propone/Busca:</h6>
+                        <input type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]">
+                        <button type="submit" id="search-btn" class="btn bg-orange text-white my-3 mx-2"><i class="fa fa-search"></i></button>
+                        <a asp-action="Index" id="reset-btn" class="btn bg-orange text-white my-3"><i class="fa-solid fa-arrows-rotate"></i></a>
+                    </div>
+                </form>
+                <p>
+                </p>
+                <div class="table-responsive">
+                    <table class="table caption-top table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Trueque solicitado</th>
+                                <th scope="col">Trueque propuesto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Count() != 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                   
+                                    <tr>
+                                        <td>
+                                            @if (item.TruequeSu != null)
+                                            {
+                                                <dl>
+                                                    <dt>
+                                                        Le Proponen/Buscan
+                                                    </dt>
+                                                    <dd>
+                                                       
+                                                          Propone: @item.TruequeMi.Proposition /<br>Busca: @item.TruequeMi.Search<br>
+                                                        <a class="details_link" asp-action="TruequeSolicitudDetails" asp-controller="TruequesWeb" asp-route-id="@item.TruequeMi.Id">Detalles</a>
+                                                    </dd>
+                                                </dl>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.TruequeMi != null)
+                                            {
+                                                <dl>
+                                                    <dt>
+                                                        Usted Propone/Busca
+                                                    </dt>
+                                                    <dd>
+                                                       Propone: @item.TruequeSu.Proposition /<br>Busca: @item.TruequeSu.Search<br>
+                                                        <a class="details_link" asp-action="TruequeSolicitudDetails" asp-controller="TruequesWeb" asp-route-id="@item.TruequeSu.Id">Detalles</a>
+                                                    </dd>
+                                                </dl>
+                                            }
+                                        </td>
+                                       
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5" class="text-center">No se encontraron resultados!</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        </div>
+    </div>
 </main>
+<!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Detalles de trueque</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="d-flex justify-content-around align-items-center m-5">
+                                <img src="/images/wink-svgrepo-com.svg" alt="" style="width: 100px; height: 100px;">
+                                <div class="details-list-grid ms-5">
+                                    <dt>Fecha</dt>
+                                    <dd>14/11/2675</dd>
+                                    <dt>Tipo</dt>
+                                    <dd>Completo</dd>
+                                    <dt>Propone</dt>
+                                    <dd>Laptop de uso</dd>
+                                    <dt>Busca</dt>
+                                    <dd>Disco duro externo</dd>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary">Aceptar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>

@@ -94,14 +94,14 @@ body {
 
 /* Categories */
 
-.categories .card {
+/*.categories .card {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 18px 10px 40px;
     text-align: center;
     transition: transform 0.2s ease-in;
-}
+}*/
 
 .categories .card-img {
     width: 70px;

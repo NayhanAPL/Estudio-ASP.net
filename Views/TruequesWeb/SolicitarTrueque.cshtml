@@ -9,25 +9,26 @@
 
 
 @section css {
-<link href="@Url.Content("~/css/login.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/css/login.css")" rel="stylesheet" />
 }
 
 <main role="main" class="app-content px-3" style="padding: calc(1rem*5); ">
     <div class="row">
-        <div class="col mb-4">
-            <partial name="_Create" view-data= "ViewData"/>
-        </div>
-     @*<div class="col">
-            <img src="/trueque_icon.png" style="width:5rem;height:5rem;">
-        </div>*@
         <div class="col">
-            <partial name="_Details" model=@Model/>
+            <partial name="_Details" model=@Model />
+        </div>
+
+        @*<div class="col">
+        <img src="/trueque_icon.png" style="width:5rem;height:5rem;">
+        </div>*@
+        <div class="col mb-4">
+            <partial name="_Create" view-data="ViewData" />
         </div>
     </div>
 </main>
 
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

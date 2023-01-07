@@ -335,13 +335,13 @@ namespace versión_5_asp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ApplicationUserId,Proposition,Search,ExtraInfo,Date,Type,Image")] Trueque trueque, string returnUrl)
+        public async Task<IActionResult> Edit([Bind("Id,ApplicationUserId,Proposition,Search,ExtraInfo,Date,Type,Image")] Trueque trueque, int id, string returnUrl)
         {
             if (id != trueque.Id)
             {
                 return NotFound();
             }
-
+ 
             if (ModelState.IsValid)
             {
                 try

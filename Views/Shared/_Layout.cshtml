@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/common.css" />   
+    <link href="~/css/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/css/owl.theme.default.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/common.css" />
     <script src="https://kit.fontawesome.com/d4309e7f7a.js" crossorigin="anonymous"></script>
-     @RenderSection("css", false)
+    @RenderSection("css", false)
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-3">
         <div class="container">
-            <h1 class="navbar-brand logo mt-2"><a asp-controller="Home" asp-action="Index"><img src="/trueque.png"/></a></h1>
+            <h1 class="navbar-brand logo mt-2"><a asp-controller="Home" asp-action="Index"><img src="/trueque.png" /></a></h1>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
                 <span class="fa fa-bars"></span>
             </button>
@@ -22,56 +24,59 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a asp-controller="TruequesWeb" asp-action="Index" class="nav-link"><span class="fa fa-search"></span></a>
-                    </li>                                                     
-                    <partial name="_LoginPartial" />           
-                </ul>                
-            </div>   
+                    </li>
+                    <partial name="_LoginPartial" />
+                </ul>
+            </div>
+        </div>
     </nav>
-  
+
     @RenderBody()
-   
-    
-   <!-- Footer -->
+
+
+    <!-- Footer -->
     <footer class="footer bg-dark text-light py-5">
         <div class="container">
             <div class="d-flex">
-            <div class="copyright text-md-start">
-                <h1>Trueque</h1>
-                <p>Copyright &copy; 2022</p>
+                <div class="copyright text-md-start">
+                    <h1>Trueque</h1>
+                    <p>Copyright &copy; 2022</p>
+                </div>
+                <div class="links d-flex justify-content-center align-items-center my-3">
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="#">Contacto</a>
+                            </li>
+                            <li>
+                                <a href="#">Privacidad</a>
+                            </li>
+                            <li>
+                                <a href="#">FAQs</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="social mt-3 mb-5">
+                    <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
+                    <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
+                    <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+                </div>
             </div>
-            <div class="links d-flex justify-content-center align-items-center my-3">
-            <nav>
-                <ul>
-                    <li>
-                        <a href="#">Contacto</a>
-                    </li>
-                    <li>
-                        <a href="#">Privacidad</a>
-                    </li>
-                    <li>
-                        <a href="#">FAQs</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-            <div class="social mt-3 mb-5">
-                <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
-                <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
-                <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
-            </div>
-        </div>
         </div>
     </footer>
 
-
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
- 
+    <script src="~/js/owl.carousel.min.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
-         <script>
+    <script>
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-          return new bootstrap.Tooltip(tooltipTriggerEl)
+            return new bootstrap.Tooltip(tooltipTriggerEl)
         })
-        </script>
+    </script>
 </body>
 </html>

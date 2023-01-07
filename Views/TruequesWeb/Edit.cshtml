@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Editar Trueque";
-    }
+}
 
 @section css {
 <link href="@Url.Content("~/css/login.css")" rel="stylesheet" />
@@ -13,59 +13,59 @@
     <div class="container d-flex justify-content-center align-items-center">
         <div class="line-length-sm">
             <article class="card p-5 pt-4">
-                 <div class="pb-4">
-                        <h2>Editar trueque</h2>
-                    </div>
-                    <div style="text-align: left;">
-                <form asp-action="Edit">
-                     <input type="hidden" asp-for="Id" />
-                    <div class="form-group mb-3">
-                        <div>
-                            <label class="form-label">Categor&iacute;a</label>
+                <div class="pb-4">
+                    <h2>Editar trueque</h2>
+                </div>
+                <div style="text-align: left;">
+                    <form asp-action="Edit">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group mb-3">
+                            <div>
+                                <label class="form-label">Categor&iacute;a</label>
+                            </div>
+                            <div>
+                                <select asp-for="Type" class="form-control" asp-items="Html.GetEnumSelectList<versión_5_asp.Models.Type>()"></select>
+                            </div>
                         </div>
-                        <div>
-                            <select asp-for="Type" class="form-control" asp-items="Html.GetEnumSelectList<versión_5_asp.Models.Type>()"></select>
+                        <div hidden class="form-group mb-3">
+                            <label asp-for="ApplicationUserId" class="control-label"></label>
+                            <input asp-for="ApplicationUserId" class="form-control" />
                         </div>
-                    </div>
-                    <div hidden class="form-group mb-3">
-                        <label asp-for="ApplicationUserId" class="control-label"></label>
-                        <input asp-for="ApplicationUserId" class="form-control" />
-                    </div>
-                    <div class="-group mb-3">
-                        <label class="form-label" asp-for="Proposition" class="control-label"></label>
-                        <input asp-for="Proposition" class="form-control" />
-                        <span asp-validation-for="Proposition" class="text-danger"></span>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label class="form-label" asp-for="Search"></label>
-                        <input asp-for="Search" type="text" class="form-control">
-                        <span asp-validation-for="Search" class="text-danger"></span>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label class="form-label" asp-for="ExtraInfo"></label>
-                        <input asp-for="ExtraInfo" type="text" class="form-control">
-                        <span asp-validation-for="ExtraInfo" class="text-danger"></span>
-                    </div>
-                    <div hidden class="form-group mb-3">
-                        <label asp-for="Date" class="control-label"></label>
-                        <input asp-for="Date" class="form-control" />
-                        <span asp-validation-for="Date" class="text-danger"></span>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label class="form-label" asp-for="Image.ImageFile" class="form-label"></label>
-                        <div>
-                            <input asp-for="Image.ImageFile" class="form-control" type="file" id="formFile" onchange="preview()">
-                            <a style="display: none; width:100%;" id="trash-btn" onclick="clearImage()" class="btn bg-orange text-white my-3"><i class="fa fa-trash-alt"></i></a>
-                            <img src="@("/Images/" + Model.Image.ImageUrl)" asp-append-version="true" class="img-fluid rounded mx-auto d-block my-4" id="frame" style="width:204px;height:auto;" />
+                        <div class="-group mb-3">
+                            <label class="form-label" asp-for="Proposition" class="control-label"></label>
+                            <input asp-for="Proposition" class="form-control" />
+                            <span asp-validation-for="Proposition" class="text-danger"></span>
                         </div>
-                    </div>
-               
-                    <div class="d-sm-flex justify-content-around mt-3">
-                        <button type="submit" value="Guardar" class="btn bg-orange text-white btn-options mb-2">Guardar</button>
-                        <input asp-action="GetTruequesFromCurrentUser" type="submit" value="Cancelar" class="btn btn-secondary btn-options mb-2" />
-                    </div>
-                </form>
-                </div>  
+                        <div class="form-group mb-3">
+                            <label class="form-label" asp-for="Search"></label>
+                            <input asp-for="Search" type="text" class="form-control">
+                            <span asp-validation-for="Search" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" asp-for="ExtraInfo"></label>
+                            <input asp-for="ExtraInfo" type="text" class="form-control">
+                            <span asp-validation-for="ExtraInfo" class="text-danger"></span>
+                        </div>
+                        <div hidden class="form-group mb-3">
+                            <label asp-for="Date" class="control-label"></label>
+                            <input asp-for="Date" class="form-control" />
+                            <span asp-validation-for="Date" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" asp-for="@Model.Image.ImageFile" class="form-label"></label>
+                            <div>
+                                <input asp-for="@Model.Image.ImageFile" class="form-control" type="file" id="formFile" onchange="preview()">
+                                <a style="display: none; width:100%;" id="trash-btn" onclick="clearImage()" class="btn bg-orange text-white my-3"><i class="fa fa-trash-alt"></i></a>
+                                <img src="" asp-append-version="true" class="img-fluid rounded mx-auto d-block my-4" id="frame" style="width:204px;height:auto;" />
+                            </div>
+                        </div>
+
+                        <div class="d-sm-flex justify-content-around mt-3">
+                            <button type="submit" value="Guardar" class="btn bg-orange text-white btn-options mb-2">Guardar</button>
+                            <input asp-action="GetTruequesFromCurrentUser" type="submit" value="Cancelar" class="btn btn-secondary btn-options mb-2" />
+                        </div>
+                    </form>
+                </div>
             </article>
         </div>
 </main>
@@ -74,22 +74,24 @@
     @{
     await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }
-}
 <script>
     function preview() {
         frame.src = URL.createObjectURL(event.target.files[0]);
+        var formfile = document.getElementById('formFile').value;
+        alert(formfile);
+        //'@ViewData["image"] = formfile.value';
         var trash = document.getElementById("trash-btn");
         if(trash.style.display === "none"){
             trash.style.display = "block";}
         }
-    
+
     function clearImage() {
         document.getElementById('formFile').value = null;
-        frame.src = "";
         frame.src = "/Images/" + '@Model.Image.ImageUrl';
         var trash = document.getElementById("trash-btn");
          if(trash.style.display === "block"){
             trash.style.display = "none";}
         }
-     
+
 </script>
+}

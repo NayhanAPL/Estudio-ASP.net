@@ -44,19 +44,19 @@
                                 <input asp-for="Input.Password" type="password" class="form-control" >
                             </div>
                         </div>
-                        <div class="d-flex justify-content-around align-items-baseline mb-4">
+                        <div class="d-flex justify-content-between align-items-baseline mb-4">
                             <div>
                                 <input class="bg-orange" asp-for="Input.RememberMe" type="checkbox" checked>
                                 <label asp-for="Input.RememberMe" class="form-label">Recordarme</label>
                             </div>
-                            <a asp-page="./ForgotPassword">Olvid&oacute; su contrase&ntilde;a?</a>
+                            <a class="ms-2" asp-page="./ForgotPassword">Olvid&oacute; su contrase&ntilde;a?</a>
                         </div>
                         <div class="d-grid gap-2">
                             <button class="btn bg-orange btn-lg text-white" type="submit">Entrar</button>
-                            <div class="d-flex justify-content-between align-items-center mt-3" style="flex-direction: column;">
+                           @* <div class="d-flex justify-content-between align-items-center mt-3" style="flex-direction: column;">
                                 <p>Entrar con mi cuenta de:</p>
                                 <button class="btn text-white btn-lg" type="button" style="background-color: #3b5998; width: 100%;"><span class="fab fa-facebook-f me-2"></span>Facebook</button>
-                            </div>
+                            </div>*@
                         </div>
                     </form>
                 </div>
